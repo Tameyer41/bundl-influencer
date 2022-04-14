@@ -7,7 +7,7 @@ import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 export async function getStaticProps({ params }) {
   // fetch single post detail
   const response = await fetch(
-    `https://bundl-web-app.vercel.app/api/users/${params.id}`
+    `https://dreamy-dragon-1e86de.netlify.app/api/users/${params.id}`
   );
   const user = await response.json();
   return {
@@ -17,9 +17,9 @@ export async function getStaticProps({ params }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const users = await fetch("https://bundl-web-app.vercel.app/api/users").then(
-    (response) => response.json()
-  );
+  const users = await fetch(
+    "https://dreamy-dragon-1e86de.netlify.app/api/users"
+  ).then((response) => response.json());
 
   const ids = users.map((user) => user.id);
   const paths = ids.map((id) => ({ params: { id: id.toString() } }));

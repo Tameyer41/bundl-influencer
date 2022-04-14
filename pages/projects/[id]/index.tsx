@@ -6,7 +6,7 @@ import users from "@api/users";
 
 async function destroy(): Promise<void> {
   const { id } = Router.query;
-  await fetch(`https://bundl-web-app.vercel.app/api/projects/${id}`, {
+  await fetch(`https://dreamy-dragon-1e86de.netlify.app/api/projects/${id}`, {
     method: "DELETE",
   });
   await Router.push("/projects");
@@ -54,7 +54,7 @@ const Project: React.FC<ProjectProps> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(
-    `https://bundl-web-app.vercel.app/api/projects/${context.params.id}`
+    `https://dreamy-dragon-1e86de.netlify.app/api/projects/${context.params.id}`
   );
   const data = await res.json();
   return { props: { ...data } };
