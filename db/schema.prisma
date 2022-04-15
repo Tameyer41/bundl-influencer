@@ -5,6 +5,7 @@ datasource db {
     provider             = "mysql"
     url                  = env("DATABASE_URL")
     shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+    referentialIntegrity = "prisma"
 }
 
 generator client {
@@ -67,7 +68,7 @@ model Project {
     description   String?
     private       Boolean    @default(false)
     tags          Tag[] @relation(references: [id])
-    users         ProjectUser[]
+    users       ProjectUser[]
 
 }
 
