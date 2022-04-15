@@ -51,8 +51,8 @@ const Project = (props) => {
       <h2>{props.project.name}</h2>
       <p>{props.project.description}</p>
       <p>
-        {props.project.users.map((user) => (
-          <p>user.name</p>
+        {props.projectUsers.map((user) => (
+          <p>{user.user.name}</p>
         ))}
       </p>
     </div>
