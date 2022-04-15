@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   // fetch single post detail
   const response = await fetch(
     `https://dreamy-dragon-1e86de.netlify.app/api/projects/${params.id}`
