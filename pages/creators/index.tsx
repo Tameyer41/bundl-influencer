@@ -54,12 +54,15 @@ const UsersPage: NextPage<{
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const users = await fetch("https://dreamy-dragon-1e86de.netlify.app", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then((response) => response.json());
+  const users = await fetch(
+    "https://dreamy-dragon-1e86de.netlify.app/api/users",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  ).then((response) => response.json());
 
   return {
     props: { users },

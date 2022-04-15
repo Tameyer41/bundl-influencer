@@ -16,14 +16,15 @@ export async function getStaticProps({ params }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const users = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/users"
-  ).then((response) => response.json());
+  const users = await fetch("https://dreamy-dragon-1e86de.netlify.app", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((response) => response.json());
 
-  const ids = users.map((user: { id: any }) => user.id);
-  const paths = ids.map((id: { toString: () => any }) => ({
-    params: { id: id.toString() },
-  }));
+  const ids = users.map((user) => user.id);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
 
   return {
     paths,
