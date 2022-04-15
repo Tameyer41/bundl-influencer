@@ -25,7 +25,7 @@ async function handleGET(projectId, res) {
   const project = await prisma.project.findUnique({
     where: { id: projectId },
     include: {
-      user: true,
+      users: true,
     },
   });
   res.json({ project });
