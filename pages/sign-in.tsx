@@ -130,11 +130,9 @@ export default function Page({ csrfToken, providers }) {
                 >
                   {isSubmitting ? (
                     <div
-                      className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-white"
+                      className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
                       role="status"
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
+                    ></div>
                   ) : (
                     <p>Sign in</p>
                   )}

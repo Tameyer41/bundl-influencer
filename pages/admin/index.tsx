@@ -21,7 +21,7 @@ function Page() {
   } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
+      router.push("/", "/", {});
     },
   });
 
