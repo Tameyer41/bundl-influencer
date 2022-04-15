@@ -23,9 +23,26 @@ const Page = (props) => {
 
   return (
     <>
-      <AdminHome />
+      <AdminHome projects={props} />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const projects = await fetch(
+    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  ).then((response) => response.json());
+
+  return {
+    props: { projects },
+    revalidate: 5,
+  };
 };
 
 export default Page;

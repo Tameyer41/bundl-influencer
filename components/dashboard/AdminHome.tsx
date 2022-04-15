@@ -65,8 +65,10 @@ function classNames(...classes) {
 
 const AdminHome: NextPage<{
   projects: { name: string; id: string; description: string }[];
-}> = () => {
+}> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  console.log(props.projects.projects.projects);
 
   return (
     <>
@@ -366,7 +368,36 @@ const AdminHome: NextPage<{
               <ul
                 role="list"
                 className="mt-3 border-t border-gray-200 divide-y divide-gray-100"
-              ></ul>
+              >
+                {props.projects.projects.map((project) => (
+                  <li key={project.id}>
+                    <a
+                      href="#"
+                      className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6"
+                    >
+                      <span className="flex items-center truncate space-x-3">
+                        <span
+                          className={classNames(
+                            project.bgColorClass,
+                            "w-2.5 h-2.5 flex-shrink-0 rounded-full"
+                          )}
+                          aria-hidden="true"
+                        />
+                        <span className="font-medium truncate text-sm leading-6">
+                          {project.title}{" "}
+                          <span className="truncate font-normal text-gray-500">
+                            in {project.team}
+                          </span>
+                        </span>
+                      </span>
+                      <ChevronRightIcon
+                        className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Projects table (small breakpoint and up) */}
@@ -387,7 +418,59 @@ const AdminHome: NextPage<{
                       <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-100"></tbody>
+                  <tbody className="bg-white divide-y divide-gray-100">
+                    {props.projects.projects.map(function (project, idx) {
+                      return (
+                        <tr key={project.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
+                            <div className="flex items-center space-x-3 lg:pl-2">
+                              <div
+                                className={
+                                  "flex-shrink-0 w-2.5 h-2.5 rounded-full bg-indigo-600"
+                                }
+                                aria-hidden="true"
+                              />
+                              <Link href={`/projects/${project.id}`}>
+                                <span className="truncate hover:text-gray-600 cursor-pointer">
+                                  {project.name}{" "}
+                                  <span>
+                                    <span className="text-gray-500 font-normal">
+                                      in [MUST FIX]
+                                    </span>
+                                  </span>
+                                </span>
+                              </Link>
+                            </div>
+                          </td>
+                          <td className="px-6 py-3 text-sm text-gray-500 font-medium">
+                            <div className="flex items-center space-x-2">
+                              <div className="flex flex-shrink-0 -space-x-1">
+                                {project.users.map((user) => (
+                                  <div className="max-w-none h-6 w-6 rounded-full ring-2 ring-white bg-indigo-600"></div>
+                                ))}
+                              </div>
+                              {project.users.length > 4 ? (
+                                <span className="flex-shrink-0 text-xs leading-5 font-medium">
+                                  +{project.users.length - 4}
+                                </span>
+                              ) : null}
+                            </div>
+                          </td>
+                          <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+                            {moment(project.updatedAt).format("MMMM Do, YYYY")}
+                          </td>
+                          <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
+                            <a
+                              href="#"
+                              className="text-indigo-600 hover:text-indigo-900"
+                            >
+                              Edit
+                            </a>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                 </table>
               </div>
             </div>
