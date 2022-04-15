@@ -765,7 +765,10 @@ export default function AdminHome() {
                                 }
                                 aria-hidden="true"
                               />
-                              <Link href={`/projects/${project.id}`}>
+                              <Link
+                                href={`/projects/${project.id}`}
+                                className="truncate hover:text-gray-600"
+                              >
                                 <span>
                                   {project.name}{" "}
                                   <span>
