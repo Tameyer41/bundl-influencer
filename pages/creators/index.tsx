@@ -67,7 +67,7 @@ const UsersPage: NextPage<{
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps = async () => {
   const users = await fetch(
     "https://dreamy-dragon-1e86de.netlify.app/api/users",
     {

@@ -4,7 +4,6 @@ import UserHome from "components/dashboard/UserHome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { userInfo } from "os";
-import { GetStaticProps } from "next";
 
 const Page = (props) => {
   const router = useRouter();
@@ -24,26 +23,9 @@ const Page = (props) => {
 
   return (
     <>
-      <AdminHome projects={props} />
+      <AdminHome />
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const projects = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  ).then((response) => response.json());
-
-  return {
-    props: { projects },
-    revalidate: 5,
-  };
 };
 
 export default Page;
