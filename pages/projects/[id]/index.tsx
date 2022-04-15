@@ -14,6 +14,7 @@ async function destroy(): Promise<void> {
 
 const Project: React.FC<ProjectProps> = (props) => {
   let name = props.project.name;
+  console.log(props);
 
   return (
     <div>

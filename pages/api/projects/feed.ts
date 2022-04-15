@@ -5,10 +5,10 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const posts = await prisma.project.findMany({
+  const projects = await prisma.project.findMany({
     include: {
       users: true,
     },
   });
-  res.json(posts);
+  res.json(projects);
 }
