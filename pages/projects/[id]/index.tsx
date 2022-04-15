@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   // fetch single post detail
   const response = await fetch(
     `https://dreamy-dragon-1e86de.netlify.app/api/projects/${params.id}`
@@ -14,26 +14,6 @@ export async function getStaticProps({ params }) {
     revalidate: 10,
   };
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const projects = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  ).then((response) => response.json());
-
-  const ids = projects.map((project) => project.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
 
 const Project = (props) => {
   const { data: session, status } = useSession();
