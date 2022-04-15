@@ -52,7 +52,7 @@ const Project = (props) => {
       <p>{props.project.description}</p>
       <p>
         {props.projectUsers.map((user) => (
-          <p>{user.user.name}</p>
+          <p>{user.name}</p>
         ))}
       </p>
     </div>

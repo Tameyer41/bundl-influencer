@@ -435,7 +435,7 @@ const AdminHome: NextPage<{
                                   {project.name}{" "}
                                   <span>
                                     <span className="text-gray-500 font-normal">
-                                      in [MUST FIX]
+                                      in Projects
                                     </span>
                                   </span>
                                 </span>

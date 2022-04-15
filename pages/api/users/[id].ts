@@ -3,13 +3,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async (req, res) => {
-  const { id, name, email } = req.body;
+  const { id, name } = req.body;
   if (req.method === "PUT") {
     try {
       const updateUser = await prisma.user.update({
         data: {
           name,
-          email,
         },
         where: {
           id: id,
