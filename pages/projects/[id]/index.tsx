@@ -48,10 +48,10 @@ const Project = (props) => {
     <h1>Loading...</h1>
   ) : (
     <div>
-      <h2>{props.name}</h2>
-      <p>{props.description}</p>
+      <h2>{props.project.name}</h2>
+      <p>{props.project.description}</p>
       <p>
-        {props.users.map((user) => (
+        {props.project.users.map((user) => (
           <p>user.name</p>
         ))}
       </p>
