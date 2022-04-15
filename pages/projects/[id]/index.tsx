@@ -48,9 +48,13 @@ const Project = (props) => {
     <h1>Loading...</h1>
   ) : (
     <div>
-      <h2>{props.project.name}</h2>
-      <p>{props.project.description}</p>
-      <p> Owner: {props.user.name}</p>
+      <h2>{props.name}</h2>
+      <p>{props.description}</p>
+      <p>
+        {props.users.map((user) => (
+          <p>user.name</p>
+        ))}
+      </p>
     </div>
   );
 };

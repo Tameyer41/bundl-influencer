@@ -22,16 +22,13 @@ export default async function handle(
 
 // GET /api/project/:id
 async function handleGET(projectId, res) {
-  const projectUsers = await prisma.projectUser.findMany({
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
     include: {
       user: true,
-      project: true,
-    },
-    where: {
-      projectId: projectId,
     },
   });
-  res.json({ projectUsers });
+  res.json({ project });
 }
 
 // UPDATE /api/project/:id
