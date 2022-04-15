@@ -2,7 +2,6 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
-import Loader from "@lib/components/Loader";
 
 export async function getStaticProps({ params }) {
   // fetch single post detail
@@ -55,11 +54,6 @@ const Project = (props) => {
     <div>
       <h2>{props.project.name}</h2>
       <p>{props.project.description}</p>
-      <p>
-        {props.project.users.map((user) => (
-          <p>{user.name}</p>
-        ))}
-      </p>
     </div>
   );
 };
