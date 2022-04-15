@@ -266,15 +266,17 @@ export default function Layout(props) {
                   My Team
                 </p>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <div className="w-full hover:bg-[#F0F0F2] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[30px] text-[14px] font-medium rounded cursor-pointer">
-                    <div
-                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
-                      aria-hidden="true"
-                    >
-                      {session.user.name ? session.user.name.charAt(0) : ""}
+                  <Link href="/settings">
+                    <div className="w-full hover:bg-[#F0F0F2] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[30px] text-[14px] font-medium rounded cursor-pointer">
+                      <div
+                        className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
+                        aria-hidden="true"
+                      >
+                        {session.user.name ? session.user.name.charAt(0) : ""}
+                      </div>
+                      {session.user.name}
                     </div>
-                    {session.user.name}
-                  </div>
+                  </Link>
                 </div>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                   <div className="w-full hover:bg-[#F0F0F2] hover:text-[#7B42FF] text-[#7438FF] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">

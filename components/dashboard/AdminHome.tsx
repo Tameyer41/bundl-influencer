@@ -421,7 +421,7 @@ const AdminHome: NextPage<{
                   <tbody className="bg-white divide-y divide-gray-100">
                     {props.projects.projects.map(function (project, idx) {
                       return (
-                        <tr key={project.id}>
+                        <tr key={project.id} className="hover:bg-gray-50">
                           <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                             <div className="flex items-center space-x-3 lg:pl-2">
                               <div
@@ -430,11 +430,8 @@ const AdminHome: NextPage<{
                                 }
                                 aria-hidden="true"
                               />
-                              <Link
-                                href={`/projects/${project.id}`}
-                                className="truncate hover:text-gray-600"
-                              >
-                                <span>
+                              <Link href={`/projects/${project.id}`}>
+                                <span className="truncate hover:text-gray-600 cursor-pointer">
                                   {project.name}{" "}
                                   <span>
                                     <span className="text-gray-500 font-normal">

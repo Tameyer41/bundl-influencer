@@ -13,14 +13,14 @@ async function destroy(): Promise<void> {
 }
 
 const Project: React.FC<ProjectProps> = (props) => {
-  let name = props.project.name;
+  let name = props.projectUsers.project.name;
   console.log(props);
 
   return (
     <div>
       <div>
         <h2>{name}</h2>
-        <p>{props.project.description}</p>
+        <p>{props.projectUsers.project.description}</p>
         <div>
           {props.projectUsers.map((projectUser) => (
             <div>
@@ -29,7 +29,7 @@ const Project: React.FC<ProjectProps> = (props) => {
             </div>
           ))}
         </div>
-        <button onClick={() => destroy(props.id)}>Delete</button>
+        <button onClick={() => destroy()}>Delete</button>
       </div>
       <style jsx>{`
         .page {
