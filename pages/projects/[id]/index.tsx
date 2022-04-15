@@ -36,17 +36,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const Project = (props) => {
-  const router = useRouter();
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
-
+  const { data: session, status } = useSession();
+  console.log(props);
   if (status === "loading") {
-    return "Loading or not authenticated...";
+    return <div>Authenticating ...</div>;
   }
+
+  const router = useRouter();
 
   return router.isFallback ? (
     <h1>Loading...</h1>
@@ -54,6 +50,11 @@ const Project = (props) => {
     <div>
       <h2>{props.project.name}</h2>
       <p>{props.project.description}</p>
+      <p>
+        {props.project.users.map((user) => (
+          <p>user.name</p>
+        ))}
+      </p>
     </div>
   );
 };
