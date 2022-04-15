@@ -15,26 +15,6 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const projects = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  ).then((response) => response.json());
-
-  const ids = projects.map((project) => project.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
-
 const Project = (props) => {
   const { data: session, status } = useSession();
   console.log(props);
