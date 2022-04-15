@@ -67,7 +67,7 @@ model Project {
     description   String?
     private       Boolean    @default(false)
     tags          Tag[] @relation(references: [id])
-    users       ProjectUser[]
+    users         ProjectUser[]
 
 }
 
@@ -79,6 +79,7 @@ model ProjectUser {
     project       Project   @relation(fields: [projectId], references: [id])
     projectId     String
     role          String?
+    bookmarked    Boolean    @default(false)
 
     @@id([projectId, userId])
 }

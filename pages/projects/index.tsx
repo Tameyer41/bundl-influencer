@@ -1,6 +1,8 @@
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import Modal from "components/ui/Modal";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import {
   CalendarIcon,
@@ -38,6 +40,18 @@ function classNames(...classes) {
 }
 
 export default function ProjectsPage({ users }: Users) {
+  const router = useRouter();
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+
+  if (status === "loading") {
+    return "Loading or not authenticated...";
+  }
+
   return (
     <div className="flex h-screen">
       <div className="pt-20 max-w-lg mx-auto">

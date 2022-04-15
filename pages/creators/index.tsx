@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import { NextPage, GetStaticProps } from "next";
 import fetch from "node-fetch";
@@ -8,6 +10,18 @@ import fetch from "node-fetch";
 const UsersPage: NextPage<{
   users: { name: string; id: string; email: string; role: string }[];
 }> = (props) => {
+  const router = useRouter();
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+
+  if (status === "loading") {
+    return "Loading or not authenticated...";
+  }
+
   return (
     <>
       <div className="min-h-full">

@@ -11,7 +11,7 @@ export async function getStaticProps({ params }) {
   const user = await response.json();
   return {
     props: user,
-    revalidate: 60,
+    revalidate: 5,
   };
 }
 
@@ -36,13 +36,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const User = (props) => {
-  const { data: session, status } = useSession();
-  if (status === "loading") {
-    return <div>Authenticating ...</div>;
-  }
-  let name = props.name;
-
   const router = useRouter();
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+
+  if (status === "loading") {
+    return "Loading or not authenticated...";
+  }
+
+  let name = props.name;
 
   return router.isFallback ? (
     <h1>Loading...</h1>

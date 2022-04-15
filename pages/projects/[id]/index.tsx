@@ -2,6 +2,7 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
+import Loader from "@lib/components/Loader";
 
 export async function getStaticProps({ params }) {
   // fetch single post detail
@@ -11,7 +12,7 @@ export async function getStaticProps({ params }) {
   const project = await response.json();
   return {
     props: project,
-    revalidate: 60,
+    revalidate: 10,
   };
 }
 
@@ -36,13 +37,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const Project = (props) => {
-  const { data: session, status } = useSession();
-  console.log(props);
-  if (status === "loading") {
-    return <div>Authenticating ...</div>;
-  }
-
   const router = useRouter();
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+
+  if (status === "loading") {
+    return "Loading or not authenticated...";
+  }
 
   return router.isFallback ? (
     <h1>Loading...</h1>
@@ -52,7 +57,7 @@ const Project = (props) => {
       <p>{props.project.description}</p>
       <p>
         {props.project.users.map((user) => (
-          <p>user.name</p>
+          <p>{user.name}</p>
         ))}
       </p>
     </div>

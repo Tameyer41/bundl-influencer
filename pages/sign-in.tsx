@@ -129,7 +129,12 @@ export default function Page({ csrfToken, providers }) {
                   className="button button__md button__primary w-full"
                 >
                   {isSubmitting ? (
-                    <img src="/assets/loading.svg" />
+                    <div
+                      className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-white"
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : (
                     <p>Sign in</p>
                   )}

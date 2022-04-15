@@ -35,7 +35,8 @@ const SettingsPage = () => {
         },
         body: JSON.stringify(objectWithData),
       });
-      await Router.push("/projects");
+      setName(session.user.name);
+      setEmail(session.user.email);
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +70,7 @@ const SettingsPage = () => {
                   name="full-name"
                   id="full-name"
                   onChange={(e) => setName(e.target.value)}
-                  value={name}
+                  value={session.user.name}
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -87,7 +88,7 @@ const SettingsPage = () => {
                   type="email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
-                  value={email}
+                  value={session.user.email}
                   id="email"
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />

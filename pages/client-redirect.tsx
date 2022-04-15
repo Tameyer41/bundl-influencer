@@ -7,7 +7,7 @@ const Page = () => {
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/", "/", {});
+      router.push("/sign-in", "/sign-in", {});
     },
   });
 
