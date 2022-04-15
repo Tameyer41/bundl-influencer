@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import Modal from "components/ui/Modal";
-import { GetStaticProps } from "next";
+import { NextPage, GetStaticProps } from "next";
 import moment from "moment";
 import {
   ClockIcon,
@@ -63,7 +63,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function AdminHome(props) {
+const AdminHome: NextPage<{
+  users: { name: string; id: string; email: string; role: string }[];
+}> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -475,7 +477,7 @@ export default function AdminHome(props) {
       </div>
     </>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const projects = await fetch(
@@ -493,3 +495,4 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 10,
   };
 };
+export default AdminHome;
