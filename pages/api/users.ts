@@ -5,14 +5,6 @@ import prisma, { Prisma } from "@db";
 import { getSession } from "@lib/auth/session";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
   const selectInput = isEmpty(req.body?.select) ? undefined : req.body?.select;
   const whereInput = isEmpty(req.body?.where) ? undefined : req.body?.where;
   const includeInput = isEmpty(req.body?.include)

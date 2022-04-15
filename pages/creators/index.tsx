@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 
-import { NextPage, GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
+import { NextPage, GetStaticProps } from "next";
 import fetch from "node-fetch";
 
 const UsersPage: NextPage<{
@@ -55,15 +54,12 @@ const UsersPage: NextPage<{
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const users = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/users",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  ).then((response) => response.json());
+  const users = await fetch("https://dreamy-dragon-1e86de.netlify.app", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((response) => response.json());
 
   return {
     props: { users },
