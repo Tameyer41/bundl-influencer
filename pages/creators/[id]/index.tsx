@@ -20,8 +20,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     "https://dreamy-dragon-1e86de.netlify.app/api/users"
   ).then((response) => response.json());
 
-  const ids = users.map((user) => user.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
+  const ids = users.map((user: { id: any }) => user.id);
+  const paths = ids.map((id: { toString: () => any }) => ({
+    params: { id: id.toString() },
+  }));
 
   return {
     paths,
