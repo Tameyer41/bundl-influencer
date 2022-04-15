@@ -17,7 +17,7 @@ export default async (req, res) => {
       });
       res.status(200).json(updateUser);
     } catch (error) {
-      res.status(403).json({ err: "Error occurred while updating a user." });
+      res.status(403).json({ err: error.message });
     }
   } else if (req.method === "GET") {
     try {
