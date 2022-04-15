@@ -271,7 +271,7 @@ export default function Layout(props) {
                       className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
                       aria-hidden="true"
                     >
-                      {session.user.name.charAt(0)}
+                      Name would go here
                     </div>
                     {session.user.name}
                   </div>
