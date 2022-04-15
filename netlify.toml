@@ -1,5 +1,5 @@
 [build]
-command = "prisma generate --schema ./db/schema.prisma && next build"
+command = "prisma generate --schema ./db/schema.prisma && prisma build --schema=./db/schema.prisma"
 publish = ".next"
 
 [[plugins]]
