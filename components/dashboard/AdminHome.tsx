@@ -64,9 +64,11 @@ function classNames(...classes) {
 }
 
 const AdminHome: NextPage<{
-  users: { name: string; id: string; email: string; role: string }[];
+  projects: { name: string; id: string; description: string }[];
 }> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  console.log(props);
 
   return (
     <>
