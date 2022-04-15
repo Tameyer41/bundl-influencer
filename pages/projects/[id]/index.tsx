@@ -1,64 +1,57 @@
 import React from "react";
-import { prisma } from "@lib/prisma";
 import { useSession } from "next-auth/react";
-import Router from "next/router";
-import users from "@api/users";
+import { useRouter } from "next/router";
+import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 
-async function destroy(): Promise<void> {
-  const { id } = Router.query;
-  await fetch(`https://dreamy-dragon-1e86de.netlify.app/api/projects/${id}`, {
-    method: "DELETE",
-  });
-  await Router.push("/projects");
+export async function getStaticProps({ params }) {
+  // fetch single post detail
+  const response = await fetch(
+    `https://dreamy-dragon-1e86de.netlify.app/api/projects/${params.id}`
+  );
+  const project = await response.json();
+  return {
+    props: project,
+    revalidate: 60,
+  };
 }
 
-const Project: React.FC<ProjectProps> = (props) => {
-  let name = props.projectUsers.project.name;
-  console.log(props);
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await fetch(
+    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  ).then((response) => response.json());
 
-  return (
-    <div>
-      <div>
-        <h2>{name}</h2>
-        <p>{props.projectUsers.project.description}</p>
-        <div>
-          {props.projectUsers.map((projectUser) => (
-            <div>
-              <p>{projectUser.user.email}</p>
-              <p>{projectUser.role}</p>
-            </div>
-          ))}
-        </div>
-        <button onClick={() => destroy()}>Delete</button>
-      </div>
-      <style jsx>{`
-        .page {
-          background: white;
-          padding: 2rem;
-        }
-        .actions {
-          margin-top: 2rem;
-        }
-        button {
-          background: #ececec;
-          border: 0;
-          border-radius: 0.125rem;
-          padding: 1rem 2rem;
-        }
-        button + button {
-          margin-left: 1rem;
-        }
-      `}</style>
-    </div>
-  );
+  const ids = projects.map((project) => project.id);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(
-    `https://dreamy-dragon-1e86de.netlify.app/api/projects/${context.params.id}`
+const Project = (props) => {
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <div>Authenticating ...</div>;
+  }
+  let name = props.name;
+
+  const router = useRouter();
+
+  return router.isFallback ? (
+    <h1>Loading...</h1>
+  ) : (
+    <div>
+      <h2>{name}</h2>
+      <p>{props.description}</p>
+    </div>
   );
-  const data = await res.json();
-  return { props: { ...data } };
 };
 
 export default Project;
