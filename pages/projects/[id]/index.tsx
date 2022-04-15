@@ -37,10 +37,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const Project = (props) => {
   const { data: session, status } = useSession();
+  console.log(props);
   if (status === "loading") {
     return <div>Authenticating ...</div>;
   }
-  let name = props.name;
 
   const router = useRouter();
 
@@ -48,8 +48,9 @@ const Project = (props) => {
     <h1>Loading...</h1>
   ) : (
     <div>
-      <h2>{name}</h2>
-      <p>{props.description}</p>
+      <h2>{props.project.name}</h2>
+      <p>{props.project.description}</p>
+      <p> Owner: {props.user.name}</p>
     </div>
   );
 };
