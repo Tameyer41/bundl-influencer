@@ -1,7 +1,16 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Router from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
+
+async function destroy(): Promise<void> {
+  const { id } = Router.query;
+  await fetch(`https://bundl-web-app.vercel.app/api/projects/${id}`, {
+    method: "DELETE",
+  });
+  await Router.push("/projects");
+}
 
 export async function getStaticProps({ params }) {
   // fetch single post detail
@@ -55,6 +64,7 @@ const Project = (props) => {
           <p>{user.name}</p>
         ))}
       </p>
+      <button onClick={() => destroy(props.project.id)}>Delete</button>
     </div>
   );
 };

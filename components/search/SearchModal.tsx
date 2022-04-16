@@ -7,6 +7,7 @@ import {
   FolderAddIcon,
   FolderIcon,
   HashtagIcon,
+  PlusIcon,
   TagIcon,
 } from "@heroicons/react/outline";
 

@@ -11,7 +11,7 @@ export async function getStaticProps({ params }) {
   const user = await response.json();
   return {
     props: user,
-    revalidate: 5,
+    revalidate: 10,
   };
 }
 

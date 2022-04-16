@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Router from "next/router";
 
 const SettingsPage = () => {
   const [name, setName] = useState("");
@@ -33,7 +34,8 @@ const SettingsPage = () => {
         },
         body: JSON.stringify(objectWithData),
       });
-      setName("");
+      await Router.push("/");
+      Router.reload();
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +69,7 @@ const SettingsPage = () => {
                   name="full-name"
                   id="full-name"
                   onChange={(e) => setName(e.target.value)}
-                  value={session.user.name}
+                  value={name}
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
