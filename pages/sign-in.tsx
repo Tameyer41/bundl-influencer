@@ -52,7 +52,7 @@ export default function Page({ csrfToken, providers }) {
       </Head>
       <div className=" flex flex-col justify-center sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-          <h1 className="text-[32px] leading-[36px] font-bold leading-7 text-gray-900 sm:truncate">
+          <h1 className="text-[32px] leading-[45px] font-bold leading-7 text-gray-900 sm:truncate">
             Sign In
           </h1>
         </div>
@@ -120,7 +120,7 @@ export default function Page({ csrfToken, providers }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#f8faff] text-[#a3c4ff] border border-[#a3c4ff] m-[3px] text-sm h-[36px] px-[16px] rounded-[4px]"
+                  className="w-full bg-[#deeaff] text-[#2860e1] border border-[#70a4ff] m-[3px] text-sm h-[36px] px-[16px] rounded-[4px]"
                 >
                   {isSubmitting ? (
                     <div

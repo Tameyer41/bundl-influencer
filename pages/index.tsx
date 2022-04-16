@@ -30,7 +30,7 @@ const Page = (props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const projects = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
+    `${process.env.NEXTAUTH_URL}/api/projects/feed`,
     {
       headers: {
         "Content-Type": "application/json",

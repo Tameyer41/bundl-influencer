@@ -42,8 +42,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const tabs = [
-  { name: "Activity", icon: LightningBoltIcon, href: "#", current: true },
-  { name: "Emails", icon: MailIcon, href: "#", current: false },
+  { name: "Activity", icon: LightningBoltIcon, href: "#", current: false },
+  { name: "Emails", icon: MailIcon, href: "#", current: true },
   { name: "Files", icon: FolderIcon, href: "#", current: false },
   { name: "Images", icon: PhotographIcon, href: "#", current: false },
   { name: "Notes", icon: PencilIcon, href: "#", current: false },
@@ -53,7 +53,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const User = (props) => {
+const UserEmail = (props) => {
   const router = useRouter();
   const { status, data: session } = useSession({
     required: true,
@@ -79,7 +79,7 @@ const User = (props) => {
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt=""
           />
-          <h3 className="text-2xl leading-6 font-semibold text-gray-900">
+          <h3 className="text-xl leading-6 font-semibold text-gray-900">
             {props.name ? props.name : "Creator Name"}
           </h3>
         </div>
@@ -141,4 +141,4 @@ const User = (props) => {
   );
 };
 
-export default User;
+export default UserEmail;

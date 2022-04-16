@@ -15,7 +15,7 @@ async function destroy(): Promise<void> {
 export async function getStaticProps({ params }) {
   // fetch single post detail
   const response = await fetch(
-    `https://dreamy-dragon-1e86de.netlify.app/api/projects/${params.id}`
+    `${process.env.NEXTAUTH_URL}/api/projects/${params.id}`
   );
   const project = await response.json();
   return {
@@ -26,7 +26,7 @@ export async function getStaticProps({ params }) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await fetch(
-    "https://dreamy-dragon-1e86de.netlify.app/api/projects/feed",
+    `${process.env.NEXTAUTH_URL}/api/projects/feed`,
     {
       headers: {
         "Content-Type": "application/json",

@@ -35,7 +35,6 @@ const SettingsPage = () => {
         body: JSON.stringify(objectWithData),
       });
       await Router.push("/");
-      Router.reload();
     } catch (error) {
       console.error(error);
     }
