@@ -14,8 +14,6 @@ const Page = (props) => {
     },
   });
 
-  console.log(session);
-
   if (status === "loading") {
     return "Loading or not authenticated...";
   }
@@ -30,7 +28,7 @@ const Page = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps = async () => {
   const projects = await fetch(
     `${process.env.NEXTAUTH_URL}/api/projects/feed`,
     {
@@ -43,7 +41,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { projects },
-    revalidate: 10,
   };
 };
 

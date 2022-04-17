@@ -68,8 +68,6 @@ const AdminHome: NextPage<{
 }> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  console.log(props.projects.projects.projects);
-
   return (
     <>
       <div className="min-h-full">
