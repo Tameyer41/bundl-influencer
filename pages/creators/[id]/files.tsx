@@ -58,14 +58,14 @@ const UserEmail = (props) => {
     {
       name: "Emails",
       icon: MailIcon,
-      href: `/${router.asPath}/email`,
-      current: true,
+      href: `/creators/${router.query.id}/email`,
+      current: false,
     },
     {
       name: "Files",
       icon: FolderIcon,
       href: `/creators/${router.query.id}/files`,
-      current: false,
+      current: true,
     },
     {
       name: "Images",

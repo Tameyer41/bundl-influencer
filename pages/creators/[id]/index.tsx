@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Fragment } from "react";
+import Link from "next/link";
 import {
   LightningBoltIcon,
   MailIcon,
@@ -41,20 +42,44 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const tabs = [
-  { name: "Activity", icon: LightningBoltIcon, href: "#", current: true },
-  { name: "Emails", icon: MailIcon, href: "#", current: false },
-  { name: "Files", icon: FolderIcon, href: "#", current: false },
-  { name: "Images", icon: PhotographIcon, href: "#", current: false },
-  { name: "Notes", icon: PencilIcon, href: "#", current: false },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const User = (props) => {
   const router = useRouter();
+  const tabs = [
+    {
+      name: "Activity",
+      icon: LightningBoltIcon,
+      href: `/creators/${router.query.id}`,
+      current: true,
+    },
+    {
+      name: "Emails",
+      icon: MailIcon,
+      href: `/${router.asPath}/email`,
+      current: false,
+    },
+    {
+      name: "Files",
+      icon: FolderIcon,
+      href: `/${router.asPath}/files`,
+      current: false,
+    },
+    {
+      name: "Images",
+      icon: PhotographIcon,
+      href: `/${router.asPath}/images`,
+      current: false,
+    },
+    {
+      name: "Notes",
+      icon: PencilIcon,
+      href: `/${router.asPath}/notes`,
+      current: false,
+    },
+  ];
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -115,23 +140,23 @@ const User = (props) => {
           <div className="hidden sm:block">
             <nav className="-mb-px flex space-x-4">
               {tabs.map((tab) => (
-                <a
-                  key={tab.name}
-                  href={tab.href}
-                  className={classNames(
-                    tab.current
-                      ? "border-[#2456BD] text-[#2456BD] flex items-center"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center",
-                    "whitespace-nowrap pb-[12px] px-2 border-b-2 font-normal text-sm"
-                  )}
-                  aria-current={tab.current ? "page" : undefined}
-                >
-                  <tab.icon
-                    className="mr-1 flex-shrink-0 h-[20px] w-[20px]"
-                    aria-hidden="true"
-                  />
-                  {tab.name}
-                </a>
+                <Link key={tab.name} href={tab.href}>
+                  <div
+                    className={classNames(
+                      tab.current
+                        ? "border-[#2456BD] text-[#2456BD] flex items-center"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center",
+                      "cursor-pointer whitespace-nowrap pb-[12px] px-2 border-b-2 font-normal text-sm"
+                    )}
+                    aria-current={tab.current ? "page" : undefined}
+                  >
+                    <tab.icon
+                      className="mr-1 flex-shrink-0 h-[20px] w-[20px]"
+                      aria-hidden="true"
+                    />
+                    {tab.name}
+                  </div>
+                </Link>
               ))}
             </nav>
           </div>

@@ -58,8 +58,8 @@ const UserEmail = (props) => {
     {
       name: "Emails",
       icon: MailIcon,
-      href: `/${router.asPath}/email`,
-      current: true,
+      href: `/creators/${router.query.id}/email`,
+      current: false,
     },
     {
       name: "Files",
@@ -77,7 +77,7 @@ const UserEmail = (props) => {
       name: "Notes",
       icon: PencilIcon,
       href: `/creators/${router.query.id}/notes`,
-      current: false,
+      current: true,
     },
   ];
   const { status, data: session } = useSession({
