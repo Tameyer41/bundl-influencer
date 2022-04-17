@@ -3,12 +3,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async (req, res) => {
-  const { id, name } = req.body;
+  const { id, name, email } = req.body;
   if (req.method === "PUT") {
     try {
       const updateUser = await prisma.user.update({
         data: {
           name,
+          email,
         },
         where: {
           id: id,
@@ -16,7 +17,7 @@ export default async (req, res) => {
       });
       res.status(200).json(updateUser);
     } catch (error) {
-      res.status(403).json({ err: error.message });
+      res.status(403).json({ err: "Error occurred while updating a user." });
     }
   } else if (req.method === "GET") {
     try {
