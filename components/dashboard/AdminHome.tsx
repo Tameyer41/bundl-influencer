@@ -4,6 +4,7 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import Modal from "components/ui/Modal";
 import moment from "moment";
 import { NextPage, GetStaticProps } from "next";
+import useSWR from "swr";
 import {
   ClockIcon,
   HomeIcon,
@@ -62,11 +63,16 @@ const pinnedProjects = projects.filter((project) => project.pinned);
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const AdminHome: NextPage<{
   projects: { name: string; id: string; description: string }[];
 }> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { data, error } = useSWR("/api/projects/feed", fetcher);
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
     <>
@@ -367,7 +373,7 @@ const AdminHome: NextPage<{
                 role="list"
                 className="mt-3 border-t border-gray-200 divide-y divide-gray-100"
               >
-                {props.projects.projects.map((project) => (
+                {data.map((project) => (
                   <li key={project.id}>
                     <a
                       href="#"
@@ -417,7 +423,7 @@ const AdminHome: NextPage<{
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-100">
-                    {props.projects.projects.map(function (project, idx) {
+                    {data.map(function (project, idx) {
                       return (
                         <tr key={project.id} className="hover:bg-gray-50">
                           <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">

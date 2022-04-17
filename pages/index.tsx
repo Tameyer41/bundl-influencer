@@ -23,25 +23,9 @@ const Page = (props) => {
 
   return (
     <>
-      <AdminHome projects={props} />
+      <AdminHome />
     </>
   );
-};
-
-export const getServerSideProps = async () => {
-  const projects = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/projects/feed`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  ).then((response) => response.json());
-
-  return {
-    props: { projects },
-  };
 };
 
 export default Page;
