@@ -5,6 +5,8 @@ generator client {
 datasource db {
   provider = "mysql"
   url = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model Account {
@@ -52,6 +54,19 @@ model User {
     accounts      Account[]
     sessions      Session[]
     projects      ProjectUser[]
+    onboarded     Boolean    @default(false)
+    location      String?
+    phone_number      String?
+    instagramaccounts         InstagramAccount[]
+}
+
+model InstagramAccount {
+    id            String    @id @default(cuid())
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    onboarded     Boolean    @default(false)
+    location      String?
+    users         User[]
 }
 
 model Project {
@@ -61,6 +76,7 @@ model Project {
     name          String?
     description   String?
     private       Boolean    @default(false)
+    bookmarked    Boolean    @default(false)
     tags          Tag[] @relation(references: [id])
     users       ProjectUser[]
 

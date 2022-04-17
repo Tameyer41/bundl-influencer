@@ -14,6 +14,8 @@ const Page = (props) => {
     },
   });
 
+  console.log(session);
+
   if (status === "loading") {
     return "Loading or not authenticated...";
   }
