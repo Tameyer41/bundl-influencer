@@ -1,109 +1,126 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
+
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Account {
-    id                       String   @id @default(cuid())
-    createdAt                DateTime @default(now())
-    updatedAt                DateTime @updatedAt
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? @db.VarChar(500)
-    access_token             String? @db.VarChar(500)
-    refresh_token_expires_in Int?
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? @db.Text
-    session_state            String?
-    oauth_token_secret       String?
-    oauth_token              String?
+  id                       String   @id @default(cuid())
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?  @db.VarChar(500)
+  access_token             String?  @db.VarChar(500)
+  refresh_token_expires_in Int?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?  @db.Text
+  session_state            String?
+  oauth_token_secret       String?
+  oauth_token              String?
+  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    expires      DateTime
-    user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    userId       String?
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expires      DateTime
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  userId       String?
 }
 
 model User {
-    id            String    @id @default(cuid())
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    name          String?
-    email         String?   @unique
-    password      String?
-    emailVerified DateTime?
-    image         String?
-    role          String?   @default("user")
-    accounts      Account[]
-    sessions      Session[]
-    projects      ProjectUser[]
-    onboarded     Boolean    @default(false)
-    location      String?
-    phone_number      String?
-    instagramaccounts         InstagramAccount[]
+  id                String             @id @default(cuid())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  name              String?
+  email             String?            @unique
+  password          String?
+  emailVerified     DateTime?
+  image             String?
+  role              String?            @default("user")
+  accounts          Account[]
+  sessions          Session[]
+  projects          ProjectUser[]
+  onboarded         Boolean            @default(false)
+  location          String?
+  phone_number      String?
+  instagramaccounts InstagramAccount[]
 }
 
 model InstagramAccount {
-    id            String    @id @default(cuid())
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    onboarded     Boolean    @default(false)
-    location      String?
-    users         User[]
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  onboarded Boolean  @default(false)
+  location  String?
+  users     User[]
 }
 
 model Project {
-    id            String    @id @default(cuid())
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    name          String?
-    description   String?
-    private       Boolean    @default(false)
-    bookmarked    Boolean    @default(false)
-    tags          Tag[] @relation(references: [id])
-    users       ProjectUser[]
-
+  id          String        @id @default(cuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  name        String?
+  description String?
+  private     Boolean       @default(false)
+  bookmarked  Boolean       @default(false)
+  tags        Tag[]
+  users       ProjectUser[]
 }
 
 model ProjectUser {
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    user          User      @relation(fields: [userId], references: [id])
-    userId        String 
-    project       Project   @relation(fields: [projectId], references: [id])
-    projectId     String
-    role          String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  role      String?
 
-    @@id([projectId, userId])
+  @@id([projectId, userId])
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  projects Project[] @relation(references: [id])
+  id       Int       @id @default(autoincrement())
+  name     String
+  projects Project[]
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+model InstagramAccountToUser {
+  A String
+  B String
+
+  @@unique([A, B], map: "_InstagramAccountToUser_AB_unique")
+  @@index([B], map: "_InstagramAccountToUser_B_index")
+  @@map("_InstagramAccountToUser")
+}
+
+model ProjectToTag {
+  A String
+  B Int
+
+  @@unique([A, B], map: "_ProjectToTag_AB_unique")
+  @@index([B], map: "_ProjectToTag_B_index")
+  @@map("_ProjectToTag")
 }
