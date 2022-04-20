@@ -14,6 +14,11 @@ const SettingsPage = () => {
     },
   });
 
+  const reloadSession = () => {
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  };
+
   if (status === "loading") {
     return "Loading or not authenticated...";
   }
@@ -26,15 +31,16 @@ const SettingsPage = () => {
   const updateUser = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      fetch(`/api/users/${session.user.id}`, {
+      await fetch(`/api/users/${session.user.id}`, {
         credentials: "include",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(objectWithData),
-      });
-      await Router.push("/");
+      }).then(reloadSession);
+      await Router.push("/projects");
+      console.log("done");
     } catch (error) {
       console.error(error);
     }

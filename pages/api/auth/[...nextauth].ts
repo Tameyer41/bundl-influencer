@@ -50,6 +50,7 @@ export default NextAuth({
               password: true,
               name: true,
               role: true,
+              onboarded: true,
             },
           });
 
@@ -69,6 +70,7 @@ export default NextAuth({
                 password: true,
                 name: true,
                 role: true,
+                onboarded: true,
               },
             });
           } else {
@@ -87,6 +89,7 @@ export default NextAuth({
             email: maybeUser.email,
             name: maybeUser.name,
             role: maybeUser.role,
+            onboarded: maybeUser.onboarded,
           };
         } catch (error) {
           console.log(error);
@@ -120,6 +123,7 @@ export default NextAuth({
             password: true,
             name: true,
             role: true,
+            onboarded: true,
           },
         });
 
@@ -145,6 +149,7 @@ export default NextAuth({
           email: maybeUser.email,
           name: maybeUser.name,
           role: maybeUser.role,
+          onboarded: maybeUser.onboarded,
         };
       },
     }),
@@ -161,18 +166,25 @@ export default NextAuth({
         token.id = user.id;
         token.role = user.role;
         token.name = user.name;
+        token.onboarded = user.onboarded;
       }
 
       return token;
     },
     async session({ session, token, user }) {
+      const userRes = await prisma.user.findUnique({
+        where: {
+          id: token.id,
+        },
+      });
       const sess: Session = {
         ...session,
         user: {
           ...session.user,
           id: token.id as string,
-          role: token.role as string,
-          name: token.name as string,
+          role: userRes.role as string,
+          name: userRes.name as string,
+          onboarded: userRes.onboarded as boolean,
         },
       };
 

@@ -17,6 +17,11 @@ const Page = (props) => {
   if (status === "loading") {
     return "Loading or not authenticated...";
   }
+
+  if (!session.user.onboarded) {
+    console.log("not onboarded");
+    router.push("/onboarding/step-1", "/onboarding/step-1", {});
+  }
   if (session.user.role !== "admin") {
     return <UserHome />;
   }
