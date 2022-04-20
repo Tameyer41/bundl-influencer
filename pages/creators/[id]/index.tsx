@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Fragment } from "react";
 import Link from "next/link";
+import { Disclosure } from "@headlessui/react";
 import {
   LightningBoltIcon,
   MailIcon,
   FolderIcon,
   PhotographIcon,
+  ChevronRightIcon,
+  DocumentTextIcon,
+  GlobeIcon,
   PencilIcon,
 } from "@heroicons/react/outline";
 import { Menu, Transition } from "@headlessui/react";
@@ -159,6 +163,56 @@ const User = (props) => {
                 </Link>
               ))}
             </nav>
+          </div>
+        </div>
+      </div>
+      <div className="flex">
+        <div className="w-2/3 pt-6">
+          <h2 className="text-xl font-semibold text-black"> Activity </h2>
+        </div>
+        <div className="w-1/3 border-l pt-6 pl-6">
+          <div className="">
+            <Disclosure defaultOpen>
+              {({ open }) => (
+                <>
+                  <Disclosure.Button className="flex items-center">
+                    <ChevronRightIcon
+                      className={`${
+                        open
+                          ? "transform rotate-90 w-4 h-4 mr-3"
+                          : "w-4 h-4 mr-3"
+                      }`}
+                    />
+                    <span className="font-medium text-base text-black">
+                      Contact Details
+                    </span>
+                  </Disclosure.Button>
+                  <Transition
+                    enter="transition duration-100 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
+                  >
+                    <Disclosure.Panel as="ul">
+                      <li className="mt-4 flex items-center space-x-[8px]">
+                        <GlobeIcon className="h-5 w-5 text-[#C1BEC2]" />
+                        <p> Tags </p>
+                      </li>
+                      <li className="mt-2 flex items-center space-x-[8px]">
+                        <DocumentTextIcon className="h-5 w-5 text-[#C1BEC2]" />
+                        <p> Tags </p>
+                      </li>
+                      <li className="mt-2 flex items-center space-x-[8px]">
+                        <GlobeIcon className="h-5 w-5 text-[#C1BEC2]" />
+                        <p> Tags </p>
+                      </li>
+                    </Disclosure.Panel>
+                  </Transition>
+                </>
+              )}
+            </Disclosure>
           </div>
         </div>
       </div>

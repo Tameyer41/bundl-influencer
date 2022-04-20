@@ -178,7 +178,7 @@ export default function Layout(props) {
 
         {/* Static sidebar for desktop */}
         {session && (
-          <div className="hidden md:flex md:w-[248px] md:flex-col md:fixed md:inset-y-0">
+          <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0">
             {/* Sidebar component, swap this element with another sidebar if you like */}
             <div className="flex-1 flex flex-col min-h-0 border-r border-layout-200 bg-layout-100">
               <Dropdown />
@@ -294,7 +294,7 @@ export default function Layout(props) {
           </div>
         )}
         {session && (
-          <div className="md:pl-[248px] flex flex-col flex-1">
+          <div className="md:pl-[280px] flex flex-col flex-1">
             <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white">
               <button
                 type="button"
