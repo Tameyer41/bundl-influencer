@@ -14,10 +14,10 @@ const SettingsPage = () => {
     },
   });
 
-  const reloadSession = () => {
+  async function reloadSession() {
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
-  };
+  }
 
   if (status === "loading") {
     return "Loading or not authenticated...";
@@ -28,10 +28,10 @@ const SettingsPage = () => {
     id: session.user.id,
   };
 
-  const updateUser = async (e: React.SyntheticEvent) => {
+  function updateUser(e) {
     e.preventDefault();
     try {
-      await fetch(`/api/users/${session.user.id}`, {
+      fetch(`/api/users/${session.user.id}`, {
         credentials: "include",
         method: "PUT",
         headers: {
@@ -39,12 +39,11 @@ const SettingsPage = () => {
         },
         body: JSON.stringify(objectWithData),
       }).then(reloadSession);
-      await Router.push("/projects");
-      console.log("done");
+      Router.push("/projects");
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   return (
     <>
@@ -74,6 +73,7 @@ const SettingsPage = () => {
                   name="full-name"
                   id="full-name"
                   onChange={(e) => setName(e.target.value)}
+                  placeholder={session.user.name}
                   value={name}
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />

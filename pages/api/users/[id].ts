@@ -9,6 +9,7 @@ export default async (req, res) => {
       const updateUser = await prisma.user.update({
         data: {
           name,
+          onboarded: true,
         },
         where: {
           id: id,

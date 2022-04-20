@@ -5,6 +5,8 @@ import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { Fragment } from "react";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
+import { useState } from "react";
+import InlineEdit from "../../../components/ui/InlineEdit";
 import {
   LightningBoltIcon,
   MailIcon,
@@ -56,34 +58,35 @@ const User = (props) => {
     {
       name: "Activity",
       icon: LightningBoltIcon,
-      href: `/creators/${router.query.id}`,
+      href: `creators/${router.query.id}`,
       current: true,
     },
     {
       name: "Emails",
       icon: MailIcon,
-      href: `/${router.asPath}/email`,
+      href: `${router.asPath}/email`,
       current: false,
     },
     {
       name: "Files",
       icon: FolderIcon,
-      href: `/${router.asPath}/files`,
+      href: `${router.asPath}/files`,
       current: false,
     },
     {
       name: "Images",
       icon: PhotographIcon,
-      href: `/${router.asPath}/images`,
+      href: `${router.asPath}/images`,
       current: false,
     },
     {
       name: "Notes",
       icon: PencilIcon,
-      href: `/${router.asPath}/notes`,
+      href: `${router.asPath}/notes`,
       current: false,
     },
   ];
+  const [value, setValue] = useState();
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -198,7 +201,7 @@ const User = (props) => {
                     <Disclosure.Panel as="ul">
                       <li className="mt-4 flex items-center space-x-[8px]">
                         <GlobeIcon className="h-5 w-5 text-[#C1BEC2]" />
-                        <p> Tags </p>
+                        <InlineEdit value={value} setValue={setValue} />
                       </li>
                       <li className="mt-2 flex items-center space-x-[8px]">
                         <DocumentTextIcon className="h-5 w-5 text-[#C1BEC2]" />
