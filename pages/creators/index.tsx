@@ -58,7 +58,7 @@ const UsersPage: NextPage<{
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 gap-4">
             {props.users.map(function (d, idx) {
-              return <Card user={d} />;
+              return <Card user={d} key={d.id} />;
             })}
           </div>
         </div>

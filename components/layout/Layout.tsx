@@ -186,16 +186,7 @@ export default function Layout(props) {
               <div className="py-3">
                 <nav className="flex-1">
                   {actions.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.url}
-                      className={classNames(
-                        item.current
-                          ? "bg-[#E7E7E7] text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      )}
-                    >
+                    <Link key={item.name} href={item.url}>
                       <div
                         className={
                           router.pathname == item.url
@@ -228,16 +219,7 @@ export default function Layout(props) {
               <div className="flex flex-col overflow-y-auto">
                 <nav className="flex-1 px-2">
                   {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.url}
-                      className={classNames(
-                        item.current
-                          ? "bg-[#E7E7E7] text-[#3F3F3F]"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      )}
-                    >
+                    <Link key={item.name} href={item.url}>
                       <div
                         className={
                           router.pathname == item.url

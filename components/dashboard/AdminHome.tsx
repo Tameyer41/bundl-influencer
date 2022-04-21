@@ -450,7 +450,10 @@ const AdminHome: NextPage<{
                             <div className="flex items-center space-x-2">
                               <div className="flex flex-shrink-0 -space-x-1">
                                 {project.users.map((user) => (
-                                  <div className="max-w-none h-6 w-6 rounded-full ring-2 ring-white bg-indigo-600"></div>
+                                  <div
+                                    key={user.id}
+                                    className="max-w-none h-6 w-6 rounded-full ring-2 ring-white bg-indigo-600"
+                                  ></div>
                                 ))}
                               </div>
                               {project.users.length > 4 ? (
