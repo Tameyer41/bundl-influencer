@@ -3,13 +3,14 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async (req, res) => {
-  const { id, name } = req.body;
+  const { id, name, url } = req.body;
   if (req.method === "PUT") {
     try {
       const updateUser = await prisma.user.update({
         data: {
           name,
           onboarded: true,
+          image: url,
         },
         where: {
           id: id,

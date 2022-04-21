@@ -51,6 +51,7 @@ export default NextAuth({
               name: true,
               role: true,
               onboarded: true,
+              image: true,
             },
           });
 
@@ -71,6 +72,7 @@ export default NextAuth({
                 name: true,
                 role: true,
                 onboarded: true,
+                image: true,
               },
             });
           } else {
@@ -90,6 +92,7 @@ export default NextAuth({
             name: maybeUser.name,
             role: maybeUser.role,
             onboarded: maybeUser.onboarded,
+            image: maybeUser.image,
           };
         } catch (error) {
           console.log(error);
@@ -124,6 +127,7 @@ export default NextAuth({
             name: true,
             role: true,
             onboarded: true,
+            image: true,
           },
         });
 
@@ -150,6 +154,7 @@ export default NextAuth({
           name: maybeUser.name,
           role: maybeUser.role,
           onboarded: maybeUser.onboarded,
+          image: maybeUser.image,
         };
       },
     }),
@@ -167,6 +172,7 @@ export default NextAuth({
         token.role = user.role;
         token.name = user.name;
         token.onboarded = user.onboarded;
+        token.image = user.image;
       }
 
       return token;
@@ -185,6 +191,7 @@ export default NextAuth({
           role: userRes.role as string,
           name: userRes.name as string,
           onboarded: userRes.onboarded as boolean,
+          image: userRes.image as string,
         },
       };
 

@@ -64,6 +64,11 @@ export default function Modal() {
   const [description, setDescription] = useState("");
   const [privacy, setPrivacy] = useState("");
 
+  async function reloadSession() {
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  }
+
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
@@ -75,8 +80,8 @@ export default function Modal() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         }
-      );
-      await Router.push("/projects");
+      ).then(reloadSession);
+      setOpen(false);
     } catch (error) {
       console.error(error);
     }

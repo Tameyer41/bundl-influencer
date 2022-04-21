@@ -7,6 +7,46 @@ const SettingsPage = () => {
   const [name, setName] = useState("");
   const router = useRouter();
 
+  const uploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    const filename = encodeURIComponent(file.name);
+    const res = await fetch(`/api/upload-url?file=${filename}`);
+    const { url, fields } = await res.json();
+    const formData = new FormData();
+
+    Object.entries({ ...fields, file }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const upload = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    console.log(file);
+    const photo_data = {
+      id: session.user.id,
+      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${fields.key}`,
+    };
+    if (upload.ok) {
+      try {
+        fetch(`/api/users/${session.user.id}`, {
+          credentials: "include",
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(photo_data),
+        }).then(reloadSession);
+        Router.push("/projects");
+      } catch (error) {
+        console.error(error);
+      }
+      console.log("Uploaded successfully!");
+    } else {
+      console.error("Upload failed.");
+    }
+  };
+
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -78,6 +118,14 @@ const SettingsPage = () => {
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+            </div>
+            <div>
+              <p>Upload a .png or .jpg image (max 1MB).</p>
+              <input
+                onChange={uploadPhoto}
+                type="file"
+                accept="image/png, image/jpeg"
+              />
             </div>
             <div className="flex justify-end">
               <button

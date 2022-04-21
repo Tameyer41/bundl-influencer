@@ -3,6 +3,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -27,23 +29,32 @@ export default function Dropdown() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="flex-shrink-0 flex border-t border-gray-200 w-full min-h-[60px] flex flex-row justify-between items-center px-[10px]">
-          <a
-            href="#"
-            className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px] hover:bg-[#F0F0F2] py-[7px]"
-          >
+        <div className="flex-shrink-0 flex border-t border-gray-200 w-full min-h-[60px] flex-row justify-between items-center px-[10px]">
+          <Menu.Button className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px] py-[7px]">
             <div className="flex items-center">
               <div>
-                <div className="flex-shrink-0 h-[25px] w-[25px] bg-blue-500 rounded-full"></div>
+                {session.user.image ? (
+                  <Image
+                    src={session.user.image}
+                    className="flex-shrink-0 rounded-[6px]"
+                    width={53}
+                    height={53}
+                  />
+                ) : (
+                  <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-blue-500"></div>
+                )}
               </div>
-              <div className="ml-3">
-                <p className="text-[14px] leading-[18px] font-medium text-[#404040] group-hover:text-[#404040]">
+              <div className="ml-3 text-left ">
+                <p className="text-[14px] leading-[18px] font-medium text-[#3F3F3F] group-hover:text-[#404040]">
+                  Workspace
+                </p>
+                <p className="text-[14px] leading-[18px] font-normal text-[#707070] group-hover:text-[#404040]">
                   {session.user.name}
                 </p>
               </div>
             </div>
-          </a>
-        </Menu.Button>
+          </Menu.Button>
+        </div>
       </div>
 
       <Transition
@@ -55,7 +66,7 @@ export default function Dropdown() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 w-[280px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
+        <Menu.Items className="origin-top-right absolute right-0 w-[280px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-40">
           <div className="px-4 py-3">
             <p className="text-sm">Signed in as</p>
             <p className="text-sm font-medium text-gray-900 truncate">

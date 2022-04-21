@@ -128,7 +128,7 @@ export default function Layout(props) {
                         href={item.url}
                         className={classNames(
                           item.current
-                            ? "bg-gray-100 text-gray-900"
+                            ? "bg-[#E7E7E7] text-gray-900"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                           "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                         )}
@@ -180,9 +180,10 @@ export default function Layout(props) {
         {session && (
           <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0">
             {/* Sidebar component, swap this element with another sidebar if you like */}
-            <div className="flex-1 flex flex-col min-h-0 border-r border-layout-200 bg-layout-100">
+            <div className="flex-1 flex flex-col min-h-0 border-r border-layout-200 bg-[#F5F5F5]">
               <Dropdown />
-              <div className="pb-3">
+              <SearchModal navigation={navigation} />
+              <div className="py-3">
                 <nav className="flex-1">
                   {actions.map((item) => (
                     <Link
@@ -190,7 +191,7 @@ export default function Layout(props) {
                       href={item.url}
                       className={classNames(
                         item.current
-                          ? "bg-gray-100 text-gray-900"
+                          ? "bg-[#E7E7E7] text-gray-900"
                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                         "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                       )}
@@ -198,22 +199,22 @@ export default function Layout(props) {
                       <div
                         className={
                           router.pathname == item.url
-                            ? "mx-[8px] mb-[2px] px-[8px] rounded-[5px] h-[30px] bg-[#F0F0F2] hover:text-[#222224] text-[#222224] group flex items-center text-[14px] font-normal rounded cursor-pointer"
-                            : "mx-[8px] mb-[2px] px-[8px] rounded-[5px] h-[30px] hover:bg-[#F0F0F2] hover:text-[#222224] text-[#222224] group flex items-center text-[14px] font-normal rounded cursor-pointer"
+                            ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-normal rounded cursor-pointer"
+                            : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-normal rounded cursor-pointer"
                         }
                       >
                         <div className="w-[30px] flex items-center justify-center">
                           <item.icon
                             className={classNames(
                               item.current
-                                ? "text-[#646466] text-sm items-center flex w-[20px] h-[20px]"
-                                : "text-[#646466] group-hover:text-[#646466] text-sm items-center flex w-[20px] h-[20px]",
-                              "flex-shrink-0 h-6 w-6 text-sm items-center flex w-[20px] h-[20px] text-[#646466]"
+                                ? "text-[#646466] text-sm items-center flex"
+                                : "text-[#646466] group-hover:text-[#646466] text-sm items-center flex",
+                              "flex-shrink-0 h-[20px] w-[20px] text-sm items-center flex text-[#646466] mr-[12px]"
                             )}
                             aria-hidden="true"
                           />
                         </div>
-                        <div className="ml-[11px]">{item.name}</div>
+                        <div className="">{item.name}</div>
                       </div>
                     </Link>
                   ))}
@@ -232,7 +233,7 @@ export default function Layout(props) {
                       href={item.url}
                       className={classNames(
                         item.current
-                          ? "bg-gray-100 text-gray-900"
+                          ? "bg-[#E7E7E7] text-[#3F3F3F]"
                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                         "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                       )}
@@ -240,21 +241,11 @@ export default function Layout(props) {
                       <div
                         className={
                           router.pathname == item.url
-                            ? "bg-[#F0F0F2] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[45px] text-[14px] font-semibold rounded cursor-pointer"
-                            : "hover:bg-[#F0F0F2] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[45px] text-[14px] font-semibold rounded cursor-pointer"
+                            ? "bg-[#E7E7E7] text-[#3F3F3F] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
+                            : "hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
                         }
                       >
-                        <div
-                          className={classNames(
-                            item.current
-                              ? "text-gray-500 text-sm items-center flex bg-white h-[30px] w-[30px] rounded-[5px] justify-center"
-                              : "text-gray-400 group-hover:text-gray-500 text-sm items-center flex bg-] h-[30px] w-[30px] rounded-[5px] justify-center",
-                            "mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#F1F0F2] h-[30px] w-[30px] rounded-[5px] justify-center"
-                          )}
-                          aria-hidden="true"
-                        >
-                          {item.icon}
-                        </div>
+                        <p className="text-[18px] pr-[12px]">{item.icon}</p>
                         {item.name}
                       </div>
                     </Link>
@@ -267,7 +258,7 @@ export default function Layout(props) {
                 </p>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                   <Link href="/settings">
-                    <div className="w-full hover:bg-[#F0F0F2] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[30px] text-[14px] font-medium rounded cursor-pointer">
+                    <div className="w-full hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[30px] text-[14px] font-medium rounded cursor-pointer">
                       <div
                         className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
                         aria-hidden="true"
@@ -279,7 +270,7 @@ export default function Layout(props) {
                   </Link>
                 </div>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <div className="w-full hover:bg-[#F0F0F2] hover:text-[#7B42FF] text-[#7438FF] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
+                  <div className="w-full hover:bg-[#E7E7E7] hover:text-[#7B42FF] text-[#7438FF] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
                     <div
                       className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#E0D4FC] rounded-full justify-center text-[#7B42FF]"
                       aria-hidden="true"
@@ -305,7 +296,7 @@ export default function Layout(props) {
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <SearchModal navigation={navigation} />
+
             <main>{props.children}</main>
           </div>
         )}

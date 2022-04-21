@@ -22,4 +22,7 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ["s3.us-east-1.amazonaws.com"],
+  },
 };
