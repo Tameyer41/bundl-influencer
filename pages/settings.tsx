@@ -22,10 +22,11 @@ const SettingsPage = () => {
       method: "POST",
       body: formData,
     });
-    console.log(file);
+    const updated_file_name = fields.key.replace(/ /g, "+");
+
     const photo_data = {
       id: session.user.id,
-      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${fields.key}`,
+      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${updated_file_name}`,
     };
     if (upload.ok) {
       try {
