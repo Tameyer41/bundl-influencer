@@ -19,8 +19,7 @@ const Page = (props) => {
   }
 
   if (!session.user.onboarded) {
-    console.log("not onboarded");
-    router.push("/onboarding/step-1", "/onboarding/step-1", {});
+    router.push("/setup", "/setup", {});
   }
   if (session.user.role !== "admin") {
     return <UserHome />;

@@ -34,9 +34,11 @@ export default function Dropdown() {
             <div className="flex items-center">
               <div>
                 {session.user.image ? (
-                  <img
+                  <Image
                     src={session.user.image}
-                    className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px]"
+                    className="flex-shrink-0 rounded-[6px]"
+                    width={53}
+                    height={53}
                   />
                 ) : (
                   <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-blue-500"></div>

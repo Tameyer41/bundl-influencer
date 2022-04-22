@@ -5,6 +5,8 @@ import Modal from "components/ui/Modal";
 import moment from "moment";
 import { NextPage, GetStaticProps } from "next";
 import useSWR from "swr";
+import Image from "next/image";
+
 import {
   ClockIcon,
   HomeIcon,
@@ -450,10 +452,22 @@ const AdminHome: NextPage<{
                             <div className="flex items-center space-x-2">
                               <div className="flex flex-shrink-0 -space-x-1">
                                 {project.users.map((user) => (
-                                  <div
-                                    key={user.id}
-                                    className="max-w-none h-6 w-6 rounded-full ring-2 ring-white bg-indigo-600"
-                                  ></div>
+                                  <div>
+                                    {user.user.image ? (
+                                      <Image
+                                        src={user.user.image}
+                                        className="flex-shrink-0 rounded-full max-w-none"
+                                        width={24}
+                                        height={24}
+                                        key={user.userId}
+                                      />
+                                    ) : (
+                                      <div
+                                        key={user.userId}
+                                        className="flex-shrink-0 rounded-full w-6 h-6 bg-indigo-600"
+                                      ></div>
+                                    )}
+                                  </div>
                                 ))}
                               </div>
                               {project.users.length > 4 ? (

@@ -7,7 +7,11 @@ export default async function handle(
 ) {
   const projects = await prisma.project.findMany({
     include: {
-      users: true,
+      users: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
   res.json(projects);

@@ -22,13 +22,14 @@ import {
 
 const navigation = [
   { name: "Overview", url: "/", icon: "🏠", current: true },
+  { name: "Projects", url: "/projects", icon: "📦", current: false },
   {
     name: "Creator Discovery",
     url: "/creators",
     icon: "👥",
     current: false,
   },
-  { name: "Projects", url: "/projects", icon: "📦", current: false },
+
   { name: "Calendar", url: "/calendar", icon: "🚀", current: false },
 ];
 
@@ -115,27 +116,18 @@ export default function Layout(props) {
                   </div>
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.url}
-                        className={classNames(
-                          item.current
-                            ? "bg-[#E7E7E7] text-gray-900"
-                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                          "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                        )}
-                      >
-                        <item.icon
-                          className={classNames(
-                            item.current
-                              ? "text-gray-500"
-                              : "text-gray-400 group-hover:text-gray-500",
-                            "mr-4 flex-shrink-0 h-6 w-6"
-                          )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
+                      <Link key={item.name} href={item.url}>
+                        <div
+                          className={
+                            router.pathname.replace("/[id]", "") == item.url
+                              ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                          }
+                        >
+                          <p className="text-[18px] pr-[12px]">{item.icon}</p>
+                          {item.name}
+                        </div>
+                      </Link>
                     ))}
                   </nav>
                 </div>

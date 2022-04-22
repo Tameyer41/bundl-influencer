@@ -23,6 +23,10 @@ module.exports = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["s3.us-east-1.amazonaws.com"],
+    domains: [
+      "projectinfluencer.s3.us-east-1.amazonaws.com",
+      "projectinfluencer.s3.amazonaws.com",
+      "s3.us-east-1.amazonaws.com",
+    ],
   },
 };
