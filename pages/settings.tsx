@@ -26,7 +26,7 @@ const SettingsPage = () => {
 
     const photo_data = {
       id: session.user.id,
-      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${updated_file_name}`,
+      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${filename}`,
     };
     if (upload.ok) {
       try {

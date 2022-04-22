@@ -190,8 +190,8 @@ export default function Layout(props) {
                       <div
                         className={
                           router.pathname == item.url
-                            ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-normal rounded cursor-pointer"
-                            : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-normal rounded cursor-pointer"
+                            ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                            : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                         }
                       >
                         <div className="w-[30px] flex items-center justify-center">

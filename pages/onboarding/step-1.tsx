@@ -7,6 +7,47 @@ const OnboardingPage = () => {
   const [name, setName] = useState("");
   const router = useRouter();
 
+  const uploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    const filename = encodeURIComponent(file.name);
+    const res = await fetch(`/api/upload-url?file=${filename}`);
+    const { url, fields } = await res.json();
+    const formData = new FormData();
+
+    Object.entries({ ...fields, file }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const upload = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+    const updated_file_name = fields.key.replace(/ /g, "+");
+
+    const photo_data = {
+      id: session.user.id,
+      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${updated_file_name}`,
+    };
+    if (upload.ok) {
+      try {
+        fetch(`/api/users/${session.user.id}`, {
+          credentials: "include",
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(photo_data),
+        }).then(reloadSession);
+        Router.push("/projects");
+      } catch (error) {
+        console.error(error);
+      }
+      console.log("Uploaded successfully!");
+    } else {
+      console.error("Upload failed.");
+    }
+  };
+
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -14,10 +55,10 @@ const OnboardingPage = () => {
     },
   });
 
-  const reloadSession = () => {
+  async function reloadSession() {
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
-  };
+  }
 
   if (status === "loading") {
     return "Loading or not authenticated...";
@@ -25,14 +66,13 @@ const OnboardingPage = () => {
 
   const objectWithData = {
     name: name,
-    onboarded: true,
     id: session.user.id,
   };
 
-  const updateUser = async (e: React.SyntheticEvent) => {
+  function updateUser(e) {
     e.preventDefault();
     try {
-      await fetch(`/api/users/${session.user.id}`, {
+      fetch(`/api/users/${session.user.id}`, {
         credentials: "include",
         method: "PUT",
         headers: {
@@ -40,25 +80,23 @@ const OnboardingPage = () => {
         },
         body: JSON.stringify(objectWithData),
       }).then(reloadSession);
-      await Router.push("/");
-      console.log("done");
+      Router.push("/projects");
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   return (
     <>
       <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form onSubmit={updateUser}>
-          <input name="onboarded" type="hidden" defaultValue="true" hidden />
           <div className="space-y-6">
             <div>
               <h1 className="text-lg leading-6 font-medium text-gray-900">
                 User Settings
               </h1>
               <p className="mt-1 text-sm text-gray-500">
-                Let's get started by filling in the information below to update
+                Let’s get started by filling in the information below to update
                 your account.
               </p>
             </div>
@@ -76,10 +114,19 @@ const OnboardingPage = () => {
                   name="full-name"
                   id="full-name"
                   onChange={(e) => setName(e.target.value)}
+                  placeholder={session.user.name}
                   value={name}
                   className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+            </div>
+            <div>
+              <p>Upload a .png or .jpg image (max 1MB).</p>
+              <input
+                onChange={uploadPhoto}
+                type="file"
+                accept="image/png, image/jpeg"
+              />
             </div>
             <div className="flex justify-end">
               <button

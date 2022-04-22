@@ -9,6 +9,28 @@ import {
 import Button from "./Button";
 import Router from "next/router";
 
+import { RadioGroup } from "@headlessui/react";
+
+const colors = [
+  {
+    name: "Blue",
+    bgColor: "bg-blue-200",
+    selectedColor: "ring-blue-300",
+  },
+  {
+    name: "Emerald",
+    bgColor: "bg-emerald-100",
+    selectedColor: "ring-emerald-200",
+  },
+  { name: "Amber", bgColor: "bg-amber-100", selectedColor: "ring-amber-200" },
+  { name: "Red", bgColor: "bg-red-200", selectedColor: "ring-red-300" },
+  {
+    name: "Violet",
+    bgColor: "bg-violet-300",
+    selectedColor: "ring-violet-400",
+  },
+];
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -53,6 +75,7 @@ const team = [
 
 export default function Modal() {
   const [query, setQuery] = useState("");
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
 
   const [open, setOpen] = useState(false);
 
@@ -72,7 +95,7 @@ export default function Modal() {
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { name, description, privacy };
+      const body = { name, description, privacy, selectedColor };
       await fetch(
         `https://dreamy-dragon-1e86de.netlify.app/api/projects/create`,
         {
@@ -183,6 +206,45 @@ export default function Modal() {
                           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
+                    </div>
+                    {/* Project Color */}
+                    <div>
+                      <RadioGroup
+                        value={selectedColor}
+                        onChange={setSelectedColor}
+                        className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5"
+                      >
+                        <RadioGroup.Label className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2">
+                          Choose a label color
+                        </RadioGroup.Label>
+                        <div className="mt-4 flex items-center space-x-3">
+                          {colors.map((color) => (
+                            <RadioGroup.Option
+                              key={color.name}
+                              value={color}
+                              className={({ active, checked }) =>
+                                classNames(
+                                  color.selectedColor,
+                                  active && checked ? "ring ring-offset-1" : "",
+                                  !active && checked ? "ring-2" : "",
+                                  "-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
+                                )
+                              }
+                            >
+                              <RadioGroup.Label as="p" className="sr-only">
+                                {color.name}
+                              </RadioGroup.Label>
+                              <span
+                                aria-hidden="true"
+                                className={classNames(
+                                  color.bgColor,
+                                  "h-8 w-8 border border-black border-opacity-10 rounded-full"
+                                )}
+                              />
+                            </RadioGroup.Option>
+                          ))}
+                        </div>
+                      </RadioGroup>
                     </div>
 
                     {/* Project description */}
