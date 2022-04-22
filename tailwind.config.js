@@ -12,9 +12,9 @@ module.exports = {
           100: "#FBFBFB",
           200: "#EFF1F4",
         },
-      },
-      fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        button: {
+          100: "#6D78D6",
+        },
       },
     },
   },

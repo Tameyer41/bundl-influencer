@@ -96,14 +96,20 @@ export default function Modal() {
     e.preventDefault();
     try {
       const body = { name, description, privacy, selectedColor };
-      await fetch(
-        `https://dreamy-dragon-1e86de.netlify.app/api/projects/create`,
+      const response = await fetch(
+        `http://localhost:3000/api/projects/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         }
-      ).then(reloadSession);
+      );
+      const data = await response.json().then(reloadSession);
+      setName("");
+      setDescription("");
+      setPrivacy("");
+      setSelectedColor(colors[0]);
+
       setOpen(false);
     } catch (error) {
       console.error(error);
@@ -113,7 +119,7 @@ export default function Modal() {
   return (
     <div>
       <div onClick={openModal}>
-        <Button text="Create" />
+        <Button text="Create a project" />
       </div>
       <Transition.Root
         show={open}

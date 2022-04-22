@@ -68,7 +68,7 @@ const Project = (props) => {
   return router.isFallback ? (
     <h1>Loading...</h1>
   ) : (
-    <div className="p-8">
+    <div className="px-4 py-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
         {/* Breadcrumbs */}
         <nav className="flex" aria-label="Breadcrumb">

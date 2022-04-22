@@ -54,14 +54,6 @@ export default function Layout(props) {
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html className="h-full">
-        <body className="h-full">
-        ```
-      */}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -189,7 +181,7 @@ export default function Layout(props) {
                     <Link key={item.name} href={item.url}>
                       <div
                         className={
-                          router.pathname == item.url
+                          router.pathname.replace("/[id]", "") == item.url
                             ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                             : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                         }
@@ -222,7 +214,7 @@ export default function Layout(props) {
                     <Link key={item.name} href={item.url}>
                       <div
                         className={
-                          router.pathname == item.url
+                          router.pathname.replace("/[id]", "") == item.url
                             ? "bg-[#E7E7E7] text-[#3F3F3F] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
                             : "hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
                         }
