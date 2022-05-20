@@ -10,6 +10,9 @@ import {
   differenceInMinutes,
   parse,
   add,
+  sub,
+  isEqual,
+  getDay,
 } from "date-fns/esm";
 import Button from "components/ui/Button";
 import {
@@ -25,9 +28,9 @@ import { useState } from "react";
 const meetings = [
   {
     id: 1,
-    date: "May 26, 2022",
-    startTime: "2022-05-26T17:00",
-    endTime: "2022-05-26T19:00",
+    date: "May 25, 2022",
+    startTime: "2022-05-25T14:00",
+    endTime: "2022-05-25T16:30",
     name: "Leslie Alexander",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
@@ -57,6 +60,7 @@ export default function Calendar() {
   }, []);
   let today = startOfToday();
   let [currentWeek, setCurrentWeek] = useState(format(today, "MMM-yyyy-dd"));
+  let [selectedDay, setSelectedDay] = useState(today);
   let monthOfCurrentWeek = parse(currentWeek, "MMM-yyyy-dd", new Date());
   let newDays = eachDayOfInterval({
     start: startOfWeek(monthOfCurrentWeek),
@@ -66,12 +70,19 @@ export default function Calendar() {
   function nextWeek() {
     let firstDayNextWeek = add(monthOfCurrentWeek, { days: 7 });
     setCurrentWeek(format(firstDayNextWeek, "MMM-yyyy-dd"));
+  }
+  function previousWeek() {
+    let firstDayPreviousWeek = sub(monthOfCurrentWeek, { days: 7 });
+    setCurrentWeek(format(firstDayPreviousWeek, "MMM-yyyy-dd"));
+  }
 
-    console.log(monthOfCurrentWeek);
+  function moveToDay() {
+    setSelectedDay(today);
+    setCurrentWeek(format(today, "MMM-yyyy-dd"));
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-[93vh] md:h-screen flex-col">
       <header className="relative z-40 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
         <h1 className="text-lg font-semibold text-gray-900">
           {format(monthOfCurrentWeek, "MMM yyyy")}
@@ -79,6 +90,7 @@ export default function Calendar() {
         <div className="flex items-center">
           <div className="flex items-center rounded-md shadow-sm md:items-stretch">
             <button
+              onClick={previousWeek}
               type="button"
               className="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
             >
@@ -86,6 +98,7 @@ export default function Calendar() {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
             <button
+              onClick={moveToDay}
               type="button"
               className="hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block"
             >
@@ -229,7 +242,7 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
+                        onClick={moveToDay}
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -325,11 +338,19 @@ export default function Calendar() {
               {newDays.map((day, dayIdx) => (
                 <button
                   key={day.toString()}
+                  onClick={() => setSelectedDay(day)}
                   type="button"
                   className="flex flex-col items-center pt-2 pb-3"
                 >
                   {format(day, "ccccc")}
-                  <span className="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">
+                  <span
+                    className={classNames(
+                      isEqual(day, selectedDay) &&
+                        "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                      !isSameMonth(day, monthOfCurrentWeek) && "text-gray-400",
+                      "items-center justify-center font-semibold text-gray-900"
+                    )}
+                  >
                     {format(day, "d")}
                   </span>
                 </button>
@@ -354,7 +375,7 @@ export default function Calendar() {
                     <span
                       className={classNames(
                         isToday(day) &&
-                          "ml-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                          "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
                         !isSameMonth(day, monthOfCurrentWeek) &&
                           "text-gray-400",
                         "items-center justify-center font-semibold text-gray-900"
@@ -531,9 +552,9 @@ export default function Calendar() {
                 <div className="col-start-8 row-span-full w-8" />
               </div>
 
-              {/* Events */}
+              {/* Events mobile */}
               <ol
-                className="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
+                className="sm:hidden col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
                 style={{
                   gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
                 }}
@@ -542,12 +563,92 @@ export default function Calendar() {
                   <li
                     className={classNames(
                       parseInt(getWeek(new Date(meeting.date))) ===
-                        parseInt(getWeek(new Date(currentWeek))) + 1 &&
+                        parseInt(getWeek(new Date(selectedDay))) + 1 &&
                         `relative mt-px flex sm:col-start-${
                           parseInt(format(new Date(meeting.date), "i")) + 1
                         }`,
+                      !isEqual(new Date(meeting.date), new Date(selectedDay)) &&
+                        `hidden`,
+                      "relative mt-px flex"
+                    )}
+                    style={{
+                      gridRow: `${
+                        parseInt(format(new Date(meeting.startTime), "H")) *
+                          12 +
+                        2
+                      } / span ${Math.round(
+                        parseInt(
+                          differenceInMinutes(
+                            new Date(meeting.endTime),
+                            new Date(meeting.startTime)
+                          )
+                        ) / 5
+                      )}`,
+                    }}
+                  >
+                    <a
+                      href="#"
+                      className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
+                    >
+                      <p className="order-1 font-semibold text-blue-700">
+                        {meeting.name}
+                      </p>
+                      <p className="text-blue-500 group-hover:text-blue-700">
+                        <time dateTime={`${new Date(meeting.startTime)}`}>
+                          {format(new Date(meeting.startTime), "p")}
+                        </time>
+                      </p>
+                    </a>
+                  </li>
+                ))}
+                <li
+                  className="relative mt-px flex sm:col-start-3"
+                  style={{ gridRow: "92 / span 30" }}
+                >
+                  <a
+                    href="#"
+                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100"
+                  >
+                    <p className="order-1 font-semibold text-pink-700">
+                      Flight to Paris
+                    </p>
+                    <p className="text-pink-500 group-hover:text-pink-700">
+                      <time dateTime="2022-01-12T07:30">7:30 AM</time>
+                    </p>
+                  </a>
+                </li>
+                <li
+                  className="relative mt-px hidden sm:col-start-6 sm:flex"
+                  style={{ gridRow: "122 / span 24" }}
+                >
+                  <a
+                    href="#"
+                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200"
+                  >
+                    <p className="order-1 font-semibold text-gray-700">
+                      Meeting with design team at Disney
+                    </p>
+                    <p className="text-gray-500 group-hover:text-gray-700">
+                      <time dateTime="2022-01-15T10:00">10:00 AM</time>
+                    </p>
+                  </a>
+                </li>
+              </ol>
+              {/* Events sm breakpoints and up */}
+              <ol
+                className="hidden col-start-1 col-end-2 row-start-1 sm:grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
+                style={{
+                  gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
+                }}
+              >
+                {meetings.map((meeting) => (
+                  <li
+                    className={classNames(
                       parseInt(getWeek(new Date(meeting.date))) !=
-                        parseInt(getWeek(new Date(currentWeek))) + 1 && `hidden`
+                        parseInt(getWeek(new Date(currentWeek))) && `hidden`,
+                      `relative mt-px flex col-start-${
+                        parseInt(format(new Date(meeting.date), "i")) + 1
+                      }`
                     )}
                     style={{
                       gridRow: `${
