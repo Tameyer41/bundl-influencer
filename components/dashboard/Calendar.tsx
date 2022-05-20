@@ -12,8 +12,10 @@ import {
   add,
   sub,
   isEqual,
+  startOfMonth,
+  endOfMonth,
   getDay,
-} from "date-fns/esm";
+} from "date-fns";
 import Button from "components/ui/Button";
 import {
   ChevronDownIcon,
@@ -22,7 +24,7 @@ import {
   DotsHorizontalIcon,
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
-import { eachDayOfInterval, startOfMonth } from "date-fns/esm";
+import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
 
 const meetings = [
@@ -48,23 +50,21 @@ export default function Calendar() {
   const containerNav = useRef(null);
   const containerOffset = useRef(null);
 
-  useEffect(() => {
-    // Set the container scroll position based on the current time.
-    const currentMinute = new Date().getHours() * 60;
-    container.current.scrollTop =
-      ((container.current.scrollHeight -
-        containerNav.current.offsetHeight -
-        containerOffset.current.offsetHeight) *
-        currentMinute) /
-      1440;
-  }, []);
   let today = startOfToday();
+  let [currentView, setCurrentView] = useState("week");
   let [currentWeek, setCurrentWeek] = useState(format(today, "MMM-yyyy-dd"));
+  let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy-dd"));
   let [selectedDay, setSelectedDay] = useState(today);
   let monthOfCurrentWeek = parse(currentWeek, "MMM-yyyy-dd", new Date());
+  let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy-dd", new Date());
   let newDays = eachDayOfInterval({
     start: startOfWeek(monthOfCurrentWeek),
     end: endOfWeek(monthOfCurrentWeek),
+  });
+
+  let newMonthDays = eachDayOfInterval({
+    start: startOfMonth(firstDayCurrentMonth),
+    end: endOfMonth(firstDayCurrentMonth),
   });
 
   function nextWeek() {
@@ -76,27 +76,63 @@ export default function Calendar() {
     setCurrentWeek(format(firstDayPreviousWeek, "MMM-yyyy-dd"));
   }
 
+  function nextMonth() {
+    let firstDayCurrentMonth = new Date(currentMonth);
+    let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
+    setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy-dd"));
+  }
+  function previousMonth() {
+    let firstDayCurrentMonth = new Date(currentMonth);
+    let firstDayLasttMonth = sub(firstDayCurrentMonth, { months: 1 });
+    setCurrentMonth(format(firstDayLasttMonth, "MMM-yyyy-dd"));
+  }
+
   function moveToDay() {
     setSelectedDay(today);
     setCurrentWeek(format(today, "MMM-yyyy-dd"));
   }
 
+  useEffect(() => {
+    // Set the container scroll position based on the current time.
+    const currentMinute = new Date().getHours() * 60;
+    container.current.scrollTop =
+      ((container.current.scrollHeight -
+        containerNav.current.offsetHeight -
+        containerOffset.current.offsetHeight) *
+        currentMinute) /
+      1440;
+  }, []);
+
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
       <header className="relative z-40 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
         <h1 className="text-lg font-semibold text-gray-900">
-          {format(monthOfCurrentWeek, "MMM yyyy")}
+          {currentView === "week" && format(monthOfCurrentWeek, "MMM yyyy")}
+          {currentView === "month" &&
+            format(new Date(currentMonth), "MMM yyyy")}
         </h1>
         <div className="flex items-center">
           <div className="flex items-center rounded-md shadow-sm md:items-stretch">
-            <button
-              onClick={previousWeek}
-              type="button"
-              className="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
-            >
-              <span className="sr-only">Previous month</span>
-              <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-            </button>
+            {currentView === "week" && (
+              <button
+                onClick={previousWeek}
+                type="button"
+                className="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+              >
+                <span className="sr-only">Previous month</span>
+                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+            {currentView === "month" && (
+              <button
+                onClick={previousMonth}
+                type="button"
+                className="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+              >
+                <span className="sr-only">Previous month</span>
+                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
             <button
               onClick={moveToDay}
               type="button"
@@ -105,22 +141,37 @@ export default function Calendar() {
               Today
             </button>
             <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
-            <button
-              onClick={nextWeek}
-              type="button"
-              className="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
-            >
-              <span className="sr-only">Next month</span>
-              <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-            </button>
+
+            {currentView === "week" && (
+              <button
+                onClick={nextWeek}
+                type="button"
+                className="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+              >
+                <span className="sr-only">Next month</span>
+                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+            {currentView === "month" && (
+              <button
+                onClick={nextMonth}
+                type="button"
+                className="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+              >
+                <span className="sr-only">Next month</span>
+                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
           </div>
           <div className="hidden md:ml-4 md:flex md:items-center">
             <Menu as="div" className="relative">
               <Menu.Button
+                onClick={() => setCurrentView("week")}
                 type="button"
                 className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
               >
-                Week view
+                {currentView === "week" && "Week view"}
+                {currentView === "month" && "Month view"}
                 <ChevronDownIcon
                   className="ml-2 h-5 w-5 text-gray-400"
                   aria-hidden="true"
@@ -141,7 +192,6 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -156,12 +206,12 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
+                          onClick={() => setCurrentView("week")}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                            "block px-4 py-2 text-sm cursor-pointer"
                           )}
                         >
                           Week view
@@ -171,12 +221,12 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
+                          onClick={() => setCurrentView("month")}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                            "block px-4 py-2 text-sm cursor-pointer"
                           )}
                         >
                           Month view
@@ -186,7 +236,6 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -225,7 +274,6 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -247,7 +295,7 @@ export default function Calendar() {
                           active
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                          "block px-4 py-2 text-sm cursor-pointer"
                         )}
                       >
                         Go to today
@@ -259,7 +307,6 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -274,12 +321,12 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
+                        onClick={() => setCurrentView("week")}
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                          "block px-4 py-2 text-sm cursor-pointer"
                         )}
                       >
                         Week view
@@ -289,12 +336,12 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
+                        onClick={() => setCurrentView("month")}
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                          "block px-4 py-2 text-sm cursor-pointer"
                         )}
                       >
                         Month view
@@ -304,7 +351,6 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -322,401 +368,502 @@ export default function Calendar() {
           </Menu>
         </div>
       </header>
-      <div
-        ref={container}
-        className="flex flex-auto flex-col overflow-auto bg-white"
-      >
+      {currentView === "week" && (
         <div
-          style={{ width: "165%" }}
-          className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full"
+          ref={container}
+          className="flex flex-auto flex-col overflow-auto bg-white"
         >
           <div
-            ref={containerNav}
-            className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+            style={{ width: "165%" }}
+            className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full"
           >
-            <div className="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-              {newDays.map((day, dayIdx) => (
-                <button
-                  key={day.toString()}
-                  onClick={() => setSelectedDay(day)}
-                  type="button"
-                  className="flex flex-col items-center pt-2 pb-3"
-                >
-                  {format(day, "ccccc")}
-                  <span
-                    className={classNames(
-                      isEqual(day, selectedDay) &&
-                        "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
-                      !isSameMonth(day, monthOfCurrentWeek) && "text-gray-400",
-                      "items-center justify-center font-semibold text-gray-900"
-                    )}
+            <div
+              ref={containerNav}
+              className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+            >
+              <div className="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
+                {newDays.map((day, dayIdx) => (
+                  <button
+                    key={day.toString()}
+                    onClick={() => setSelectedDay(day)}
+                    type="button"
+                    className="flex flex-col items-center pt-2 pb-3"
                   >
-                    {format(day, "d")}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
-              <div className="col-end-1 w-14" />
-              {newDays.map((day, dayIdx) => (
-                <div
-                  key={day.toString()}
-                  className="flex items-center justify-center py-3"
-                >
-                  <span
-                    className={classNames(
-                      isToday(day) && "flex items-baseline",
-                      !isSameMonth(day, today) && "text-gray-400",
-                      ""
-                    )}
-                  >
-                    {format(day, "ccc")}
+                    {format(day, "ccccc")}
                     <span
                       className={classNames(
-                        isToday(day) &&
-                          "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                        isEqual(day, selectedDay) &&
+                          "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
                         !isSameMonth(day, monthOfCurrentWeek) &&
                           "text-gray-400",
                         "items-center justify-center font-semibold text-gray-900"
                       )}
                     >
-                      {" "}
-                      {format(day, "d")}{" "}
+                      {format(day, "d")}
                     </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-auto">
-            <div className="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
-            <div className="grid flex-auto grid-cols-1 grid-rows-1">
-              {/* Horizontal lines */}
-              <div
-                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
-                style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
-              >
-                <div ref={containerOffset} className="row-end-1 h-7"></div>
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    12AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    1AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    2AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    3AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    4AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    5AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    6AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    7AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    8AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    9AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    10AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    11AM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    12PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    1PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    2PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    3PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    4PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    5PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    6PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    7PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    8PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    9PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    10PM
-                  </div>
-                </div>
-                <div />
-                <div>
-                  <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-                    11PM
-                  </div>
-                </div>
-                <div />
+                  </button>
+                ))}
               </div>
 
-              {/* Vertical lines */}
-              <div className="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
+              <div className="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
+                <div className="col-end-1 w-14" />
                 {newDays.map((day, dayIdx) => (
-                  <div className={`col-start-${dayIdx + 1} row-span-full`} />
+                  <div
+                    key={day.toString()}
+                    className="flex items-center justify-center py-3"
+                  >
+                    <span
+                      className={classNames(
+                        isToday(day) && "flex items-baseline",
+                        !isSameMonth(day, today) && "text-gray-400",
+                        ""
+                      )}
+                    >
+                      {format(day, "ccc")}
+                      <span
+                        className={classNames(
+                          isToday(day) &&
+                            "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                          !isSameMonth(day, monthOfCurrentWeek) &&
+                            "text-gray-400",
+                          "items-center justify-center font-semibold text-gray-900"
+                        )}
+                      >
+                        {" "}
+                        {format(day, "d")}{" "}
+                      </span>
+                    </span>
+                  </div>
                 ))}
-                <div className="col-start-8 row-span-full w-8" />
               </div>
+            </div>
+            <div className="flex flex-auto">
+              <div className="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
+              <div className="grid flex-auto grid-cols-1 grid-rows-1">
+                {/* Horizontal lines */}
+                <div
+                  className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
+                  style={{
+                    gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))",
+                  }}
+                >
+                  <div ref={containerOffset} className="row-end-1 h-7"></div>
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      12AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      1AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      2AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      3AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      4AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      5AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      6AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      7AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      8AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      9AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      10AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      11AM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      12PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      1PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      2PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      3PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      4PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      5PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      6PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      7PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      8PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      9PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      10PM
+                    </div>
+                  </div>
+                  <div />
+                  <div>
+                    <div className="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                      11PM
+                    </div>
+                  </div>
+                  <div />
+                </div>
 
-              {/* Events mobile */}
-              <ol
-                className="sm:hidden col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-                style={{
-                  gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
-                }}
-              >
-                {meetings.map((meeting) => (
+                {/* Vertical lines */}
+                <div className="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
+                  {newDays.map((day, dayIdx) => (
+                    <div
+                      key={day.toString()}
+                      className={`col-start-${dayIdx + 1} row-span-full`}
+                    />
+                  ))}
+                  <div className="col-start-8 row-span-full w-8" />
+                </div>
+
+                {/* Events mobile */}
+                <ol
+                  className="sm:hidden col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
+                  style={{
+                    gridTemplateRows:
+                      "1.75rem repeat(288, minmax(0, 1fr)) auto",
+                  }}
+                >
+                  {meetings.map((meeting) => (
+                    <li
+                      key={meeting.name}
+                      className={classNames(
+                        getWeek(new Date(meeting.date)) ===
+                          getWeek(add(selectedDay, { days: 1 })) &&
+                          `relative mt-px flex sm:col-start-${
+                            parseInt(format(new Date(meeting.date), "i")) + 1
+                          }`,
+                        !isEqual(
+                          new Date(meeting.date),
+                          new Date(selectedDay)
+                        ) && `hidden`,
+                        "relative mt-px flex"
+                      )}
+                      style={{
+                        gridRow: `${
+                          parseInt(format(new Date(meeting.startTime), "H")) *
+                            12 +
+                          2
+                        } / span ${Math.round(
+                          differenceInMinutes(
+                            new Date(meeting.endTime),
+                            new Date(meeting.startTime)
+                          ) / 5
+                        )}`,
+                      }}
+                    >
+                      <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
+                        <p className="order-1 font-semibold text-blue-700">
+                          {meeting.name}
+                        </p>
+                        <p className="text-blue-500 group-hover:text-blue-700">
+                          <time dateTime={`${new Date(meeting.startTime)}`}>
+                            {format(new Date(meeting.startTime), "p")}
+                          </time>
+                        </p>
+                      </a>
+                    </li>
+                  ))}
                   <li
-                    className={classNames(
-                      parseInt(getWeek(new Date(meeting.date))) ===
-                        parseInt(getWeek(new Date(selectedDay))) + 1 &&
-                        `relative mt-px flex sm:col-start-${
+                    className="relative mt-px flex sm:col-start-3"
+                    style={{ gridRow: "92 / span 30" }}
+                  >
+                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
+                      <p className="order-1 font-semibold text-pink-700">
+                        Flight to Paris
+                      </p>
+                      <p className="text-pink-500 group-hover:text-pink-700">
+                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
+                      </p>
+                    </a>
+                  </li>
+                  <li
+                    className="relative mt-px hidden sm:col-start-6 sm:flex"
+                    style={{ gridRow: "122 / span 24" }}
+                  >
+                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
+                      <p className="order-1 font-semibold text-gray-700">
+                        Meeting with design team at Disney
+                      </p>
+                      <p className="text-gray-500 group-hover:text-gray-700">
+                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
+                      </p>
+                    </a>
+                  </li>
+                </ol>
+                {/* Events sm breakpoints and up */}
+                <ol
+                  className="hidden col-start-1 col-end-2 row-start-1 sm:grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
+                  style={{
+                    gridTemplateRows:
+                      "1.75rem repeat(288, minmax(0, 1fr)) auto",
+                  }}
+                >
+                  {meetings.map((meeting) => (
+                    <li
+                      key={meeting.name}
+                      className={classNames(
+                        getWeek(new Date(meeting.date)) !=
+                          getWeek(new Date(currentWeek)) && `hidden`,
+                        `relative mt-px flex col-start-${
                           parseInt(format(new Date(meeting.date), "i")) + 1
-                        }`,
-                      !isEqual(new Date(meeting.date), new Date(selectedDay)) &&
-                        `hidden`,
-                      "relative mt-px flex"
-                    )}
-                    style={{
-                      gridRow: `${
-                        parseInt(format(new Date(meeting.startTime), "H")) *
-                          12 +
-                        2
-                      } / span ${Math.round(
-                        parseInt(
+                        }`
+                      )}
+                      style={{
+                        gridRow: `${
+                          parseInt(format(new Date(meeting.startTime), "H")) *
+                            12 +
+                          2
+                        } / span ${Math.round(
                           differenceInMinutes(
                             new Date(meeting.endTime),
                             new Date(meeting.startTime)
-                          )
-                        ) / 5
-                      )}`,
-                    }}
-                  >
-                    <a
-                      href="#"
-                      className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
+                          ) / 5
+                        )}`,
+                      }}
                     >
-                      <p className="order-1 font-semibold text-blue-700">
-                        {meeting.name}
-                      </p>
-                      <p className="text-blue-500 group-hover:text-blue-700">
-                        <time dateTime={`${new Date(meeting.startTime)}`}>
-                          {format(new Date(meeting.startTime), "p")}
-                        </time>
-                      </p>
-                    </a>
-                  </li>
-                ))}
-                <li
-                  className="relative mt-px flex sm:col-start-3"
-                  style={{ gridRow: "92 / span 30" }}
-                >
-                  <a
-                    href="#"
-                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100"
-                  >
-                    <p className="order-1 font-semibold text-pink-700">
-                      Flight to Paris
-                    </p>
-                    <p className="text-pink-500 group-hover:text-pink-700">
-                      <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                    </p>
-                  </a>
-                </li>
-                <li
-                  className="relative mt-px hidden sm:col-start-6 sm:flex"
-                  style={{ gridRow: "122 / span 24" }}
-                >
-                  <a
-                    href="#"
-                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200"
-                  >
-                    <p className="order-1 font-semibold text-gray-700">
-                      Meeting with design team at Disney
-                    </p>
-                    <p className="text-gray-500 group-hover:text-gray-700">
-                      <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                    </p>
-                  </a>
-                </li>
-              </ol>
-              {/* Events sm breakpoints and up */}
-              <ol
-                className="hidden col-start-1 col-end-2 row-start-1 sm:grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-                style={{
-                  gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
-                }}
-              >
-                {meetings.map((meeting) => (
+                      <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
+                        <p className="order-1 font-semibold text-blue-700">
+                          {meeting.name}
+                        </p>
+                        <p className="text-blue-500 group-hover:text-blue-700">
+                          <time dateTime={`${new Date(meeting.startTime)}`}>
+                            {format(new Date(meeting.startTime), "p")}
+                          </time>
+                        </p>
+                      </a>
+                    </li>
+                  ))}
                   <li
-                    className={classNames(
-                      parseInt(getWeek(new Date(meeting.date))) !=
-                        parseInt(getWeek(new Date(currentWeek))) && `hidden`,
-                      `relative mt-px flex col-start-${
-                        parseInt(format(new Date(meeting.date), "i")) + 1
-                      }`
-                    )}
-                    style={{
-                      gridRow: `${
-                        parseInt(format(new Date(meeting.startTime), "H")) *
-                          12 +
-                        2
-                      } / span ${Math.round(
-                        parseInt(
-                          differenceInMinutes(
-                            new Date(meeting.endTime),
-                            new Date(meeting.startTime)
-                          )
-                        ) / 5
-                      )}`,
-                    }}
+                    className="relative mt-px flex sm:col-start-3"
+                    style={{ gridRow: "92 / span 30" }}
                   >
-                    <a
-                      href="#"
-                      className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-                    >
-                      <p className="order-1 font-semibold text-blue-700">
-                        {meeting.name}
+                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
+                      <p className="order-1 font-semibold text-pink-700">
+                        Flight to Paris
                       </p>
-                      <p className="text-blue-500 group-hover:text-blue-700">
-                        <time dateTime={`${new Date(meeting.startTime)}`}>
-                          {format(new Date(meeting.startTime), "p")}
-                        </time>
+                      <p className="text-pink-500 group-hover:text-pink-700">
+                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
                       </p>
                     </a>
                   </li>
-                ))}
-                <li
-                  className="relative mt-px flex sm:col-start-3"
-                  style={{ gridRow: "92 / span 30" }}
-                >
-                  <a
-                    href="#"
-                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100"
+                  <li
+                    className="relative mt-px hidden sm:col-start-6 sm:flex"
+                    style={{ gridRow: "122 / span 24" }}
                   >
-                    <p className="order-1 font-semibold text-pink-700">
-                      Flight to Paris
-                    </p>
-                    <p className="text-pink-500 group-hover:text-pink-700">
-                      <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                    </p>
-                  </a>
-                </li>
-                <li
-                  className="relative mt-px hidden sm:col-start-6 sm:flex"
-                  style={{ gridRow: "122 / span 24" }}
-                >
-                  <a
-                    href="#"
-                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200"
-                  >
-                    <p className="order-1 font-semibold text-gray-700">
-                      Meeting with design team at Disney
-                    </p>
-                    <p className="text-gray-500 group-hover:text-gray-700">
-                      <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                    </p>
-                  </a>
-                </li>
-              </ol>
+                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
+                      <p className="order-1 font-semibold text-gray-700">
+                        Meeting with design team at Disney
+                      </p>
+                      <p className="text-gray-500 group-hover:text-gray-700">
+                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
+                      </p>
+                    </a>
+                  </li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+      {currentView === "month" && (
+        <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
+          <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
+            <div className="bg-white py-2">
+              M<span className="sr-only sm:not-sr-only">on</span>
+            </div>
+            <div className="bg-white py-2">
+              T<span className="sr-only sm:not-sr-only">ue</span>
+            </div>
+            <div className="bg-white py-2">
+              W<span className="sr-only sm:not-sr-only">ed</span>
+            </div>
+            <div className="bg-white py-2">
+              T<span className="sr-only sm:not-sr-only">hu</span>
+            </div>
+            <div className="bg-white py-2">
+              F<span className="sr-only sm:not-sr-only">ri</span>
+            </div>
+            <div className="bg-white py-2">
+              S<span className="sr-only sm:not-sr-only">at</span>
+            </div>
+            <div className="bg-white py-2">
+              S<span className="sr-only sm:not-sr-only">un</span>
+            </div>
+          </div>
+          <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
+            <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
+              {newMonthDays.map((day, dayIdx) => (
+                <div
+                  key={day.toString()}
+                  className={classNames(
+                    dayIdx === 0 && "col-start-4",
+                    isSameMonth(day, today)
+                      ? "bg-white"
+                      : "bg-gray-50 text-gray-500",
+                    "relative py-2 px-3"
+                  )}
+                >
+                  <time
+                    dateTime={JSON.stringify(day)}
+                    className={
+                      isToday(day)
+                        ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
+                        : undefined
+                    }
+                  >
+                    {format(day, "d")}
+                  </time>
+                </div>
+              ))}
+            </div>
+            <div className="isolate grid w-full grid-cols-7 grid-rows-5 gap-px lg:hidden">
+              {newMonthDays.map((day, dayIdx) => (
+                <button
+                  key={day.toString()}
+                  type="button"
+                  onClick={() => setSelectedDay(day)}
+                  className={classNames(
+                    dayIdx === 0 && colStartClasses[getDay(day)],
+                    isSameMonth(day, today) ? "bg-white" : "bg-gray-50",
+                    (isEqual(day, selectedDay) || isToday(day)) &&
+                      "font-semibold",
+                    isEqual(day, selectedDay) && "text-white",
+                    !isEqual(day, selectedDay) &&
+                      isToday(day) &&
+                      "text-indigo-600",
+                    !isEqual(day, selectedDay) &&
+                      isSameMonth(day, today) &&
+                      !isToday(day) &&
+                      "text-gray-900",
+                    !isEqual(day, selectedDay) &&
+                      !isSameMonth(day, today) &&
+                      !isToday(day) &&
+                      "text-gray-500",
+                    "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10"
+                  )}
+                >
+                  <time
+                    dateTime={day.toString()}
+                    className={classNames(
+                      isEqual(day, selectedDay) &&
+                        "flex h-6 w-6 items-center justify-center rounded-full",
+                      isEqual(day, selectedDay) &&
+                        isToday(day) &&
+                        "bg-indigo-600",
+                      isEqual(day, selectedDay) &&
+                        !isToday(day) &&
+                        "bg-gray-900",
+                      "ml-auto"
+                    )}
+                  >
+                    {format(day, "d")}
+                  </time>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+let colStartClasses = [
+  "",
+  "col-start-1",
+  "col-start-2",
+  "col-start-3",
+  "col-start-4",
+  "col-start-5",
+  "col-start-6",
+];
