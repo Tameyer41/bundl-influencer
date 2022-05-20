@@ -5,6 +5,7 @@ import {
   LinkIcon,
   PlusSmIcon,
   QuestionMarkCircleIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/solid";
 import Button from "./Button";
 import Router from "next/router";
@@ -118,8 +119,21 @@ export default function Modal() {
 
   return (
     <div>
-      <div onClick={openModal}>
-        <Button text="Create a project" />
+      <div onClick={openModal} className="flex">
+        <button
+          type="button"
+          className="ml-4 rounded-l border border-transparent bg-[#EED5B0] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+        >
+          Create a project
+        </button>
+        <div className="-ml-px relative block">
+          <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#CEAA75] border border-transparent text-sm font-medium">
+            <ChevronDownIcon
+              className="h-5 w-5 text-white"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
       </div>
       <Transition.Root
         show={open}

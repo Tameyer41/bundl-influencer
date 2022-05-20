@@ -28,7 +28,7 @@ const UsersPage: NextPage<{
         <div className="flex flex-col">
           <main className="flex-1">
             {/* Page title & actions */}
-            <div className="px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div className="px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 sm:py-6 lg:py-8">
               <div className="flex-1 min-w-0">
                 <h1 className="text-2xl font-medium leading-6 text-gray-900 sm:truncate">
                   Creator Discovery
@@ -58,7 +58,7 @@ const UsersPage: NextPage<{
       </div>
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 gap-4">
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 divide-x">
             {props.users.map(function (d, idx) {
               return <Card user={d} key={d.id} />;
             })}

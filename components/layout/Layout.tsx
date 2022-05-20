@@ -238,7 +238,7 @@ export default function Layout(props) {
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                   <div className="w-full text-[#7E623A] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
                     <div
-                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#EED5B0] rounded-full justify-center text-[#7E623A]"
+                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#EED5B0] text-[#7E623A] rounded-full justify-center"
                       aria-hidden="true"
                     >
                       +

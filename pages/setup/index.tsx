@@ -105,16 +105,16 @@ const SetupPage = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
                   d="M6.75 19.25h10.5a2 2 0 0 0 2-2V8.183a2 2 0 0 0-.179-.827l-.538-1.184A2 2 0 0 0 16.713 5H7.287a2 2 0 0 0-1.82 1.172L4.93 7.356a2 2 0 0 0-.18.827v9.067a2 2 0 0 0 2 2z"
                 ></path>
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
                   d="M9.5 7.75c0 1.243-1 2.5-2.5 2.5s-2.25-1.257-2.25-2.5M19.25 7.75c0 1.243-.75 2.5-2.25 2.5s-2.5-1.257-2.5-2.5M14.5 7.75c0 1.243-1 2.5-2.5 2.5s-2.5-1.257-2.5-2.5M9.75 15.75a2 2 0 0 1 2-2h.5a2 2 0 0 1 2 2v3.5h-4.5v-3.5z"
                 ></path>
               </svg>
@@ -141,9 +141,9 @@ const SetupPage = () => {
                 <path
                   d="M25.3346 16.3333L18.0013 23.6667L14.668 20.3333"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </div>
@@ -159,9 +159,9 @@ const SetupPage = () => {
                 <path
                   d="M12 19.25V4.75M4.75 12h14.5"
                   stroke="#25252D"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </div>
@@ -191,9 +191,9 @@ const SetupPage = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
                   d="M18.25 11.5v7.75m-12.5 0V11.5m4 7.75V11.5m4.5 7.75V11.5M12 4.75l7.25 6.5H4.75L12 4.75zM4.75 19.25h14.5"
                 ></path>
               </svg>

@@ -1,5 +1,5 @@
 [build]
-command = "npm install -g prisma && prisma generate --schema=./db/schema.prisma && yarn build"
+command = "prisma generate --schema=./db/schema.prisma && yarn build"
 publish = ".next"
 
 [[plugins]]

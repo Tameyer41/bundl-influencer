@@ -62,21 +62,21 @@ export default function ProjectsPage() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="2"
+            strokeWidth="2"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
         </div>
         <h1 className="text-center text-3xl font-medium text-gray-700">
-          Porting rejected
+          No projects found
         </h1>
         <p className="text-center text-sm text-gray-600">
-          We had trouble processing your request. To continue, you will need to
-          update previously entered information and resubmit.
+          Creating a problem is as easy and pressing the button found below. You
+          can view all of your current and past projects.
         </p>
         <div className="flex items-center justify-between rounded border border-gray-200 p-2 shadow-sm">
           <div className="flex items-center space-x-2">
@@ -84,7 +84,9 @@ export default function ProjectsPage() {
               🛟
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700">Support</p>
+              <p className="text-sm font-medium text-gray-700">
+                Create a project
+              </p>
               <p className="text-xs font-normal text-gray-500">
                 (385) 145 1736
               </p>
@@ -100,9 +102,9 @@ export default function ProjectsPage() {
                 fill="currentColor"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             </div>

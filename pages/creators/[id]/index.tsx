@@ -111,9 +111,15 @@ const User = (props) => {
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt=""
           />
-          <h3 className="text-2xl leading-6 font-semibold text-gray-900">
-            {props.name ? props.name : "Creator Name"}
-          </h3>
+          <div className="space-y-1">
+            <h3 className="text-2xl leading-6 font-semibold text-gray-900">
+              {props.name ? props.name : "Creator Name"}
+            </h3>
+            <p className="text-sm font-normal text-gray-500">
+              {" "}
+              {props.email ? props.email : "N/A email"}
+            </p>
+          </div>
         </div>
         <div className="mt-4 mb-6">
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
@@ -169,55 +175,8 @@ const User = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex">
-        <div className="w-2/3 pt-6">
-          <h2 className="text-xl font-semibold text-black"> Activity </h2>
-        </div>
-        <div className="w-1/3 border-l pt-6 pl-6">
-          <div className="">
-            <Disclosure defaultOpen>
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex items-center">
-                    <ChevronRightIcon
-                      className={`${
-                        open
-                          ? "transform rotate-90 w-4 h-4 mr-3"
-                          : "w-4 h-4 mr-3"
-                      }`}
-                    />
-                    <span className="font-medium text-base text-black">
-                      Contact Details
-                    </span>
-                  </Disclosure.Button>
-                  <Transition
-                    enter="transition duration-100 ease-out"
-                    enterFrom="transform scale-95 opacity-0"
-                    enterTo="transform scale-100 opacity-100"
-                    leave="transition duration-75 ease-out"
-                    leaveFrom="transform scale-100 opacity-100"
-                    leaveTo="transform scale-95 opacity-0"
-                  >
-                    <Disclosure.Panel as="ul">
-                      <li className="mt-4 flex items-center space-x-[8px]">
-                        <GlobeIcon className="h-5 w-5 text-[#C1BEC2]" />
-                        <InlineEdit value={value} setValue={setValue} />
-                      </li>
-                      <li className="mt-2 flex items-center space-x-[8px]">
-                        <DocumentTextIcon className="h-5 w-5 text-[#C1BEC2]" />
-                        <p> Tags </p>
-                      </li>
-                      <li className="mt-2 flex items-center space-x-[8px]">
-                        <GlobeIcon className="h-5 w-5 text-[#C1BEC2]" />
-                        <p> Tags </p>
-                      </li>
-                    </Disclosure.Panel>
-                  </Transition>
-                </>
-              )}
-            </Disclosure>
-          </div>
-        </div>
+      <div className="w-full pt-6">
+        <h2 className="text-xl font-semibold text-black"> Activity </h2>
       </div>
     </div>
   );
