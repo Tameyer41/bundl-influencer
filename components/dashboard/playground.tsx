@@ -7,7 +7,6 @@ import {
   getWeek,
   isToday,
   isSameMonth,
-  differenceInMinutes,
   parse,
   add,
 } from "date-fns/esm";
@@ -25,9 +24,9 @@ import { useState } from "react";
 const meetings = [
   {
     id: 1,
-    date: "May 26, 2022",
-    startTime: "2022-05-26T17:00",
-    endTime: "2022-05-26T19:00",
+    date: "May 21, 2022",
+    startTime: "5:00 PM",
+    endTime: "6:00 PM",
     name: "Leslie Alexander",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
@@ -525,9 +524,13 @@ export default function Calendar() {
 
               {/* Vertical lines */}
               <div className="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
-                {newDays.map((day, dayIdx) => (
-                  <div className={`col-start-${dayIdx + 1} row-span-full`} />
-                ))}
+                <div className="col-start-1 row-span-full" />
+                <div className="col-start-2 row-span-full" />
+                <div className="col-start-3 row-span-full" />
+                <div className="col-start-4 row-span-full" />
+                <div className="col-start-5 row-span-full" />
+                <div className="col-start-6 row-span-full" />
+                <div className="col-start-7 row-span-full" />
                 <div className="col-start-8 row-span-full w-8" />
               </div>
 
@@ -538,47 +541,22 @@ export default function Calendar() {
                   gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
                 }}
               >
-                {meetings.map((meeting) => (
-                  <li
-                    className={classNames(
-                      parseInt(getWeek(new Date(meeting.date))) ===
-                        parseInt(getWeek(new Date(currentWeek))) + 1 &&
-                        `relative mt-px flex sm:col-start-${
-                          parseInt(format(new Date(meeting.date), "i")) + 1
-                        }`,
-                      parseInt(getWeek(new Date(meeting.date))) !=
-                        parseInt(getWeek(new Date(currentWeek))) + 1 && `hidden`
-                    )}
-                    style={{
-                      gridRow: `${
-                        parseInt(format(new Date(meeting.startTime), "H")) *
-                          12 +
-                        2
-                      } / span ${Math.round(
-                        parseInt(
-                          differenceInMinutes(
-                            new Date(meeting.endTime),
-                            new Date(meeting.startTime)
-                          )
-                        ) / 5
-                      )}`,
-                    }}
+                <li
+                  className="relative mt-px flex sm:col-start-3"
+                  style={{ gridRow: "74 / span 12" }}
+                >
+                  <a
+                    href="#"
+                    className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
                   >
-                    <a
-                      href="#"
-                      className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-                    >
-                      <p className="order-1 font-semibold text-blue-700">
-                        {meeting.name}
-                      </p>
-                      <p className="text-blue-500 group-hover:text-blue-700">
-                        <time dateTime={`${new Date(meeting.startTime)}`}>
-                          {format(new Date(meeting.startTime), "p")}
-                        </time>
-                      </p>
-                    </a>
-                  </li>
-                ))}
+                    <p className="order-1 font-semibold text-blue-700">
+                      Breakfast
+                    </p>
+                    <p className="text-blue-500 group-hover:text-blue-700">
+                      <time dateTime="2022-01-12T06:00">6:00 AM</time>
+                    </p>
+                  </a>
+                </li>
                 <li
                   className="relative mt-px flex sm:col-start-3"
                   style={{ gridRow: "92 / span 30" }}
