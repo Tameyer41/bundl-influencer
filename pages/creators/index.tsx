@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 import { useRouter } from "next/router";
@@ -29,11 +28,14 @@ const UsersPage: NextPage<{
         <div className="flex flex-col">
           <main className="flex-1">
             {/* Page title & actions */}
-            <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div className="px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
               <div className="flex-1 min-w-0">
-                <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
+                <h1 className="text-2xl font-medium leading-6 text-gray-900 sm:truncate">
                   Creator Discovery
                 </h1>
+                <p className="text-sm font-normal text-gray-500 mt-2">
+                  Learn about creators currently signed up with the agency
+                </p>
               </div>
               <div className="mt-4 flex sm:mt-0 sm:ml-4">
                 <button
@@ -47,8 +49,8 @@ const UsersPage: NextPage<{
             </div>
             {/* Pinned projects */}
             <div className="px-4 mt-6 sm:px-6 lg:px-8">
-              <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-                My Creators
+              <h2 className="text-gray-500 text-sm font-normal">
+                {props.users.length} creators
               </h2>
             </div>
           </main>

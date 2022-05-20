@@ -164,7 +164,7 @@ export default function Layout(props) {
         {session && (
           <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0">
             {/* Sidebar component, swap this element with another sidebar if you like */}
-            <div className="flex-1 flex flex-col min-h-0 border-r border-layout-200 bg-[#F5F5F5]">
+            <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
               <Dropdown />
               <SearchModal navigation={navigation} />
               <div className="py-3">
@@ -174,8 +174,8 @@ export default function Layout(props) {
                       <div
                         className={
                           router.pathname.replace("/[id]", "") == item.url
-                            ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                            : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                            ? "mx-[8px] mb-[2px] px-2 py-2 bg-[#F0EFF2] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                            : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-[#F0EFF2] hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                         }
                       >
                         <div className="w-[30px] flex items-center justify-center">
@@ -183,8 +183,8 @@ export default function Layout(props) {
                             className={classNames(
                               item.current
                                 ? "text-[#646466] text-sm items-center flex"
-                                : "text-[#646466] group-hover:text-[#646466] text-sm items-center flex",
-                              "flex-shrink-0 h-[20px] w-[20px] text-sm items-center flex text-[#646466] mr-[12px]"
+                                : "text-gray-500 text-sm items-center flex",
+                              "flex-shrink-0 h-[20px] w-[20px] text-sm items-center flex text-[#646466] mr-4"
                             )}
                             aria-hidden="true"
                           />
@@ -195,7 +195,7 @@ export default function Layout(props) {
                   ))}
                 </nav>
               </div>
-              <div className="border-t pt-4">
+              <div className="border-t border-[#F0F0F0] pt-4">
                 <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
                   Navigation
                 </p>
@@ -207,11 +207,11 @@ export default function Layout(props) {
                       <div
                         className={
                           router.pathname.replace("/[id]", "") == item.url
-                            ? "bg-[#E7E7E7] text-[#3F3F3F] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
-                            : "hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[38px] text-[14px] font-semibold rounded cursor-pointer"
+                            ? "bg-[#F0EFF2] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                            : "hover:bg-[#F0EFF2] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
                         }
                       >
-                        <p className="text-[18px] pr-[12px]">{item.icon}</p>
+                        <div className="text-base mr-4">{item.icon}</div>
                         {item.name}
                       </div>
                     </Link>
@@ -224,7 +224,7 @@ export default function Layout(props) {
                 </p>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                   <Link href="/settings">
-                    <div className="w-full hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-[8px] h-[30px] text-[14px] font-medium rounded cursor-pointer">
+                    <div className="w-full hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
                       <div
                         className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
                         aria-hidden="true"
@@ -236,9 +236,9 @@ export default function Layout(props) {
                   </Link>
                 </div>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <div className="w-full hover:bg-[#E7E7E7] hover:text-[#7B42FF] text-[#7438FF] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
+                  <div className="w-full text-[#7E623A] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
                     <div
-                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#E0D4FC] rounded-full justify-center text-[#7B42FF]"
+                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#EED5B0] rounded-full justify-center text-[#7E623A]"
                       aria-hidden="true"
                     >
                       +

@@ -152,11 +152,7 @@ export default function Modal() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Combobox
-              as="div"
-              className="mx-auto max-w-3xl transform rounded-xl bg-white p-1 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
-              onChange={(person) => (window.location = person.url)}
-            >
+            <div className="mx-auto max-w-3xl transform rounded-xl bg-white p-1 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <form
                 className="flex h-full flex-col bg-white"
                 onSubmit={submitData}
@@ -209,7 +205,7 @@ export default function Modal() {
                           type="text"
                           name="project-name"
                           id="project-name"
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
                         />
                       </div>
                     </div>
@@ -332,7 +328,7 @@ export default function Modal() {
                                   value="false"
                                   aria-describedby="public-access-description"
                                   type="radio"
-                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 border-gray-200 text-gray-700 text-indigo-600 focus:ring-indigo-500"
                                   defaultChecked
                                 />
                               </div>
@@ -361,7 +357,7 @@ export default function Modal() {
                                   value="true"
                                   aria-describedby="restricted-access-description"
                                   type="radio"
-                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 border-gray-200 text-gray-700 text-indigo-600 focus:ring-indigo-500"
                                 />
                               </div>
                               <div className="pl-7 text-sm">
@@ -435,7 +431,7 @@ export default function Modal() {
                   </div>
                 </div>
               </form>
-            </Combobox>
+            </div>
           </Transition.Child>
         </Dialog>
       </Transition.Root>

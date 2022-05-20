@@ -39,7 +39,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProjectsPage({ users }: Users) {
+export default function ProjectsPage() {
   const router = useRouter();
   const { status, data: session } = useSession({
     required: true,
@@ -53,62 +53,67 @@ export default function ProjectsPage({ users }: Users) {
   }
 
   return (
-    <div className="flex h-screen">
-      <div className="pt-20 max-w-lg mx-auto">
-        <h2 className="text-lg font-medium text-gray-900">
-          Create your first project
-        </h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Get started by selecting a template or start from an empty project.
-        </p>
-        <ul
-          role="list"
-          className="mt-6 border-t border-b border-gray-200 divide-y divide-gray-200"
-        >
-          {items.map((item, itemIdx) => (
-            <li key={itemIdx}>
-              <div className="relative group py-4 flex items-start space-x-3">
-                <div className="flex-shrink-0">
-                  <span
-                    className={classNames(
-                      item.iconColor,
-                      "inline-flex items-center justify-center h-10 w-10 rounded-lg"
-                    )}
-                  >
-                    <item.icon
-                      className="h-6 w-6 text-white"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-sm font-medium text-gray-900">
-                    <a href={item.href}>
-                      <span className="absolute inset-0" aria-hidden="true" />
-                      {item.name}
-                    </a>
-                  </div>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-                </div>
-                <div className="flex-shrink-0 self-center">
-                  <ChevronRightIcon
-                    className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 flex">
-          <a
-            href="#"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+    <div className="h-screen grid place-items-center">
+      <div className="w-[430px] space-y-4 rounded-lg p-6 bg-white">
+        <div className="flex justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-12 w-12 text-[#CAA53D]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
           >
-            Or start from an empty project
-            <span aria-hidden="true"> &rarr;</span>
-          </a>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
         </div>
+        <h1 className="text-center text-3xl font-medium text-gray-700">
+          Porting rejected
+        </h1>
+        <p className="text-center text-sm text-gray-600">
+          We had trouble processing your request. To continue, you will need to
+          update previously entered information and resubmit.
+        </p>
+        <div className="flex items-center justify-between rounded border border-gray-200 p-2 shadow-sm">
+          <div className="flex items-center space-x-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded bg-gray-200">
+              🛟
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-700">Support</p>
+              <p className="text-xs font-normal text-gray-500">
+                (385) 145 1736
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <p className="text-sm font-medium text-[#7E623A]">Action needed</p>
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EED5B0]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-[#7E623A]"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <a
+          href="#"
+          className="flex justify-center text-sm font-normal text-gray-500"
+        >
+          Cancel porting{" "}
+        </a>
       </div>
     </div>
   );
