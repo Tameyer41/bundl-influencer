@@ -15,6 +15,8 @@ import {
   startOfMonth,
   endOfMonth,
   getDay,
+  parseISO,
+  isSameDay,
 } from "date-fns";
 import Button from "components/ui/Button";
 import {
@@ -22,6 +24,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   DotsHorizontalIcon,
+  ClockIcon,
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { eachDayOfInterval } from "date-fns";
@@ -34,6 +37,16 @@ const meetings = [
     startTime: "2022-05-25T14:00",
     endTime: "2022-05-25T16:30",
     name: "Leslie Alexander",
+    imageUrl:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    location: "Starbucks",
+  },
+  {
+    id: 2,
+    date: "May 27, 2022",
+    startTime: "2022-05-27T07:00",
+    endTime: "2022-05-27T09:30",
+    name: "Meeting #2",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     location: "Starbucks",
@@ -87,10 +100,27 @@ export default function Calendar() {
     setCurrentMonth(format(firstDayLasttMonth, "MMM-yyyy-dd"));
   }
 
+  function changeToWeek() {
+    let firstDayCurrentMonth = new Date(currentMonth);
+    setCurrentWeek(format(firstDayCurrentMonth, "MMM-yyyy-dd"));
+    setCurrentView("week");
+  }
+
+  function changeToMonth() {
+    let firstDayCurrentWeek = new Date(monthOfCurrentWeek);
+    setCurrentMonth(format(firstDayCurrentWeek, "MMM-yyyy-dd"));
+    setCurrentView("month");
+  }
+
   function moveToDay() {
     setSelectedDay(today);
     setCurrentWeek(format(today, "MMM-yyyy-dd"));
+    setCurrentMonth(format(today, "MMM-yyyy-dd"));
   }
+
+  let selectedDayMeetings = meetings.filter((meeting) =>
+    isSameDay(parseISO(meeting.startTime), selectedDay)
+  );
 
   useEffect(() => {
     // Set the container scroll position based on the current time.
@@ -166,7 +196,7 @@ export default function Calendar() {
           <div className="hidden md:ml-4 md:flex md:items-center">
             <Menu as="div" className="relative">
               <Menu.Button
-                onClick={() => setCurrentView("week")}
+                onClick={changeToWeek}
                 type="button"
                 className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
               >
@@ -206,7 +236,7 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          onClick={() => setCurrentView("week")}
+                          onClick={changeToWeek}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -221,7 +251,7 @@ export default function Calendar() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          onClick={() => setCurrentView("month")}
+                          onClick={changeToMonth}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -321,7 +351,7 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        onClick={() => setCurrentView("week")}
+                        onClick={changeToWeek}
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -336,7 +366,7 @@ export default function Calendar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        onClick={() => setCurrentView("month")}
+                        onClick={changeToMonth}
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -781,7 +811,7 @@ export default function Calendar() {
             </div>
           </div>
           <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-            <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
+            <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
               {newMonthDays.map((day, dayIdx) => (
                 <div
                   key={day.toString()}
@@ -806,7 +836,7 @@ export default function Calendar() {
                 </div>
               ))}
             </div>
-            <div className="isolate grid w-full grid-cols-7 grid-rows-5 gap-px lg:hidden">
+            <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
               {newMonthDays.map((day, dayIdx) => (
                 <button
                   key={day.toString()}
@@ -848,10 +878,55 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
+                  {meetings.some((meeting) =>
+                    isSameDay(parseISO(meeting.startTime), day)
+                  ) && (
+                    <div className="w-1 h-1 rounded-full bg-sky-500 mt-1 mx-auto"></div>
+                  )}
                 </button>
               ))}
             </div>
           </div>
+          {meetings.length > 0 && (
+            <div className="py-10 px-4 sm:px-6 lg:hidden">
+              <ol className="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow ring-1 ring-black ring-opacity-5">
+                {selectedDayMeetings.length > 0 ? (
+                  selectedDayMeetings.map((meeting) => (
+                    <li
+                      key={meeting.name}
+                      className="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50"
+                    >
+                      <div className="flex-auto">
+                        <p className="font-semibold text-gray-900">
+                          {meeting.name}
+                        </p>
+                        <time
+                          dateTime={meeting.startTime}
+                          className="mt-2 flex items-center text-gray-700"
+                        >
+                          <ClockIcon
+                            className="mr-2 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          {format(new Date(meeting.startTime), "hh:mm a")}
+                          {""}-{""}
+                          {format(new Date(meeting.endTime), "hh:mm a")}
+                        </time>
+                      </div>
+                      <a
+                        href="#"
+                        className="ml-6 flex-none self-center rounded-md border border-gray-300 bg-white py-2 px-3 font-semibold text-gray-700 opacity-0 shadow-sm hover:bg-gray-50 focus:opacity-100 group-hover:opacity-100"
+                      >
+                        Edit<span className="sr-only">, {meeting.name}</span>
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <p> No meetings for today. </p>
+                )}
+              </ol>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -859,7 +934,7 @@ export default function Calendar() {
 }
 
 let colStartClasses = [
-  "",
+  "col-start-7",
   "col-start-1",
   "col-start-2",
   "col-start-3",
