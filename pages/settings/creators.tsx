@@ -7,10 +7,21 @@ import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
+const tabs = [
+  { name: "General", href: "/settings", current: false },
+  { name: "Creators", href: "/settings/creators", current: true },
+  { name: "Notifications", href: "#", current: false },
+  { name: "Plan", href: "#", current: false },
+  { name: "Billing", href: "#", current: false },
+  { name: "Team Members", href: "#", current: false },
+];
+
 const SettingsPage = () => {
   const router = useRouter();
   const { CSVReader } = useCSVReader();
   const [emails, setEmails] = useState("");
+  const [fileDisplay, setFileDisplay] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { status, data: session } = useSession({
     required: true,
@@ -18,12 +29,9 @@ const SettingsPage = () => {
       router.push("/sign-in", "/sign-in", {});
     },
   });
-
   const { data: whitelistData, error } = useSWR("/api/whitelist", fetcher);
-
   if (error) return <div>Failed to load</div>;
   if (!whitelistData) return <div>Loading...</div>;
-  console.log(whitelistData);
 
   const uploadPhoto = async (e) => {
     const file = e.target.files[0];
@@ -66,15 +74,6 @@ const SettingsPage = () => {
     }
   };
 
-  const tabs = [
-    { name: "General", href: "/settings", current: false },
-    { name: "Creators", href: "/settings/creators", current: true },
-    { name: "Notifications", href: "#", current: false },
-    { name: "Plan", href: "#", current: false },
-    { name: "Billing", href: "#", current: false },
-    { name: "Team Members", href: "#", current: false },
-  ];
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -103,6 +102,7 @@ const SettingsPage = () => {
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await fetch(
         `http://localhost:3000/api/whitelist/create`,
@@ -113,9 +113,10 @@ const SettingsPage = () => {
         }
       );
       const data = await response.json().then(reloadSession);
-      Router.push("/");
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   };
 
@@ -124,22 +125,7 @@ const SettingsPage = () => {
       <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form onSubmit={submitData}>
           <div className="space-y-6">
-            <div className="lg:hidden">
-              <label htmlFor="selected-tab" className="sr-only">
-                Select a tab
-              </label>
-              <select
-                id="selected-tab"
-                name="selected-tab"
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
-                defaultValue={tabs.find((tab) => tab.current).name}
-              >
-                {tabs.map((tab) => (
-                  <option key={tab.name}>{tab.name}</option>
-                ))}
-              </select>
-            </div>
-            <div className="hidden lg:block">
+            <div className="block max-w-full overflow-auto">
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-8">
                   {tabs.map((tab) => (
@@ -148,7 +134,7 @@ const SettingsPage = () => {
                       href={tab.href}
                       className={classNames(
                         tab.current
-                          ? "border-purple-500 text-purple-600"
+                          ? "border-indigo-500 text-indigo-600"
                           : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
                         "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                       )}
@@ -176,41 +162,98 @@ const SettingsPage = () => {
               >
                 Email Whitelist
               </label>
-              <CSVReader
-                config={config}
-                onUploadAccepted={(results: any) => {
-                  createCSV(results);
-                }}
-              >
-                {({
-                  getRootProps,
-                  acceptedFile,
-                  ProgressBar,
-                  getRemoveFileProps,
-                }: any) => (
-                  <>
-                    <div className="flex flex-row mb-2.5">
-                      <button
-                        type="button"
+
+              {/* Start of drag and drop */}
+              <div className="mt-2">
+                <CSVReader
+                  config={config}
+                  onUploadAccepted={(results: any) => {
+                    setFileDisplay(true);
+                    createCSV(results);
+                  }}
+                >
+                  {({
+                    getRootProps,
+                    acceptedFile,
+                    ProgressBar,
+                    getRemoveFileProps,
+                  }: any) => (
+                    <>
+                      <div
                         {...getRootProps()}
-                        className="w-1/5"
+                        className="max-w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer"
                       >
-                        Browse file
-                      </button>
-                      <div className="border border-gray-50 h-10 leading-[2.5] pl-2.5 w-4/5">
-                        {acceptedFile && acceptedFile.name}
+                        <div className="space-y-1 text-center">
+                          <svg
+                            className="mx-auto h-12 w-12 text-gray-400"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 48 48"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <div className="flex text-sm text-gray-600">
+                            <label
+                              htmlFor="file-upload"
+                              className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                            >
+                              <span>Upload a file</span>
+                            </label>
+                            <p className="pl-1">or drag and drop</p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, GIF up to 10MB
+                          </p>
+                        </div>
                       </div>
-                      <button
-                        {...getRemoveFileProps()}
-                        className="rounded-sm px-5 py-0"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    <ProgressBar className="bg-red-400" />
-                  </>
-                )}
-              </CSVReader>
+                      {fileDisplay && (
+                        <>
+                          <div className="flex items-center justify-between mt-2">
+                            <div className="flex items-center space-x-2 text-gray-500">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+                                />
+                              </svg>
+                              <div className="text-gray-700">
+                                {acceptedFile && acceptedFile.name}
+                              </div>
+                            </div>
+                            <div
+                              {...getRemoveFileProps()}
+                              className="cursor-pointer hover:text-gray-900 text-gray-700 text-sm font-medium"
+                            >
+                              Remove file
+                            </div>
+                          </div>
+                          <ProgressBar />
+                        </>
+                      )}
+                    </>
+                  )}
+                </CSVReader>
+              </div>
+              {/* End of drag and drop */}
             </div>
             <div className="flex justify-end">
               <button
@@ -220,12 +263,41 @@ const SettingsPage = () => {
                 Cancel
               </button>
 
-              <button
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Update
-              </button>
+              {isLoading ? (
+                <button
+                  type="button"
+                  className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed"
+                >
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Processing...
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150"
+                >
+                  Upload user list
+                </button>
+              )}
             </div>
           </div>
         </form>
