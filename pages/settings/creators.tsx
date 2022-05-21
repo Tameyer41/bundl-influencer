@@ -2,9 +2,28 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Router from "next/router";
+import { useCSVReader } from "react-papaparse";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const SettingsPage = () => {
   const router = useRouter();
+  const { CSVReader } = useCSVReader();
+  const [emails, setEmails] = useState("");
+
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+
+  const { data: whitelistData, error } = useSWR("/api/whitelist", fetcher);
+
+  if (error) return <div>Failed to load</div>;
+  if (!whitelistData) return <div>Loading...</div>;
+  console.log(whitelistData);
 
   const uploadPhoto = async (e) => {
     const file = e.target.files[0];
@@ -47,13 +66,6 @@ const SettingsPage = () => {
     }
   };
 
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
-
   const tabs = [
     { name: "General", href: "/settings", current: false },
     { name: "Creators", href: "/settings/creators", current: true },
@@ -76,10 +88,41 @@ const SettingsPage = () => {
     return "Loading or not authenticated...";
   }
 
+  function createCSV(results) {
+    setEmails(results.data);
+  }
+
+  const config = {
+    delimiter: ",",
+    header: true,
+    dynamicTyping: true,
+    transformHeader: function (h) {
+      return h.toLowerCase();
+    },
+  };
+
+  const submitData = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/whitelist/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emails),
+        }
+      );
+      const data = await response.json().then(reloadSession);
+      Router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
-        <form>
+        <form onSubmit={submitData}>
           <div className="space-y-6">
             <div className="lg:hidden">
               <label htmlFor="selected-tab" className="sr-only">
@@ -131,8 +174,43 @@ const SettingsPage = () => {
                 htmlFor="project-name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Whitelist
+                Email Whitelist
               </label>
+              <CSVReader
+                config={config}
+                onUploadAccepted={(results: any) => {
+                  createCSV(results);
+                }}
+              >
+                {({
+                  getRootProps,
+                  acceptedFile,
+                  ProgressBar,
+                  getRemoveFileProps,
+                }: any) => (
+                  <>
+                    <div className="flex flex-row mb-2.5">
+                      <button
+                        type="button"
+                        {...getRootProps()}
+                        className="w-1/5"
+                      >
+                        Browse file
+                      </button>
+                      <div className="border border-gray-50 h-10 leading-[2.5] pl-2.5 w-4/5">
+                        {acceptedFile && acceptedFile.name}
+                      </div>
+                      <button
+                        {...getRemoveFileProps()}
+                        className="rounded-sm px-5 py-0"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <ProgressBar className="bg-red-400" />
+                  </>
+                )}
+              </CSVReader>
             </div>
             <div className="flex justify-end">
               <button
@@ -151,6 +229,21 @@ const SettingsPage = () => {
             </div>
           </div>
         </form>
+        <div className="mt-6">
+          <h2 className="text-sm font-medium text-gray-700">
+            {" "}
+            Full Email Whitelist{" "}
+          </h2>
+          <ul>
+            {whitelistData.whitelist.map((user) => (
+              <li key={user.id}>
+                <p className="text-sm font-normal text-gray-500">
+                  {user.email}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </main>
     </>
   );

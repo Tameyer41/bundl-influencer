@@ -10,7 +10,7 @@ export default async function handle(req, res) {
     return;
   }
 
-  const { email } = req.body;
+  const { emails } = req.body;
 
   const session = await getSession({ req });
 
@@ -23,11 +23,15 @@ export default async function handle(req, res) {
     res.status(401).send({ message: "Unauthorized" });
     return;
   }
+  const listOfNames = req.body.map((data) => data.email);
 
-  const result = await prisma.whitelist.create({
-    data: {
+  const createWhitelist = await prisma.whitelist.createMany({
+    data: listOfNames.map((email) => ({
       email: email,
-    },
+    })),
   });
-  res.json(result);
+
+  res.json(createWhitelist);
+
+  console.log(JSON.stringify(createWhitelist));
 }

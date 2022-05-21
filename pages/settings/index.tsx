@@ -44,7 +44,7 @@ const SettingsPage = () => {
           },
           body: JSON.stringify(photo_data),
         }).then(reloadSession);
-        Router.push("/projects");
+        Router.push("/");
       } catch (error) {
         console.error(error);
       }
