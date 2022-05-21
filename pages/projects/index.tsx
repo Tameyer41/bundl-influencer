@@ -53,8 +53,8 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="h-screen grid place-items-center">
-      <div className="w-[430px] space-y-4 rounded-lg p-6 bg-white">
+    <div className="h-[90vh] grid place-items-center">
+      <div className="md:w-[430px] space-y-4 rounded-lg p-6 bg-white">
         <div className="flex justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"

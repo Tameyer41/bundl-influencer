@@ -83,13 +83,13 @@ const AdminHome: NextPage<{
         <div className="flex flex-col">
           <main className="flex-1">
             {/* Page title & actions */}
-            <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div className="border-b border-gray-200 px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8">
               <div className="flex-1 min-w-0">
                 <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
                   Home
                 </h1>
               </div>
-              <div className="mt-4 flex sm:mt-0 sm:ml-4">
+              <div className="flex">
                 <Modal />
               </div>
             </div>
@@ -216,30 +216,26 @@ const AdminHome: NextPage<{
               >
                 {data.map((project) => (
                   <li key={project.id}>
-                    <a
-                      href="#"
-                      className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6"
-                    >
-                      <span className="flex items-center truncate space-x-3">
-                        <span
-                          className={classNames(
-                            project.bgColorClass,
-                            "w-2.5 h-2.5 flex-shrink-0 rounded-full"
-                          )}
-                          aria-hidden="true"
-                        />
-                        <span className="font-medium truncate text-sm leading-6">
-                          {project.title}{" "}
-                          <span className="truncate font-normal text-gray-500">
-                            in {project.team}
+                    <Link href={`/projects/${project.id}`}>
+                      <a className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
+                        <span className="flex items-center truncate space-x-3">
+                          <span
+                            className="w-2.5 h-2.5 flex-shrink-0 rounded-full"
+                            aria-hidden="true"
+                          />
+                          <span className="font-medium truncate text-sm leading-6 text-gray-900">
+                            {project.name}{" "}
+                            <span className="truncate font-normal text-gray-500">
+                              in Projects
+                            </span>
                           </span>
                         </span>
-                      </span>
-                      <ChevronRightIcon
-                        className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                    </a>
+                        <ChevronRightIcon
+                          className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

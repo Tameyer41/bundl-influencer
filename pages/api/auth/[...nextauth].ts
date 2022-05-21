@@ -5,8 +5,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { verifyPassword, hashPassword } from "@lib/auth/passwords";
 import { Session } from "@lib/auth/session";
-import prisma from "@db/index";
-
+import prisma from "@lib/prisma";
+import { redirect } from "next/dist/server/api-utils";
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
@@ -16,7 +16,7 @@ export default NextAuth({
   pages: {
     signIn: "/sign-in",
     // signOut: "/auth/logout",
-    // error: "/auth/error", // Error code passed in query string as ?error=
+    error: "/sign-in", // Error code passed in query string as ?error=
   },
   providers: [
     GoogleProvider({

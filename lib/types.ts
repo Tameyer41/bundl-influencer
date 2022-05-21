@@ -6,7 +6,7 @@ export type AuthenticatedPage = {
   redirectTo?: string; // redirect to this url
 };
 export type ExtendedPageProps = {
-  requiresAuth?: boolean
+  requiresAuth?: boolean;
   auth?: AuthenticatedPage;
   layout?: Component;
 };
@@ -14,3 +14,11 @@ export type ExtendedPageProps = {
 export type ExtendedAppProps = AppProps & {
   Component: ExtendedPageProps;
 };
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      prisma: any;
+    }
+  }
+}

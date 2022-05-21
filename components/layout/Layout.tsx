@@ -118,10 +118,11 @@ export default function Layout(props) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.url}>
                         <div
+                          onClick={() => setSidebarOpen(false)}
                           className={
                             router.pathname.replace("/[id]", "") == item.url
-                              ? "mx-[8px] mb-[2px] px-[8px] h-[30px] bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                              : "mx-[8px] mb-[2px] px-[8px] h-[30px] hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                           }
                         >
                           <p className="text-[18px] pr-[12px]">{item.icon}</p>

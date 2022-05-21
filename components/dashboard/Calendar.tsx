@@ -282,7 +282,7 @@ export default function Calendar() {
               </Transition>
             </Menu>
             <div className="ml-6 h-6 w-px bg-gray-300" />
-            <Button text="Add an event" />
+            <Button text="Add event" />
           </div>
           <Menu as="div" className="relative ml-6 md:hidden">
             <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
@@ -816,7 +816,7 @@ export default function Calendar() {
                 <div
                   key={day.toString()}
                   className={classNames(
-                    dayIdx === 0 && "col-start-4",
+                    dayIdx === 0 && colStartClasses[getDay(day)],
                     isSameMonth(day, today)
                       ? "bg-white"
                       : "bg-gray-50 text-gray-500",
