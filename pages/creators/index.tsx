@@ -1,14 +1,16 @@
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
+import { useState } from "react";
+import { filter } from "lodash";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function CreatorsPage() {
   const { data, error } = useSWR("/api/users/creators", fetcher);
   const { data: session, status } = useSession();
+  const [query, setQuery] = useState("");
 
   if (!session) {
     return <p>You are not authenticated</p>;
@@ -20,7 +22,14 @@ export default function CreatorsPage() {
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
-  console.log(data);
+  const filteredUsers =
+    query === ""
+      ? data
+      : data.filter((data) => {
+          return data.name
+            ? data.name.toLowerCase().includes(query.toLowerCase())
+            : null;
+        });
 
   return (
     <>
@@ -49,10 +58,18 @@ export default function CreatorsPage() {
               </div>
             </div>
             {/* Pinned projects */}
-            <div className="px-4 mt-6 sm:px-6 lg:px-8">
+            <div className="px-4 mt-6 sm:px-6 lg:px-8 flex items-center justify-between">
               <h2 className="text-gray-500 text-sm font-normal">
-                {data.length} creators
+                {filteredUsers.length} creators
               </h2>
+              <input
+                type="text"
+                name="search"
+                id="search"
+                onChange={(event) => setQuery(event.target.value)}
+                className="px-4 py-2  focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-200 rounded-md mr-4 w-80"
+                placeholder="Search for users"
+              />
             </div>
           </main>
         </div>
@@ -60,7 +77,7 @@ export default function CreatorsPage() {
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 divide-x">
-            {data.map(function (d, idx) {
+            {filteredUsers.map(function (d, idx) {
               return <Card user={d} key={d.id} />;
             })}
           </div>

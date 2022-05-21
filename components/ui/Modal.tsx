@@ -214,7 +214,8 @@ export default function Modal() {
                           type="text"
                           name="project-name"
                           id="project-name"
-                          className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
+                          placeholder="Project name"
+                          className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
                         />
                       </div>
                     </div>
@@ -275,8 +276,9 @@ export default function Modal() {
                           value={description}
                           id="project-description"
                           name="project-description"
+                          placeholder="Project description"
                           rows={3}
-                          className="block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                     </div>
