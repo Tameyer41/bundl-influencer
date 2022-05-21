@@ -69,6 +69,18 @@ model InstagramAccount {
   users     User[]
 }
 
+model Event {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  startTime DateTime
+  endTime   DateTime
+  location  String?
+  note      String?
+  name      String
+  date      DateTime
+}
+
 model Project {
   id          String        @id @default(cuid())
   createdAt   DateTime      @default(now())

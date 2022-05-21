@@ -206,6 +206,50 @@ const SettingsPage = () => {
                             </div>
                           </div>
                           <ProgressBar />
+                          <div className="flex justify-end mt-4">
+                            <button
+                              type="button"
+                              className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 mr-4"
+                            >
+                              Cancel
+                            </button>
+
+                            {isLoading ? (
+                              <button
+                                type="button"
+                                className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed"
+                              >
+                                <svg
+                                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                  ></circle>
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                  ></path>
+                                </svg>
+                                Processing...
+                              </button>
+                            ) : (
+                              <button
+                                type="submit"
+                                className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150"
+                              >
+                                Upload user list
+                              </button>
+                            )}
+                          </div>
                         </>
                       )}
                     </>
@@ -214,66 +258,26 @@ const SettingsPage = () => {
               </div>
               {/* End of drag and drop */}
             </div>
-            <div className="flex justify-end">
-              <button
-                type="button"
-                className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 mr-4"
-              >
-                Cancel
-              </button>
-
-              {isLoading ? (
-                <button
-                  type="button"
-                  className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed"
-                >
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Processing...
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150"
-                >
-                  Upload user list
-                </button>
-              )}
-            </div>
           </div>
         </form>
         <div className="mt-6">
-          <h2 className="text-sm font-medium text-gray-700">
-            {" "}
-            Full Email Whitelist{" "}
-          </h2>
-          <ul>
-            {whitelistData.whitelist.map((user) => (
-              <li key={user.id}>
-                <p className="text-sm font-normal text-gray-500">
-                  {user.email}
-                </p>
-              </li>
-            ))}
-          </ul>
+          {whitelistData && (
+            <>
+              <h2 className="text-sm font-medium text-gray-700">
+                {" "}
+                Full Email Whitelist{" "}
+              </h2>
+              <ul>
+                {whitelistData.whitelist.map((user) => (
+                  <li key={user.id}>
+                    <p className="text-sm font-normal text-gray-500">
+                      {user.email}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </main>
     </>

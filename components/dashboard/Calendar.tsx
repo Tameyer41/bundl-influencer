@@ -29,11 +29,16 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
+import EventModal from "components/ui/EventModal";
+import useSWR from "swr";
+
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 const meetings = [
   {
     id: 1,
-    date: "May 25, 2022",
+    date: "2022-05-25T00:00",
     startTime: "2022-05-25T14:00",
     endTime: "2022-05-25T16:30",
     name: "Leslie Alexander",
@@ -62,6 +67,19 @@ export default function Calendar() {
   const container = useRef(null);
   const containerNav = useRef(null);
   const containerOffset = useRef(null);
+
+  // useEffect(() => {
+  //   // Set the container scroll position based on the current time.
+  //   const currentMinute = new Date().getHours() * 60;
+  //   container.current.scrollTop =
+  //     ((container.current.scrollHeight -
+  //       containerNav.current.offsetHeight -
+  //       containerOffset.current.offsetHeight) *
+  //       currentMinute) /
+  //     1440;
+  // }, []);
+
+  const { data, error } = useSWR("/api/events", fetcher);
 
   let today = startOfToday();
   let [currentView, setCurrentView] = useState("week");
@@ -115,21 +133,12 @@ export default function Calendar() {
     setCurrentWeek(format(today, "MMM-yyyy-dd"));
     setCurrentMonth(format(today, "MMM-yyyy-dd"));
   }
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
+  let selectedDayMeetings = data.filter((meeting) =>
     isSameDay(parseISO(meeting.startTime), selectedDay)
   );
-
-  useEffect(() => {
-    // Set the container scroll position based on the current time.
-    const currentMinute = new Date().getHours() * 60;
-    container.current.scrollTop =
-      ((container.current.scrollHeight -
-        containerNav.current.offsetHeight -
-        containerOffset.current.offsetHeight) *
-        currentMinute) /
-      1440;
-  }, []);
 
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
@@ -279,7 +288,7 @@ export default function Calendar() {
               </Transition>
             </Menu>
             <div className="ml-6 h-6 w-px bg-gray-300" />
-            <Button text="Add event" />
+            <EventModal />
           </div>
           <Menu as="div" className="relative ml-6 md:hidden">
             <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
@@ -640,7 +649,7 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
-                  {meetings.map((meeting) => (
+                  {data.map((meeting) => (
                     <li
                       key={meeting.name}
                       className={classNames(
@@ -715,7 +724,7 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
-                  {meetings.map((meeting) => (
+                  {data.map((meeting) => (
                     <li
                       key={meeting.name}
                       className={classNames(
@@ -830,6 +839,25 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
+                  {meetings.some((meeting) =>
+                    isSameDay(parseISO(meeting.startTime), day)
+                  ) && (
+                    <ol className="w-full truncate">
+                      {meetings
+                        .filter((meeting) =>
+                          isSameDay(parseISO(meeting.startTime), day)
+                        )
+                        .map((meeting) => (
+                          <li key={meeting.name}>
+                            <a className="group flex">
+                              <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
+                                {meeting.name}
+                              </p>
+                            </a>
+                          </li>
+                        ))}
+                    </ol>
+                  )}
                 </div>
               ))}
             </div>
