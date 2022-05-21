@@ -33,47 +33,6 @@ const SettingsPage = () => {
   if (error) return <div>Failed to load</div>;
   if (!whitelistData) return <div>Loading...</div>;
 
-  const uploadPhoto = async (e) => {
-    const file = e.target.files[0];
-    const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/upload-url?file=${filename}`);
-    const { url, fields } = await res.json();
-    const formData = new FormData();
-
-    Object.entries({ ...fields, file }).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    const upload = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-    const updated_file_name = fields.key.replace(/ /g, "+");
-
-    const photo_data = {
-      id: session.user.id,
-      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${filename}`,
-    };
-    if (upload.ok) {
-      try {
-        fetch(`/api/users/${session.user.id}`, {
-          credentials: "include",
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(photo_data),
-        }).then(reloadSession);
-        Router.push("/projects");
-      } catch (error) {
-        console.error(error);
-      }
-      console.log("Uploaded successfully!");
-    } else {
-      console.error("Upload failed.");
-    }
-  };
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }

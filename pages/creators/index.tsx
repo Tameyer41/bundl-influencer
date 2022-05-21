@@ -2,24 +2,25 @@ import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import useSWR from "swr";
 
-import { NextPage, GetStaticProps } from "next";
-import fetch from "node-fetch";
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const UsersPage: NextPage<{
-  users: { name: string; id: string; email: string; role: string }[];
-}> = (props) => {
-  const router = useRouter();
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
+export default function CreatorsPage() {
+  const { data, error } = useSWR("/api/users/creators", fetcher);
+  const { data: session, status } = useSession();
 
-  if (status === "loading") {
-    return "Loading or not authenticated...";
+  if (!session) {
+    return <p>You are not authenticated</p>;
   }
+  if (session.user.role !== "admin") {
+    return <p>You are not authenticated</p>;
+  }
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
+  console.log(data);
 
   return (
     <>
@@ -50,7 +51,7 @@ const UsersPage: NextPage<{
             {/* Pinned projects */}
             <div className="px-4 mt-6 sm:px-6 lg:px-8">
               <h2 className="text-gray-500 text-sm font-normal">
-                {props.users.length} creators
+                {data.length} creators
               </h2>
             </div>
           </main>
@@ -59,7 +60,7 @@ const UsersPage: NextPage<{
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 divide-x">
-            {props.users.map(function (d, idx) {
+            {data.map(function (d, idx) {
               return <Card user={d} key={d.id} />;
             })}
           </div>
@@ -67,20 +68,4 @@ const UsersPage: NextPage<{
       </div>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const users = await fetch(`${process.env.NEXTAUTH_URL}/api/users`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then((response) => response.json());
-
-  return {
-    props: { users },
-    revalidate: 10,
-  };
-};
-
-export default UsersPage;
+}

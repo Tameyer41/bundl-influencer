@@ -2,6 +2,8 @@ import { Fragment, useState, useEffect } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { SearchIcon } from "@heroicons/react/solid";
+import useSWR from "swr";
+
 import {
   DocumentAddIcon,
   FolderAddIcon,
@@ -15,6 +17,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 export default function SearchModal(props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -22,6 +26,9 @@ export default function SearchModal(props) {
 
   const projects = props.navigation;
   const recent = [projects[0], projects[1]];
+
+  const { data, error } = useSWR("/api/users", fetcher);
+
   const quickActions = [
     {
       name: "Add new file...",

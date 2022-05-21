@@ -1,52 +1,8 @@
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Router from "next/router";
 
 const SetupPage = () => {
-  const [name, setName] = useState("");
   const router = useRouter();
-
-  const uploadPhoto = async (e) => {
-    const file = e.target.files[0];
-    const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/upload-url?file=${filename}`);
-    const { url, fields } = await res.json();
-    const formData = new FormData();
-
-    Object.entries({ ...fields, file }).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    const upload = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-    const updated_file_name = fields.key.replace(/ /g, "+");
-
-    const photo_data = {
-      id: session.user.id,
-      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${updated_file_name}`,
-    };
-    if (upload.ok) {
-      try {
-        fetch(`/api/users/${session.user.id}`, {
-          credentials: "include",
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(photo_data),
-        }).then(reloadSession);
-        Router.push("/projects");
-      } catch (error) {
-        console.error(error);
-      }
-      console.log("Uploaded successfully!");
-    } else {
-      console.error("Upload failed.");
-    }
-  };
 
   const { status, data: session } = useSession({
     required: true,
@@ -55,35 +11,8 @@ const SetupPage = () => {
     },
   });
 
-  async function reloadSession() {
-    const event = new Event("visibilitychange");
-    document.dispatchEvent(event);
-  }
-
   if (status === "loading") {
     return "Loading or not authenticated...";
-  }
-
-  const objectWithData = {
-    name: name,
-    id: session.user.id,
-  };
-
-  function updateUser(e) {
-    e.preventDefault();
-    try {
-      fetch(`/api/users/${session.user.id}`, {
-        credentials: "include",
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(objectWithData),
-      }).then(reloadSession);
-      Router.push("/projects");
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   return (

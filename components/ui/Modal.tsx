@@ -1,14 +1,13 @@
 import { Fragment, useState } from "react";
-import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
+import useSWR, { mutate } from "swr";
 import {
   LinkIcon,
   PlusSmIcon,
   QuestionMarkCircleIcon,
   ChevronDownIcon,
 } from "@heroicons/react/solid";
-import Button from "./Button";
-import Router from "next/router";
 
 import { RadioGroup } from "@headlessui/react";
 
@@ -88,11 +87,6 @@ export default function Modal() {
   const [description, setDescription] = useState("");
   const [privacy, setPrivacy] = useState("");
 
-  async function reloadSession() {
-    const event = new Event("visibilitychange");
-    document.dispatchEvent(event);
-  }
-
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
@@ -105,7 +99,8 @@ export default function Modal() {
           body: JSON.stringify(body),
         }
       );
-      const data = await response.json().then(reloadSession);
+      const data = await response.json();
+      await mutate(`/api/projects/feed`);
       setName("");
       setDescription("");
       setPrivacy("");

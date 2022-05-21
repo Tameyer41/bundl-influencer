@@ -1,58 +1,25 @@
 import React from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
-import { Fragment } from "react";
 import Link from "next/link";
-import { Disclosure } from "@headlessui/react";
 import { useState } from "react";
-import InlineEdit from "../../../components/ui/InlineEdit";
 import {
   LightningBoltIcon,
   MailIcon,
   FolderIcon,
   PhotographIcon,
-  ChevronRightIcon,
-  DocumentTextIcon,
-  GlobeIcon,
   PencilIcon,
 } from "@heroicons/react/outline";
-import { Menu, Transition } from "@headlessui/react";
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
 
-export async function getStaticProps({ params }) {
-  // fetch single post detail
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/users/${params.id}`
-  );
-  const user = await response.json();
-  return {
-    props: user,
-    revalidate: 10,
-  };
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const users = await fetch(`${process.env.NEXTAUTH_URL}/api/users`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then((response) => response.json());
-
-  const ids = users.map((user) => user.id);
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const User = (props) => {
+export default function IndividualCreatorsPage() {
   const router = useRouter();
   const tabs = [
     {
@@ -86,19 +53,19 @@ const User = (props) => {
       current: false,
     },
   ];
-  const [value, setValue] = useState();
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
+  let pid = router.query.id;
+  const { data, error } = useSWR(`/api/users/${pid}`, fetcher);
+  const { data: session, status } = useSession();
 
-  if (status === "loading") {
-    return "Loading or not authenticated...";
+  if (!session) {
+    return <p>You are not authenticated</p>;
+  }
+  if (session.user.role !== "admin") {
+    return <p>You are not authenticated</p>;
   }
 
-  let name = props.name;
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
 
   return router.isFallback ? (
     <h1>Loading...</h1>
@@ -113,11 +80,11 @@ const User = (props) => {
           />
           <div className="space-y-1">
             <h3 className="text-2xl leading-6 font-semibold text-gray-900">
-              {props.name ? props.name : "Creator Name"}
+              {data.name ? data.name : "Creator Name"}
             </h3>
             <p className="text-sm font-normal text-gray-500">
               {" "}
-              {props.email ? props.email : "N/A email"}
+              {data.email ? data.email : "N/A email"}
             </p>
           </div>
         </div>
@@ -180,6 +147,4 @@ const User = (props) => {
       </div>
     </div>
   );
-};
-
-export default User;
+}
