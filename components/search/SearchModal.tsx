@@ -17,7 +17,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 export default function SearchModal(props) {
   const router = useRouter();
@@ -127,12 +128,13 @@ export default function SearchModal(props) {
             leaveTo="opacity-0 scale-95"
           >
             <Combobox
+              value={query}
+              onChange={(comboItem: any) => {
+                setOpen(false);
+                router.push(comboItem.url);
+              }}
               as="div"
               className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all"
-              onChange={(item) => {
-                setOpen(false);
-                router.push(item.url);
-              }}
             >
               <div className="relative">
                 <SearchIcon

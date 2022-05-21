@@ -187,24 +187,14 @@ export default NextAuth({
       return token;
     },
     async session({ session, token, user }) {
-      const userRes = await prisma.user.findUnique({
-        where: {
-          id: token.id,
-        },
-      });
-      const sess: Session = {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id as string,
-          role: userRes.role as string,
-          name: userRes.name as string,
-          onboarded: userRes.onboarded as boolean,
-          image: userRes.image as string,
-        },
-      };
-
-      return sess;
+      // Send properties to the client, like an access_token from a provider.
+      session.accessToken = token.accessToken;
+      session.id = token.id;
+      session.role = token.role;
+      session.name = token.name;
+      session.onboarded = token.onboarded;
+      session.image = token.image;
+      return session;
     },
   },
 });

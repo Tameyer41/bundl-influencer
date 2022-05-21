@@ -65,7 +65,8 @@ const pinnedProjects = projects.filter((project) => project.pinned);
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 const AdminHome: NextPage<{
   projects: { name: string; id: string; description: string }[];

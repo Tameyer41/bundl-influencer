@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Router from "next/router";
 import { useCSVReader } from "react-papaparse";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 const tabs = [
   { name: "General", href: "/settings", current: false },

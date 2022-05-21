@@ -18,16 +18,16 @@ const Page = (props) => {
     return "Loading or not authenticated...";
   }
 
-  if (!session.user.onboarded) {
+  if (!session.onboarded) {
     router.push("/setup", "/setup", {});
   }
-  if (session.user.role !== "admin") {
+  if (session.role !== "admin") {
     return <UserHome />;
   }
 
   return (
     <>
-      <AdminHome />
+      <AdminHome projects={null} />
     </>
   );
 };

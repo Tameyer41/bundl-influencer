@@ -5,17 +5,20 @@ import useSWR from "swr";
 import { useState } from "react";
 import { filter } from "lodash";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 export default function CreatorsPage() {
   const { data, error } = useSWR("/api/users/creators", fetcher);
   const { data: session, status } = useSession();
   const [query, setQuery] = useState("");
 
+  console.log(session);
+
   if (!session) {
     return <p>You are not authenticated</p>;
   }
-  if (session.user.role !== "admin") {
+  if (session.role !== "admin") {
     return <p>You are not authenticated</p>;
   }
 

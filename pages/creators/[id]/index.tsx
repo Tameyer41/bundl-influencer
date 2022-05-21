@@ -13,7 +13,8 @@ import {
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -60,7 +61,7 @@ export default function IndividualCreatorsPage() {
   if (!session) {
     return <p>You are not authenticated</p>;
   }
-  if (session.user.role !== "admin") {
+  if (session.role !== "admin") {
     return <p>You are not authenticated</p>;
   }
 
