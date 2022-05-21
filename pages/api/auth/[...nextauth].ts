@@ -161,7 +161,16 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      return true;
+      let whitelistJson = await prisma.whitelist.findMany({});
+      let isAllowedToSignIn = JSON.stringify(whitelistJson).includes(user.email)
+        ? "true"
+        : "false";
+      if (isAllowedToSignIn === "true") {
+        return true;
+      } else {
+        console.log("falsito");
+        return false;
+      }
     },
     async redirect({ url, baseUrl }) {
       return url.startsWith(baseUrl) ? url : baseUrl;

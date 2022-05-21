@@ -3,6 +3,8 @@ import Modal from "components/ui/Modal";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import prisma from "@lib/prisma";
+import { useEffect } from "react";
 
 import {
   CalendarIcon,

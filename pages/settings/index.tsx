@@ -4,8 +4,14 @@ import { useRouter } from "next/router";
 import Router from "next/router";
 
 const SettingsPage = () => {
-  const [name, setName] = useState("");
   const router = useRouter();
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/sign-in", "/sign-in", {});
+    },
+  });
+  const [name, setName] = useState(session.user.name);
 
   const uploadPhoto = async (e) => {
     const file = e.target.files[0];
@@ -48,12 +54,18 @@ const SettingsPage = () => {
     }
   };
 
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
+  const tabs = [
+    { name: "General", href: "#", current: true },
+    { name: "Creators", href: "/settings/creators", current: false },
+    { name: "Notifications", href: "#", current: false },
+    { name: "Plan", href: "#", current: false },
+    { name: "Billing", href: "#", current: false },
+    { name: "Team Members", href: "#", current: false },
+  ];
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
   async function reloadSession() {
     const event = new Event("visibilitychange");
@@ -80,7 +92,7 @@ const SettingsPage = () => {
         },
         body: JSON.stringify(objectWithData),
       }).then(reloadSession);
-      Router.push("/projects");
+      Router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -88,9 +100,44 @@ const SettingsPage = () => {
 
   return (
     <>
-      <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
+      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form onSubmit={updateUser}>
           <div className="space-y-6">
+            <div className="lg:hidden">
+              <label htmlFor="selected-tab" className="sr-only">
+                Select a tab
+              </label>
+              <select
+                id="selected-tab"
+                name="selected-tab"
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
+                defaultValue={tabs.find((tab) => tab.current).name}
+              >
+                {tabs.map((tab) => (
+                  <option key={tab.name}>{tab.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="hidden lg:block">
+              <div className="border-b border-gray-200">
+                <nav className="-mb-px flex space-x-8">
+                  {tabs.map((tab) => (
+                    <a
+                      key={tab.name}
+                      href={tab.href}
+                      className={classNames(
+                        tab.current
+                          ? "border-purple-500 text-purple-600"
+                          : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                        "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                      )}
+                    >
+                      {tab.name}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
             <div>
               <h1 className="text-lg leading-6 font-medium text-gray-900">
                 User Settings

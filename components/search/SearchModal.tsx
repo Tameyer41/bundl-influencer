@@ -68,16 +68,19 @@ export default function SearchModal(props) {
   return (
     <div>
       <div className="px-2">
-        <div className="mt-1 relative flex items-center">
-          <div
+        <div className="block mt-1 relative items-center">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </div>
+          <input
             type="text"
+            onClick={() => setOpen(true)}
+            disabled={open}
             name="search"
             id="search"
-            onClick={() => setOpen(true)}
-            className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-200 rounded-md text-gray-500"
-          >
-            Quick Actions
-          </div>
+            className="pl-10 border-transparent focus:border-gray-200 focus:ring-0 block w-full pr-12 sm:text-sm border-gray-200 rounded-md text-gray-500"
+            placeholder="Quick Actions"
+          />
           <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
             <kbd className="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400">
               ⌘K
