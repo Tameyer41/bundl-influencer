@@ -90,14 +90,12 @@ export default function Calendar() {
   }
 
   function nextMonth() {
-    let firstDayCurrentMonth = new Date(currentMonth);
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy-dd"));
   }
   function previousMonth() {
-    let firstDayCurrentMonth = new Date(currentMonth);
-    let firstDayLasttMonth = sub(firstDayCurrentMonth, { months: 1 });
-    setCurrentMonth(format(firstDayLasttMonth, "MMM-yyyy-dd"));
+    let firstDayPreviousMonth = sub(firstDayCurrentMonth, { months: 1 });
+    setCurrentMonth(format(firstDayPreviousMonth, "MMM-yyyy-dd"));
   }
 
   function changeToWeek() {
@@ -138,8 +136,7 @@ export default function Calendar() {
       <header className="relative z-40 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
         <h1 className="text-lg font-semibold text-gray-900">
           {currentView === "week" && format(monthOfCurrentWeek, "MMM yyyy")}
-          {currentView === "month" &&
-            format(new Date(currentMonth), "MMM yyyy")}
+          {currentView === "month" && format(firstDayCurrentMonth, "MMM yyyy")}
         </h1>
         <div className="flex items-center">
           <div className="flex items-center rounded-md shadow-sm md:items-stretch">

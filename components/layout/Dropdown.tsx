@@ -49,7 +49,7 @@ export default function Dropdown() {
                   Workspace
                 </p>
                 <p className="text-[14px] leading-[18px] font-normal text-[#707070] group-hover:text-[#404040]">
-                  {session.user.name}
+                  {session.name}
                 </p>
               </div>
             </div>

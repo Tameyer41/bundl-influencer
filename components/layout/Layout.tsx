@@ -232,7 +232,7 @@ export default function Layout(props) {
                       >
                         {session.user.name ? session.user.name.charAt(0) : ""}
                       </div>
-                      {session.user.name}
+                      {session.name}
                     </div>
                   </Link>
                 </div>
