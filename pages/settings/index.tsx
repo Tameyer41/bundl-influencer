@@ -31,12 +31,12 @@ const SettingsPage = () => {
     const updated_file_name = fields.key.replace(/ /g, "+");
 
     const photo_data = {
-      id: session.user.id,
+      id: session.id,
       url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${filename}`,
     };
     if (upload.ok) {
       try {
-        fetch(`/api/users/${session.user.id}`, {
+        fetch(`/api/users/${session.id}`, {
           credentials: "include",
           method: "PUT",
           headers: {
