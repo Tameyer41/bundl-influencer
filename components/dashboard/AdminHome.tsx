@@ -6,6 +6,7 @@ import moment from "moment";
 import { NextPage, GetStaticProps } from "next";
 import useSWR from "swr";
 import Image from "next/image";
+import AdminHomeSkeleton from "./Skeletons/AdminHomeSkeleton";
 
 import {
   ClockIcon,
@@ -75,7 +76,7 @@ const AdminHome: NextPage<{
   const { data, error } = useSWR("/api/projects/feed", fetcher);
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <AdminHomeSkeleton />;
 
   return (
     <>
@@ -291,7 +292,7 @@ const AdminHome: NextPage<{
                                   {user.user.image ? (
                                     <Image
                                       src={user.user.image}
-                                      className="flex-shrink-0 rounded-full max-w-none"
+                                      className="flex-shrink-0 rounded-full max-w-none object-cover"
                                       width={24}
                                       height={24}
                                     />

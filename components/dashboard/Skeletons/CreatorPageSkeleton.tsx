@@ -1,40 +1,6 @@
-import Card from "components/ui/Card";
 import Button from "components/ui/Button";
-import { useSession } from "next-auth/react";
-import useSWR from "swr";
-import { useState } from "react";
-import { filter } from "lodash";
-import CreatorPageSkeleton from "../../components/dashboard/Skeletons/CreatorPageSkeleton";
 
-const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
-
-export default function CreatorsPage() {
-  const { data, error } = useSWR("/api/users/creators", fetcher);
-  const { data: session, status } = useSession();
-  const [query, setQuery] = useState("");
-
-  console.log(session);
-
-  if (!session) {
-    return <p>You are not authenticated</p>;
-  }
-  if (session.role !== "admin") {
-    return <p>You are not authenticated</p>;
-  }
-
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <CreatorPageSkeleton />;
-
-  const filteredUsers =
-    query === ""
-      ? data
-      : data.filter((data) => {
-          return data.name
-            ? data.name.toLowerCase().includes(query.toLowerCase())
-            : null;
-        });
-
+export default function CreatorPageSkeleton() {
   return (
     <>
       <div className="min-h-full">
@@ -65,13 +31,12 @@ export default function CreatorsPage() {
             <div className="px-4 mt-6 sm:px-6 lg:px-8 ">
               <div className="flex items-center justify-between border-b pb-4">
                 <h2 className="text-gray-500 text-sm font-normal">
-                  {filteredUsers.length} creators
+                  x creators
                 </h2>
                 <input
                   type="text"
                   name="search"
                   id="search"
-                  onChange={(event) => setQuery(event.target.value)}
                   className="px-4 py-2  focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-200 rounded-md mr-4 w-80"
                   placeholder="Search for users"
                 />
@@ -82,11 +47,7 @@ export default function CreatorsPage() {
       </div>
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-            {filteredUsers.map(function (d, idx) {
-              return <Card user={d} key={d.id} />;
-            })}
-          </div>
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"></div>
         </div>
       </div>
     </>

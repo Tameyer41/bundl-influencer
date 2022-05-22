@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useRef } from "react";
 import {
   format,
   startOfToday,
@@ -18,7 +18,6 @@ import {
   parseISO,
   isSameDay,
 } from "date-fns";
-import Button from "components/ui/Button";
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -30,35 +29,6 @@ import { Menu, Transition } from "@headlessui/react";
 import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
 import EventModal from "components/ui/EventModal";
-import useSWR from "swr";
-import CalendarSkeleton from "./Skeletons/CalendarSkeleton";
-
-const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
-
-const meetings = [
-  {
-    id: 1,
-    date: "2022-05-25T00:00",
-    startTime: "2022-05-25T14:00",
-    endTime: "2022-05-25T16:30",
-    name: "Leslie Alexander",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Starbucks",
-  },
-  {
-    id: 2,
-    date: "May 27, 2022",
-    startTime: "2022-05-27T07:00",
-    endTime: "2022-05-27T09:30",
-    name: "Meeting #2",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Starbucks",
-  },
-  // More meetings...
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -68,19 +38,6 @@ export default function Calendar() {
   const container = useRef(null);
   const containerNav = useRef(null);
   const containerOffset = useRef(null);
-
-  // useEffect(() => {
-  //   // Set the container scroll position based on the current time.
-  //   const currentMinute = new Date().getHours() * 60;
-  //   container.current.scrollTop =
-  //     ((container.current.scrollHeight -
-  //       containerNav.current.offsetHeight -
-  //       containerOffset.current.offsetHeight) *
-  //       currentMinute) /
-  //     1440;
-  // }, []);
-
-  const { data, error } = useSWR("/api/events", fetcher);
 
   let today = startOfToday();
   let [currentView, setCurrentView] = useState("week");
@@ -134,12 +91,6 @@ export default function Calendar() {
     setCurrentWeek(format(today, "MMM-yyyy-dd"));
     setCurrentMonth(format(today, "MMM-yyyy-dd"));
   }
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <CalendarSkeleton />;
-
-  let selectedDayMeetings = data.filter((meeting) =>
-    isSameDay(parseISO(meeting.startTime), selectedDay)
-  );
 
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
@@ -641,149 +592,6 @@ export default function Calendar() {
                   ))}
                   <div className="col-start-8 row-span-full w-8" />
                 </div>
-
-                {/* Events mobile */}
-                <ol
-                  className="sm:hidden col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-                  style={{
-                    gridTemplateRows:
-                      "1.75rem repeat(288, minmax(0, 1fr)) auto",
-                  }}
-                >
-                  {selectedDayMeetings.length > 0
-                    ? selectedDayMeetings.map((meeting) => (
-                        <li
-                          key={meeting.name}
-                          className={classNames(
-                            `relative mt-px flex sm:col-start-${
-                              parseInt(format(new Date(meeting.date), "i")) + 1
-                            }`
-                          )}
-                          style={{
-                            gridRow: `${
-                              parseInt(
-                                format(new Date(meeting.startTime), "H")
-                              ) *
-                                12 +
-                              2
-                            } / span ${Math.round(
-                              differenceInMinutes(
-                                new Date(meeting.endTime),
-                                new Date(meeting.startTime)
-                              ) / 5
-                            )}`,
-                          }}
-                        >
-                          <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
-                            <p className="order-1 font-semibold text-blue-700">
-                              {meeting.name}
-                            </p>
-                            <p className="text-blue-500 group-hover:text-blue-700">
-                              <time dateTime={`${new Date(meeting.startTime)}`}>
-                                {format(new Date(meeting.startTime), "p")}
-                              </time>
-                            </p>
-                          </a>
-                        </li>
-                      ))
-                    : ""}
-                  <li
-                    className="relative mt-px flex sm:col-start-3"
-                    style={{ gridRow: "92 / span 30" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
-                      <p className="order-1 font-semibold text-pink-700">
-                        Flight to Paris
-                      </p>
-                      <p className="text-pink-500 group-hover:text-pink-700">
-                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                  <li
-                    className="relative mt-px hidden sm:col-start-6 sm:flex"
-                    style={{ gridRow: "122 / span 24" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
-                      <p className="order-1 font-semibold text-gray-700">
-                        Meeting with design team at Disney
-                      </p>
-                      <p className="text-gray-500 group-hover:text-gray-700">
-                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                </ol>
-                {/* Events sm breakpoints and up */}
-                <ol
-                  className="hidden col-start-1 col-end-2 row-start-1 sm:grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-                  style={{
-                    gridTemplateRows:
-                      "1.75rem repeat(288, minmax(0, 1fr)) auto",
-                  }}
-                >
-                  {data.map((meeting) => (
-                    <li
-                      key={meeting.name}
-                      className={classNames(
-                        getWeek(new Date(meeting.date)) !=
-                          getWeek(new Date(currentWeek)) && `hidden`,
-                        `relative mt-px flex col-start-${
-                          parseInt(format(new Date(meeting.date), "i")) + 1
-                        }`
-                      )}
-                      style={{
-                        gridRow: `${
-                          parseInt(format(new Date(meeting.startTime), "H")) *
-                            12 +
-                          2
-                        } / span ${Math.round(
-                          differenceInMinutes(
-                            new Date(meeting.endTime),
-                            new Date(meeting.startTime)
-                          ) / 5
-                        )}`,
-                      }}
-                    >
-                      <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
-                        <p className="order-1 font-semibold text-blue-700">
-                          {meeting.name}
-                        </p>
-                        <p className="text-blue-500 group-hover:text-blue-700">
-                          <time dateTime={`${new Date(meeting.startTime)}`}>
-                            {format(new Date(meeting.startTime), "p")}
-                          </time>
-                        </p>
-                      </a>
-                    </li>
-                  ))}
-                  <li
-                    className="relative mt-px flex sm:col-start-3"
-                    style={{ gridRow: "92 / span 30" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
-                      <p className="order-1 font-semibold text-pink-700">
-                        Flight to Paris
-                      </p>
-                      <p className="text-pink-500 group-hover:text-pink-700">
-                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                  <li
-                    className="relative mt-px hidden sm:col-start-6 sm:flex"
-                    style={{ gridRow: "122 / span 24" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
-                      <p className="order-1 font-semibold text-gray-700">
-                        Meeting with design team at Disney
-                      </p>
-                      <p className="text-gray-500 group-hover:text-gray-700">
-                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                </ol>
               </div>
             </div>
           </div>
@@ -837,25 +645,6 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
-                  {data.some((meeting) =>
-                    isSameDay(parseISO(meeting.startTime), day)
-                  ) && (
-                    <ol className="w-full truncate">
-                      {data
-                        .filter((meeting) =>
-                          isSameDay(parseISO(meeting.startTime), day)
-                        )
-                        .map((meeting) => (
-                          <li key={meeting.name}>
-                            <a className="group flex">
-                              <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                                {meeting.name}
-                              </p>
-                            </a>
-                          </li>
-                        ))}
-                    </ol>
-                  )}
                 </div>
               ))}
             </div>
@@ -901,55 +690,10 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
-                  {data.some((meeting) =>
-                    isSameDay(parseISO(meeting.startTime), day)
-                  ) && (
-                    <div className="w-1 h-1 rounded-full bg-sky-500 mt-1 mx-auto"></div>
-                  )}
                 </button>
               ))}
             </div>
           </div>
-          {data.length > 0 && (
-            <div className="py-10 px-4 sm:px-6 lg:hidden">
-              <ol className="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow ring-1 ring-black ring-opacity-5">
-                {selectedDayMeetings.length > 0 ? (
-                  selectedDayMeetings.map((meeting) => (
-                    <li
-                      key={meeting.name}
-                      className="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50"
-                    >
-                      <div className="flex-auto">
-                        <p className="font-semibold text-gray-900">
-                          {meeting.name}
-                        </p>
-                        <time
-                          dateTime={meeting.startTime}
-                          className="mt-2 flex items-center text-gray-700"
-                        >
-                          <ClockIcon
-                            className="mr-2 h-5 w-5 text-gray-400"
-                            aria-hidden="true"
-                          />
-                          {format(new Date(meeting.startTime), "hh:mm a")}
-                          {""}-{""}
-                          {format(new Date(meeting.endTime), "hh:mm a")}
-                        </time>
-                      </div>
-                      <a
-                        href="#"
-                        className="ml-6 flex-none self-center rounded-md border border-gray-300 bg-white py-2 px-3 font-semibold text-gray-700 opacity-0 shadow-sm hover:bg-gray-50 focus:opacity-100 group-hover:opacity-100"
-                      >
-                        Edit<span className="sr-only">, {meeting.name}</span>
-                      </a>
-                    </li>
-                  ))
-                ) : (
-                  <p> No meetings for today. </p>
-                )}
-              </ol>
-            </div>
-          )}
         </div>
       )}
     </div>

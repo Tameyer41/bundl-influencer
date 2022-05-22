@@ -273,7 +273,9 @@ export default function AdminLayout(props) {
       <footer className="hidden standalone:flex standalone:fixed standalone:w-full standalone:bottom-0 bg-white z-[100] border-t border-gray-200 mt-auto">
         <StandaloneLink
           href="/"
-          className="flex items-center justify-center w-1/4 py-3"
+          className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          activeClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          inactiveClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
         >
           {({ isActive }) =>
             isActive ? (
@@ -286,6 +288,8 @@ export default function AdminLayout(props) {
         <StandaloneLink
           href="/explore"
           className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          activeClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          inactiveClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
         >
           {({ isActive }) =>
             isActive ? (
@@ -298,6 +302,8 @@ export default function AdminLayout(props) {
         <StandaloneLink
           href="/notifications"
           className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          activeClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          inactiveClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
         >
           {({ isActive }) =>
             isActive ? (
@@ -310,6 +316,8 @@ export default function AdminLayout(props) {
         <StandaloneLink
           href="/messages"
           className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          activeClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
+          inactiveClassName="flex items-center justify-center w-1/4 py-3 text-gray-500"
         >
           {({ isActive }) =>
             isActive ? (
