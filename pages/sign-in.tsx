@@ -65,7 +65,7 @@ export default function Page({ csrfToken, providers }) {
                     key={provider}
                     type="button"
                     onClick={() => handleProviderSignIn(provider)}
-                    className="button button__secondary inline-flex space-x-2"
+                    className="inline-flex space-x-2 w-full shadow border border-gray-200 focus:border-[#c3a478] hover:shadow-md text-sm font-medium items-center justify-center px-4 py-2 rounded-md"
                   >
                     <img
                       className="w-6 h-6"
@@ -95,7 +95,7 @@ export default function Page({ csrfToken, providers }) {
                     placeholder="Enter your email address"
                     required
                     {...register("email")}
-                    className="w-full text-sm border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
+                    className="w-full text-base border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
                   />
                 </div>
               </div>
@@ -111,7 +111,7 @@ export default function Page({ csrfToken, providers }) {
                     minLength={12}
                     required
                     {...register("password")}
-                    className="w-full text-sm border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
+                    className="w-full text-base border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
                   />
                 </div>
               </div>

@@ -16,6 +16,9 @@ module.exports = {
           100: "#6D78D6",
         },
       },
+      screens: {
+        standalone: { raw: "(display-mode: standalone)" },
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

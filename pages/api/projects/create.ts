@@ -19,12 +19,12 @@ export default async function handle(req, res) {
     return;
   }
 
-  if (session.user.role !== "admin") {
+  if (session.role !== "admin") {
     res.status(401).send({ message: "Unauthorized" });
     return;
   }
 
-  const ownerId = session.user.id;
+  const ownerId = session.id;
 
   const result = await prisma.project.create({
     data: {
