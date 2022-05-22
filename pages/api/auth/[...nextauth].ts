@@ -60,6 +60,17 @@ export default NextAuth({
               throw new Error("Invalid Credentials");
             }
 
+            // If user is not on whitelist here
+            let whitelistJson = await prisma.whitelist.findMany({});
+            let isAllowedToSignIn = JSON.stringify(whitelistJson).includes(
+              credentials.email
+            )
+              ? "true"
+              : "false";
+            if (isAllowedToSignIn === "false") {
+              throw new Error("Not on waitlist");
+            }
+
             maybeUser = await prisma.user.create({
               data: {
                 email: credentials.email,
