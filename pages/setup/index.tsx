@@ -1,5 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { ChevronRightIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 
 const SetupPage = () => {
   const router = useRouter();
@@ -96,19 +98,31 @@ const SetupPage = () => {
             </div>
             <div className="mx-[24px]">
               <h4 className="dark:text-[#25252d] font-medium text-[14px]">
-                Create your first product
+                Finalize your details
               </h4>
               <p className="text-[#6c6c84] dark:text-dark-grey text-[14px]">
-                Create and preview your products
+                Show off who you really are
               </p>
             </div>
             <div className="ml-auto">
-              <button
-                className="w-[152px] bg-[#7047eb] hover:bg-[#7e59ed] dark:text-[#25252d] inline-flex max-w-full cursor-pointer items-center rounded-[8px] px-[16px] py-[8px] font-medium text-white focus:outline-none"
-                type="button"
-              >
-                <span className="mx-auto">Create Product</span>
-              </button>
+              <Link href="/settings">
+                <div className="flex">
+                  <button
+                    type="button"
+                    className="ml-4 rounded-l border border-transparent bg-[#EED5B0] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                  >
+                    Build your profile
+                  </button>
+                  <div className="-ml-px relative block">
+                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#CEAA75] border border-transparent text-sm font-medium">
+                      <ChevronRightIcon
+                        className="h-5 w-5 text-white"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
           <div className="hover:bg-[#f7f7f8] dark:hover:bg-dark-17 group flex w-full items-center rounded-md p-[24px]">
@@ -129,19 +143,31 @@ const SetupPage = () => {
             </div>
             <div className="mx-[24px]">
               <h4 className="dark:text-[#25252d] font-medium text-[14px]">
-                Get paid
+                View creative campaigns
               </h4>
               <p className="text-[#6c6c84] dark:text-dark-grey text-[14px]">
-                Set up payout details so you can get paid
+                See what EKHO has put together
               </p>
             </div>
             <div className="ml-auto">
-              <button
-                className="w-[152px] bg-[#7047eb] hover:bg-[#7e59ed] dark:text-[#25252d] inline-flex max-w-full cursor-pointer items-center rounded-[8px] px-[16px] py-[8px] font-medium text-white focus:outline-none"
-                type="button"
-              >
-                <span className="mx-auto">Enable Payouts</span>
-              </button>
+              <Link href="/projects">
+                <div className="flex">
+                  <button
+                    type="button"
+                    className="ml-4 rounded-l border border-transparent bg-[#EED5B0] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                  >
+                    View campaigns
+                  </button>
+                  <div className="-ml-px relative block">
+                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#CEAA75] border border-transparent text-sm font-medium">
+                      <ChevronRightIcon
+                        className="h-5 w-5 text-white"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

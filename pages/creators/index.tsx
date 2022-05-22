@@ -53,33 +53,35 @@ export default function CreatorsPage() {
               <div className="mt-4 hidden sm:flex sm:mt-0 sm:ml-4">
                 <button
                   type="button"
-                  className="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0"
+                  className="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0"
                 >
                   Sort
                 </button>
                 <Button text="Invite users" />
               </div>
             </div>
-            {/* Pinned projects */}
-            <div className="px-4 mt-6 sm:px-6 lg:px-8 flex items-center justify-between">
-              <h2 className="text-gray-500 text-sm font-normal">
-                {filteredUsers.length} creators
-              </h2>
-              <input
-                type="text"
-                name="search"
-                id="search"
-                onChange={(event) => setQuery(event.target.value)}
-                className="px-4 py-2  focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-200 rounded-md mr-4 w-80"
-                placeholder="Search for users"
-              />
+            {/* Toolbar */}
+            <div className="px-4 mt-6 sm:px-6 lg:px-8 ">
+              <div className="flex items-center justify-between border-b pb-4">
+                <h2 className="text-gray-500 text-sm font-normal">
+                  {filteredUsers.length} creators
+                </h2>
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  onChange={(event) => setQuery(event.target.value)}
+                  className="px-4 py-2  focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-200 rounded-md mr-4 w-80"
+                  placeholder="Search for users"
+                />
+              </div>
             </div>
           </main>
         </div>
       </div>
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-8 sm:py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 divide-x">
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {filteredUsers.map(function (d, idx) {
               return <Card user={d} key={d.id} />;
             })}

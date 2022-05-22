@@ -120,7 +120,7 @@ export default function Page({ csrfToken, providers }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#deeaff] text-[#2860e1] border border-[#70a4ff] m-[3px] text-sm h-[36px] px-[16px] rounded-[4px]"
+                  className="w-full bg-[#EED5B0] text-[#7E623A] border border-[#c3a478] m-[3px] text-sm h-[36px] px-[16px] rounded-[4px]"
                 >
                   {isSubmitting ? (
                     <div
@@ -131,6 +131,16 @@ export default function Page({ csrfToken, providers }) {
                     <p>Continue with email</p>
                   )}
                 </button>
+              </div>
+              <div className="mt-4 space-y-2">
+                <p className="text-sm font-medium text-gray-700">
+                  Don't have an account? Don't worry
+                </p>
+                <p className="text-sm font-normal text-gray-500">
+                  If you are part of EKHO MGMT, you can sign up with the form
+                  above. An account will be created if it is your first time
+                  signing up.
+                </p>
               </div>
             </form>
           </div>
