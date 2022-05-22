@@ -6,6 +6,13 @@ import SearchModal from "../search/SearchModal";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Dropdown from "./Dropdown";
+import { StandaloneLink } from "components/ui/StandaloneLink";
+import {
+  HomeIcon,
+  SearchIcon,
+  BellIcon,
+  InboxIcon,
+} from "@heroicons/react/outline";
 
 import {
   MenuIcon,
@@ -53,7 +60,7 @@ export default function AdminLayout(props) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-40 md:hidden"
+            className="fixed inset-0 flex z-[101] md:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -263,6 +270,56 @@ export default function AdminLayout(props) {
         )}
         {!session && !loading && <main>{props.props.children}</main>}
       </div>
+      <footer className="hidden standalone:flex standalone:fixed standalone:w-full standalone:bottom-0 bg-white z-[100] border-t border-gray-200 mt-auto">
+        <StandaloneLink
+          href="/"
+          className="flex items-center justify-center w-1/4 py-3"
+        >
+          {({ isActive }) =>
+            isActive ? (
+              <HomeIcon className="p-px text-blue-500 w-7 h-7" />
+            ) : (
+              <HomeIcon className="p-px text-gray-500 w-7 h-7" />
+            )
+          }
+        </StandaloneLink>
+        <StandaloneLink
+          href="/explore"
+          className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+        >
+          {({ isActive }) =>
+            isActive ? (
+              <SearchIcon className="p-px text-blue-500 w-7 h-7" />
+            ) : (
+              <SearchIcon className="p-px text-gray-500 w-7 h-7" />
+            )
+          }
+        </StandaloneLink>
+        <StandaloneLink
+          href="/notifications"
+          className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+        >
+          {({ isActive }) =>
+            isActive ? (
+              <BellIcon className="p-px text-blue-500 w-7 h-7" />
+            ) : (
+              <BellIcon className="p-px text-gray-500 w-7 h-7" />
+            )
+          }
+        </StandaloneLink>
+        <StandaloneLink
+          href="/messages"
+          className="flex items-center justify-center w-1/4 py-3 text-gray-500"
+        >
+          {({ isActive }) =>
+            isActive ? (
+              <InboxIcon className="p-px text-blue-500 w-7 h-7" />
+            ) : (
+              <InboxIcon className="p-px text-gray-500 w-7 h-7" />
+            )
+          }
+        </StandaloneLink>
+      </footer>
     </>
   );
 }

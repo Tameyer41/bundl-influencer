@@ -221,7 +221,7 @@ const AdminHome: NextPage<{
                       <a className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
                         <span className="flex items-center truncate space-x-3">
                           <span
-                            className="w-2.5 h-2.5 flex-shrink-0 rounded-full"
+                            className="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-[#343437]"
                             aria-hidden="true"
                           />
                           <span className="font-medium truncate text-sm leading-6 text-gray-900">

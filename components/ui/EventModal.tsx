@@ -56,11 +56,14 @@ export default function EventModal() {
     e.preventDefault();
     try {
       const body = { name, startTime, endTime, date, location, note };
-      const response = await fetch(`http://localhost:3000/api/events/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/events/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const data = await response.json();
       await mutate(`/api/events`);
       setName("");

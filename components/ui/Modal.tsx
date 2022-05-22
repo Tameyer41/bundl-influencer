@@ -92,7 +92,7 @@ export default function Modal() {
     try {
       const body = { name, description, privacy, selectedColor };
       const response = await fetch(
-        `http://localhost:3000/api/projects/create`,
+        `${process.env.NEXT_PUBLIC_URL}/api/projects/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

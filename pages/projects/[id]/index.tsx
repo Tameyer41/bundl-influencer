@@ -11,7 +11,7 @@ import { DotsVerticalIcon } from "@heroicons/react/solid";
 
 async function destroy(): Promise<void> {
   const { id } = Router.query;
-  await fetch(`http://localhost:3000/api/projects/${id}`, {
+  await fetch(`${process.env.NEXT_PUBLIC_URL}/api/projects/${id}`, {
     method: "DELETE",
   });
   await Router.push("/projects");
