@@ -649,43 +649,43 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
-                  {selectedDayMeetings.length > 0 ? (
-                    selectedDayMeetings.map((meeting) => (
-                      <li
-                        key={meeting.name}
-                        className={classNames(
-                          `relative mt-px flex sm:col-start-${
-                            parseInt(format(new Date(meeting.date), "i")) + 1
-                          }`
-                        )}
-                        style={{
-                          gridRow: `${
-                            parseInt(format(new Date(meeting.startTime), "H")) *
-                              12 +
-                            2
-                          } / span ${Math.round(
-                            differenceInMinutes(
-                              new Date(meeting.endTime),
-                              new Date(meeting.startTime)
-                            ) / 5
-                          )}`,
-                        }}
-                      >
-                        <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
-                          <p className="order-1 font-semibold text-blue-700">
-                            {meeting.name}
-                          </p>
-                          <p className="text-blue-500 group-hover:text-blue-700">
-                            <time dateTime={`${new Date(meeting.startTime)}`}>
-                              {format(new Date(meeting.startTime), "p")}
-                            </time>
-                          </p>
-                        </a>
-                      </li>
-                    ))
-                  ) : (
-                    <p> Nada</p>
-                  )}
+                  {selectedDayMeetings.length > 0
+                    ? selectedDayMeetings.map((meeting) => (
+                        <li
+                          key={meeting.name}
+                          className={classNames(
+                            `relative mt-px flex sm:col-start-${
+                              parseInt(format(new Date(meeting.date), "i")) + 1
+                            }`
+                          )}
+                          style={{
+                            gridRow: `${
+                              parseInt(
+                                format(new Date(meeting.startTime), "H")
+                              ) *
+                                12 +
+                              2
+                            } / span ${Math.round(
+                              differenceInMinutes(
+                                new Date(meeting.endTime),
+                                new Date(meeting.startTime)
+                              ) / 5
+                            )}`,
+                          }}
+                        >
+                          <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
+                            <p className="order-1 font-semibold text-blue-700">
+                              {meeting.name}
+                            </p>
+                            <p className="text-blue-500 group-hover:text-blue-700">
+                              <time dateTime={`${new Date(meeting.startTime)}`}>
+                                {format(new Date(meeting.startTime), "p")}
+                              </time>
+                            </p>
+                          </a>
+                        </li>
+                      ))
+                    : ""}
                   <li
                     className="relative mt-px flex sm:col-start-3"
                     style={{ gridRow: "92 / span 30" }}

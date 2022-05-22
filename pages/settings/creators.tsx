@@ -64,7 +64,7 @@ const SettingsPage = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/whitelist/create`,
+        `${process.env.NEXT_PUBLIC_URL}/api/whitelist/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
