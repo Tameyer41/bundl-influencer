@@ -39,6 +39,7 @@ async function handleGET(projectId, res) {
     },
   });
   res.json({ project, projectUsers });
+  res.statusCode = 200;
 }
 
 // UPDATE /api/project/:id

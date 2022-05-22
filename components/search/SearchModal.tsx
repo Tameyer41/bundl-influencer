@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { SearchIcon } from "@heroicons/react/solid";
-import useSWR from "swr";
 
 import {
   DocumentAddIcon,
@@ -12,13 +11,9 @@ import {
   PlusIcon,
   TagIcon,
 } from "@heroicons/react/outline";
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
-const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
 
 export default function SearchModal(props) {
   const router = useRouter();
@@ -27,8 +22,6 @@ export default function SearchModal(props) {
 
   const projects = props.navigation;
   const recent = [projects[0], projects[1]];
-
-  const { data, error } = useSWR("/api/users", fetcher);
 
   const quickActions = [
     {
