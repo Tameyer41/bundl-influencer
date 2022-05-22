@@ -649,46 +649,43 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
-                  {data.map((meeting) => (
-                    <li
-                      key={meeting.name}
-                      className={classNames(
-                        getWeek(new Date(meeting.date)) ===
-                          getWeek(add(selectedDay, { days: 1 })) &&
+                  {selectedDayMeetings.length > 0 ? (
+                    selectedDayMeetings.map((meeting) => (
+                      <li
+                        key={meeting.name}
+                        className={classNames(
                           `relative mt-px flex sm:col-start-${
                             parseInt(format(new Date(meeting.date), "i")) + 1
-                          }`,
-                        !isEqual(
-                          new Date(meeting.date),
-                          new Date(selectedDay)
-                        ) && `hidden`,
-                        "relative mt-px flex"
-                      )}
-                      style={{
-                        gridRow: `${
-                          parseInt(format(new Date(meeting.startTime), "H")) *
-                            12 +
-                          2
-                        } / span ${Math.round(
-                          differenceInMinutes(
-                            new Date(meeting.endTime),
-                            new Date(meeting.startTime)
-                          ) / 5
-                        )}`,
-                      }}
-                    >
-                      <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
-                        <p className="order-1 font-semibold text-blue-700">
-                          {meeting.name}
-                        </p>
-                        <p className="text-blue-500 group-hover:text-blue-700">
-                          <time dateTime={`${new Date(meeting.startTime)}`}>
-                            {format(new Date(meeting.startTime), "p")}
-                          </time>
-                        </p>
-                      </a>
-                    </li>
-                  ))}
+                          }`
+                        )}
+                        style={{
+                          gridRow: `${
+                            parseInt(format(new Date(meeting.startTime), "H")) *
+                              12 +
+                            2
+                          } / span ${Math.round(
+                            differenceInMinutes(
+                              new Date(meeting.endTime),
+                              new Date(meeting.startTime)
+                            ) / 5
+                          )}`,
+                        }}
+                      >
+                        <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
+                          <p className="order-1 font-semibold text-blue-700">
+                            {meeting.name}
+                          </p>
+                          <p className="text-blue-500 group-hover:text-blue-700">
+                            <time dateTime={`${new Date(meeting.startTime)}`}>
+                              {format(new Date(meeting.startTime), "p")}
+                            </time>
+                          </p>
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    <p> Nada</p>
+                  )}
                   <li
                     className="relative mt-px flex sm:col-start-3"
                     style={{ gridRow: "92 / span 30" }}
@@ -839,11 +836,11 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
-                  {meetings.some((meeting) =>
+                  {data.some((meeting) =>
                     isSameDay(parseISO(meeting.startTime), day)
                   ) && (
                     <ol className="w-full truncate">
-                      {meetings
+                      {data
                         .filter((meeting) =>
                           isSameDay(parseISO(meeting.startTime), day)
                         )
@@ -903,7 +900,7 @@ export default function Calendar() {
                   >
                     {format(day, "d")}
                   </time>
-                  {meetings.some((meeting) =>
+                  {data.some((meeting) =>
                     isSameDay(parseISO(meeting.startTime), day)
                   ) && (
                     <div className="w-1 h-1 rounded-full bg-sky-500 mt-1 mx-auto"></div>
@@ -912,7 +909,7 @@ export default function Calendar() {
               ))}
             </div>
           </div>
-          {meetings.length > 0 && (
+          {data.length > 0 && (
             <div className="py-10 px-4 sm:px-6 lg:hidden">
               <ol className="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow ring-1 ring-black ring-opacity-5">
                 {selectedDayMeetings.length > 0 ? (
