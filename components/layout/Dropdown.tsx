@@ -66,7 +66,7 @@ export default function Dropdown() {
         leaveFrom="transform opacity-100"
         leaveTo="transform opacity-0"
       >
-        <Menu.Items className="pt-2 origin-top-right absolute top-1 left-2.5 w-[300px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-40">
+        <Menu.Items className="pt-2 origin-top-right absolute top-1 left-2.5 w-[300px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-[51]">
           {/* Start */}
           <div className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px]">
             <div className="flex items-center">

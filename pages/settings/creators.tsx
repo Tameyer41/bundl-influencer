@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCSVReader } from "react-papaparse";
 import useSWR from "swr";
+import Link from "next/link";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -88,18 +89,20 @@ const SettingsPage = () => {
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-8">
                   {tabs.map((tab) => (
-                    <a
-                      key={tab.name}
-                      href={tab.href}
-                      className={classNames(
-                        tab.current
-                          ? "border-indigo-500 text-indigo-600"
-                          : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                        "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                      )}
-                    >
-                      {tab.name}
-                    </a>
+                    <Link key={tab.name} href={tab.href}>
+                      <a
+                        key={tab.name}
+                        href={tab.href}
+                        className={classNames(
+                          tab.current
+                            ? "border-indigo-500 text-indigo-600"
+                            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                          "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                        )}
+                      >
+                        {tab.name}
+                      </a>
+                    </Link>
                   ))}
                 </nav>
               </div>

@@ -111,6 +111,13 @@ model Tag {
   projects Project[]
 }
 
+model UserInvitation {
+  id            String   @id @default(cuid())
+  invited_by    String
+  email         String
+  company_name  String
+}
+
 model Whitelist {
   id    String @id @default(cuid())
   email String

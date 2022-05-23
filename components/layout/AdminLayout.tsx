@@ -20,6 +20,7 @@ import {
   LightningBoltIcon,
   XIcon,
 } from "@heroicons/react/outline";
+import InvitationModal from "components/ui/InvitationModal";
 
 const navigation = [
   { name: "Overview", url: "/", icon: "🏠", current: true },
@@ -238,15 +239,7 @@ export default function AdminLayout(props) {
                   </Link>
                 </div>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <div className="w-full text-[#7E623A] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
-                    <div
-                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#EED5B0] text-[#7E623A] rounded-full justify-center"
-                      aria-hidden="true"
-                    >
-                      +
-                    </div>
-                    Invite your team
-                  </div>
+                  <InvitationModal />
                 </div>
               </div>
             </div>
