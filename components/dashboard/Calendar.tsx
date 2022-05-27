@@ -31,7 +31,6 @@ import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
 import EventModal from "components/ui/EventModal";
 import useSWR from "swr";
-import CalendarSkeleton from "./Skeletons/CalendarSkeleton";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -135,7 +134,15 @@ export default function Calendar() {
     setCurrentMonth(format(today, "MMM-yyyy-dd"));
   }
   if (error) return <div>Failed to load</div>;
-  if (!data) return <CalendarSkeleton />;
+  if (!data)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+          role="status"
+        ></div>
+      </div>
+    );
 
   let selectedDayMeetings = data.filter((meeting) =>
     isSameDay(parseISO(meeting.startTime), selectedDay)

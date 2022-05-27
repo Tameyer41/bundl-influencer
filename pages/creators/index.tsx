@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { useState } from "react";
 import { filter } from "lodash";
-import CreatorPageSkeleton from "../../components/dashboard/Skeletons/CreatorPageSkeleton";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -24,7 +23,15 @@ export default function CreatorsPage() {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <CreatorPageSkeleton />;
+  if (!data)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+          role="status"
+        ></div>
+      </div>
+    );
 
   const filteredUsers =
     query === ""

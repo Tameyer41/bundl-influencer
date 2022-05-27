@@ -6,7 +6,6 @@ import moment from "moment";
 import { NextPage, GetStaticProps } from "next";
 import useSWR from "swr";
 import Image from "next/image";
-import AdminHomeSkeleton from "./Skeletons/AdminHomeSkeleton";
 
 import {
   ClockIcon,
@@ -76,7 +75,15 @@ const AdminHome: NextPage<{
   const { data, error } = useSWR("/api/projects/feed", fetcher);
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <AdminHomeSkeleton />;
+  if (!data)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+          role="status"
+        ></div>
+      </div>
+    );
 
   return (
     <>

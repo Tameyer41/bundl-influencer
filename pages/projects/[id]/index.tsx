@@ -35,7 +35,15 @@ const Project = () => {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <p>Loading...</p>;
+  if (!data)
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+          role="status"
+        ></div>
+      </div>
+    );
   const tabs = [
     { name: "Summary", href: "#", current: true },
     { name: "Tasks", href: "#", current: false },

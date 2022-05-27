@@ -50,7 +50,14 @@ function Page() {
   });
 
   if (usersQuery.isLoading) {
-    return <div>loading...</div>;
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+          role="status"
+        ></div>
+      </div>
+    );
   }
 
   return (

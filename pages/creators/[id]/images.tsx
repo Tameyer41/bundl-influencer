@@ -94,7 +94,12 @@ const UserEmail = (props) => {
   let name = props.name;
 
   return router.isFallback ? (
-    <h1>Loading...</h1>
+    <div className="w-full h-screen grid place-items-center">
+      <div
+        className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
+        role="status"
+      ></div>
+    </div>
   ) : (
     <div className="max-w-7xl mx-auto px-8 py-6">
       <div className="pb-5 border-b border-gray-200 sm:pb-0">

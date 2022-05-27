@@ -65,7 +65,7 @@ export default function Page({ csrfToken, providers }) {
                     key={provider}
                     type="button"
                     onClick={() => handleProviderSignIn(provider)}
-                    className="inline-flex space-x-2 w-full shadow border border-gray-200 focus:border-[#c3a478] hover:shadow-md text-sm font-medium items-center justify-center px-4 py-2 rounded-md"
+                    className="inline-flex space-x-2 w-full border border-gray-200 focus:border-[#c3a478] hover:bg-gray-50 text-sm font-medium items-center h-[44px] justify-center px-4 py-2 rounded"
                   >
                     <img
                       className="w-6 h-6"
@@ -95,7 +95,7 @@ export default function Page({ csrfToken, providers }) {
                     placeholder="Enter your email address"
                     required
                     {...register("email")}
-                    className="w-full text-base border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
+                    className="w-full text-base border border-[#e0e0e0] rounded px-[10px] h-[44px] outline-none focus:border-[#635bff] transition duration-150 ease-in-out placeholder:text-gray-400"
                   />
                 </div>
               </div>
@@ -111,7 +111,7 @@ export default function Page({ csrfToken, providers }) {
                     minLength={12}
                     required
                     {...register("password")}
-                    className="w-full text-base border border-[#e0e0e0] rounded-[6px] px-[10px] h-[40px] outline-none focus:border-[#2860e1] transition duration-150 ease-in-out"
+                    className="w-full text-base border border-[#e0e0e0] rounded px-[10px] h-[44px] outline-none focus:border-[#635bff] transition duration-150 ease-in-out placeholder:text-gray-400"
                   />
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function Page({ csrfToken, providers }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#EED5B0] text-[#7E623A] border border-[#c3a478] m-[3px] text-sm h-[36px] px-[16px] rounded-[4px]"
+                  className="w-full bg-[#635bff] disabled:bg-opacity-80 text-white m-[3px] text-base font-medium shadow-sm h-[44px] px-[16px] rounded-[4px]"
                 >
                   {isSubmitting ? (
                     <div
@@ -128,7 +128,7 @@ export default function Page({ csrfToken, providers }) {
                       role="status"
                     ></div>
                   ) : (
-                    <p>Continue with email</p>
+                    <p>Continue</p>
                   )}
                 </button>
               </div>
