@@ -69,10 +69,26 @@ export default function IndividualCreatorsPage() {
   if (!data)
     return (
       <div className="w-full h-screen grid place-items-center">
-        <div
-          className="spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full text-white"
-          role="status"
-        ></div>
+        <svg
+          className="animate-spin h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="text-gray-400 opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth={3}
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
       </div>
     );
 
@@ -103,16 +119,19 @@ export default function IndividualCreatorsPage() {
           </div>
         </div>
         <div className="mt-4 mb-6">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            <svg
-              className="-ml-0.5 mr-1.5 h-2 w-2 text-indigo-400"
-              fill="currentColor"
-              viewBox="0 0 8 8"
-            >
-              <circle cx={4} cy={4} r={3} />
-            </svg>
-            Tag about the user
-          </span>
+          {data.categories &&
+            data.categories.map((category) => (
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                <svg
+                  className="-ml-0.5 mr-1.5 h-2 w-2 text-indigo-400"
+                  fill="currentColor"
+                  viewBox="0 0 8 8"
+                >
+                  <circle cx={4} cy={4} r={3} />
+                </svg>
+                {category}
+              </span>
+            ))}
         </div>
         <div className="mt-3 sm:mt-4">
           <div className="sm:hidden">

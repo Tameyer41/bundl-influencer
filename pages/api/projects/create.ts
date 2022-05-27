@@ -10,7 +10,7 @@ export default async function handle(req, res) {
     return;
   }
 
-  const { name, description, privacy } = req.body;
+  const { name, description, privacy, color } = req.body;
 
   const session = await getSession({ req });
 
@@ -30,6 +30,7 @@ export default async function handle(req, res) {
     data: {
       name: name,
       description: description,
+      color: color,
       private: privacy === "true",
       users: {
         create: {

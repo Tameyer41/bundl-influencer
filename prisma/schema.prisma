@@ -53,12 +53,29 @@ model User {
   role              String?            @default("user")
   accounts          Account[]
   sessions          Session[]
-  projects          ProjectUser[]
+  projects          ProjectsOnUsers[]
   onboarded         Boolean            @default(false)
   location          String?
   phone_number      String?
+  gender            String?
+  date_of_birth     DateTime?
+  categories        Category[]
+  notes             Note[]
   instagramaccounts InstagramAccount[]
 }
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  users    User[]
+}
+
+model Note {
+  id       Int       @id @default(autoincrement())
+  body     String
+  users    User[]
+}
+
 
 model InstagramAccount {
   id        String   @id @default(cuid())
@@ -87,20 +104,21 @@ model Project {
   updatedAt   DateTime      @updatedAt
   name        String?
   description String?
+  color       String?
   private     Boolean       @default(false)
   bookmarked  Boolean       @default(false)
   tags        Tag[]
-  users       ProjectUser[]
+  users       ProjectsOnUsers[]
 }
 
-model ProjectUser {
+model ProjectsOnUsers {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   project   Project  @relation(fields: [projectId], references: [id])
   projectId String
-  role      String?
+  role      String
 
   @@id([projectId, userId])
 }
@@ -147,4 +165,22 @@ model ProjectToTag {
   @@unique([A, B], map: "_ProjectToTag_AB_unique")
   @@index([B], map: "_ProjectToTag_B_index")
   @@map("_ProjectToTag")
+}
+
+model UserToCategory {
+  A String
+  B Int
+
+  @@unique([A, B], map: "_UserToCategory_AB_unique")
+  @@index([B], map: "_UserToCategory_B_index")
+  @@map("_UserToCategory")
+}
+
+model UserToNote {
+  A String
+  B Int
+
+  @@unique([A, B], map: "_UserToNote_AB_unique")
+  @@index([B], map: "_UserToNote_B_index")
+  @@map("_UserToNote")
 }

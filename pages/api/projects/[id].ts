@@ -30,7 +30,7 @@ async function handleGET(projectId, res) {
     },
     where: { id: projectId },
   });
-  const projectUsers = await prisma.projectUser.findMany({
+  const projectsOnUsers = await prisma.projectsOnUsers.findMany({
     include: {
       user: true,
     },
@@ -38,7 +38,7 @@ async function handleGET(projectId, res) {
       projectId: projectId,
     },
   });
-  res.json({ project, projectUsers });
+  res.json({ project, projectsOnUsers });
   res.statusCode = 200;
 }
 

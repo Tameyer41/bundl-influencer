@@ -75,11 +75,12 @@ export default function SearchModal(props) {
           </div>
           <input
             type="text"
+            autoComplete="off"
             onClick={() => setOpen(true)}
             disabled={open}
             name="search"
             id="search"
-            className="pl-10 focus:border-gray-200 focus:ring-0 block w-full pr-12 sm:text-sm border-gray-200 rounded-md text-gray-500"
+            className="cursor-pointer pl-10 focus:border-gray-200 focus:ring-0 block w-full pr-12 sm:text-sm border-gray-200 rounded-md text-gray-500"
             placeholder="Quick Actions"
           />
           <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
