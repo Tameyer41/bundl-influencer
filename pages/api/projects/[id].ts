@@ -29,6 +29,7 @@ async function handleGET(projectId, res: NextApiResponse) {
       id: true,
       color: true,
       private: true,
+      brief: true,
     },
     where: { id: projectId },
   });
@@ -47,13 +48,14 @@ async function handleGET(projectId, res: NextApiResponse) {
 // UPDATE /api/project/:id
 async function handlePUT(req, res) {
   const projectId = req.query.id;
-  const { name, description } = req.body;
+  const { name, description, brief } = req.body;
 
   const updateProject = await prisma.project.update({
     where: { id: `${projectId}` },
     data: {
       name: name,
       description: description,
+      brief: brief,
     },
   });
   res.json(updateProject);

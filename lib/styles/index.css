@@ -54,3 +54,20 @@ blockquote {
 a {
   @apply text-blue-300;
 }
+
+.App-header {
+  @apply bg-[#282c34];
+  @apply h-[5vh];
+  @apply flex;
+  @apply flex-col;
+  @apply justify-center;
+  @apply items-center;
+  @apply text-center;
+  @apply text-white;
+  @apply text-sm;
+  @apply mb-[5vh];
+}
+
+.wrapper-class {
+  @apply p-[1rem];
+}

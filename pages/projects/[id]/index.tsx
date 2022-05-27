@@ -260,27 +260,37 @@ const Project = () => {
           </div>
           <div className="space-y-2">
             <h2 className="font-medium text-xl text-gray-900">Key resources</h2>
-            <div className="w-full border border-gray-200 rounded-md py-4 px-8 mx-auto items-center justify-center text-center space-y-2">
-              <p className="max-w-sm mx-auto text-sm font-normal text-gray-700">
-                {" "}
-                Align your team around a shared vision with a project brief and
-                supporting files.{" "}
-              </p>
-              <div className="flex items-center space-x-2 justify-center">
-                <button
-                  type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#635bff] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Create project brief
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Add files and links
-                </button>
+            {data.project.brief ? (
+              <div className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2">
+                <Link href={`/projects/${data.project.id}/brief`}>
+                  <a className="py-4 px-8 text-gray-900">Project brief</a>
+                </Link>
               </div>
-            </div>
+            ) : (
+              <div className="w-full border border-gray-200 rounded-md py-4 px-8 mx-auto items-center justify-center text-center space-y-2">
+                <p className="max-w-sm mx-auto text-sm font-normal text-gray-700">
+                  {" "}
+                  Align your team around a shared vision with a project brief
+                  and supporting files.{" "}
+                </p>
+                <div className="flex items-center space-x-2 justify-center">
+                  <Link href={`/projects/${data.project.id}/brief/edit`}>
+                    <a
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#635bff] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Create project brief
+                    </a>
+                  </Link>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Add files and links
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <div className="space-y-2">
             <h2 className="font-medium text-xl text-gray-900">Milestones</h2>

@@ -21,5 +21,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    "tailwindcss",
+    "postcss-preset-env",
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+  ],
 };
