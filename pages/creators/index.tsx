@@ -9,7 +9,7 @@ const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
 
 export default function CreatorsPage() {
-  const { data, error } = useSWR("/api/users/creators", fetcher);
+  const { data, error } = useSWR(`/api/users/creators`, fetcher);
   const { data: session, status } = useSession();
   const [query, setQuery] = useState("");
 

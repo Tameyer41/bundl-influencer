@@ -61,6 +61,26 @@ const Project = () => {
         </svg>
       </div>
     );
+
+  async function duplicate(): Promise<void> {
+    const { id } = Router.query;
+    let name = `Copy of ${data.project.name}`;
+    let description = data.project.description;
+    let privacy = data.project.privacy;
+    let color = data.project.color;
+    const body = { name, description, privacy, color };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/projects/create`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+    await mutate(`/api/projects/feed`);
+    await Router.push("/");
+  }
+
   const tabs = [
     { name: "Summary", href: "#", current: true },
     { name: "Tasks", href: "#", current: false },
@@ -115,17 +135,18 @@ const Project = () => {
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="#"
+                        <button
+                          type="button"
+                          onClick={() => duplicate()}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700",
-                            "flex justify-between px-4 py-2 text-sm"
+                            "w-full flex justify-between px-4 py-2 text-sm"
                           )}
                         >
                           <span>Duplicate</span>
-                        </a>
+                        </button>
                       )}
                     </Menu.Item>
                     <Menu.Item>
@@ -205,6 +226,18 @@ const Project = () => {
               Project roles{" "}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+              <div className="flex items-center space-x-2 group">
+                <button
+                  type="button"
+                  className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-dashed border-gray-200 bg-white text-gray-400 group-hover:border-gray-300 group-hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+                <a className="text-sm font-normal text-gray-500 group-hover:text-gray-700 cursor-pointer">
+                  {" "}
+                  Add member{" "}
+                </a>
+              </div>
               {data.projectsOnUsers.map((user) => (
                 <div className="flex items-center space-x-2" key={user.user.id}>
                   {user.user.image ? (
@@ -223,18 +256,6 @@ const Project = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex items-center space-x-2 group">
-                <button
-                  type="button"
-                  className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-dashed border-gray-200 bg-white text-gray-400 group-hover:border-gray-300 group-hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
-                <a className="text-sm font-normal text-gray-500 group-hover:text-gray-700 cursor-pointer">
-                  {" "}
-                  Add member{" "}
-                </a>
-              </div>
             </div>
           </div>
           <div className="space-y-2">
