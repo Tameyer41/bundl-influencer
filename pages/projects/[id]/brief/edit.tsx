@@ -101,7 +101,7 @@ export default function ProjectBrief() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link href={`/projects/${data.project.id}`}>
-              <a className="text-sm leading-6 font-medium text-gray-900">
+              <a className="text-sm font-medium text-gray-900">
                 {data.project.name}
               </a>
             </Link>
@@ -109,12 +109,12 @@ export default function ProjectBrief() {
               className="flex-shrink-0 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
-            <h3 className="text-sm leading-6 font-medium text-gray-900">
+            <h3 className="text-sm font-medium text-gray-900">
               {" "}
               Project brief{" "}
             </h3>
           </div>
-          <div className="mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start space-x-4">
+          <div className="flex items-center justify-between sm:ml-6 sm:flex-shrink-0 sm:justify-start space-x-4">
             <Menu as="div" className="ml-3 relative inline-block text-left">
               <div>
                 <Menu.Button className="-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -202,6 +202,17 @@ export default function ProjectBrief() {
           editorClassName="editor-class"
           toolbarClassName="toolbar-class"
           onEditorStateChange={handleEditorChange}
+          toolbar={{
+            inline: { inDropdown: true },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+          }}
+          hashtag={{
+            separator: " ",
+            trigger: "#",
+          }}
         />
       </div>
     </div>

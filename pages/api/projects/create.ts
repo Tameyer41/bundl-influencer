@@ -35,7 +35,7 @@ export default async function handle(req, res) {
       users: {
         create: {
           userId: ownerId,
-          role: "Owner",
+          role: "Project Owner",
         },
       },
     },

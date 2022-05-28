@@ -84,7 +84,7 @@ export default function ProjectBrief() {
               Project brief{" "}
             </h3>
           </div>
-          <div className="mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start space-x-4">
+          <div className="flex items-center justify-between sm:ml-6 sm:flex-shrink-0 sm:justify-start space-x-4">
             <Menu as="div" className="ml-3 relative inline-block text-left">
               <div>
                 <Menu.Button className="-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -106,56 +106,24 @@ export default function ProjectBrief() {
                   <div className="py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex justify-between px-4 py-2 text-sm"
-                          )}
-                        >
-                          <span>Edit</span>
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="button"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "w-full flex justify-between px-4 py-2 text-sm"
-                          )}
-                        >
-                          <span>Duplicate</span>
-                        </button>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="button"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "w-full flex justify-between px-4 py-2 text-sm"
-                          )}
-                        >
-                          <span>Archive</span>
-                        </button>
+                        <Link href={`/projects/${data.project.id}/brief/edit`}>
+                          <a
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "flex justify-between px-4 py-2 text-sm hover:bg-gray-100"
+                            )}
+                          >
+                            <span>Edit</span>
+                          </a>
+                        </Link>
                       )}
                     </Menu.Item>
                   </div>
                 </Menu.Items>
               </Transition>
             </Menu>
-            <button className="bg-[#635bff] text-white px-3 h-9 text-sm rounded text-center">
-              Done
-            </button>
           </div>
         </div>
       </div>

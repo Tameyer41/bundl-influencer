@@ -68,6 +68,8 @@ a {
   @apply mb-[5vh];
 }
 
-.wrapper-class {
-  @apply p-[1rem];
+.editor-class {
+  @apply block;
+  @apply min-h-[98vh];
+  @apply p-1;
 }
