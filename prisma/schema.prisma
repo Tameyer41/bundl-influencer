@@ -113,15 +113,31 @@ model Project {
 }
 
 model ProjectsOnUsers {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId String
-  role      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId     String
+  role          String
+  deliverables  Deliverable[]
 
   @@id([projectId, userId])
+}
+
+model Deliverable {
+  id               Int       @id @default(autoincrement())
+  amount           String
+  creatorProject   ProjectsOnUsers @relation(fields: [projectId, userId], references: [projectId, userId])
+  projectId        String
+  userId           String
+  deliverableLists DeliverableList[]
+}
+
+model DeliverableList {
+  id           Int       @id @default(autoincrement())
+  name         String
+  deliverables Deliverable[]
 }
 
 model Tag {

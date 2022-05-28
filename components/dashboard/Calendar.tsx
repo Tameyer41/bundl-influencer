@@ -68,16 +68,16 @@ export default function Calendar() {
   const containerNav = useRef(null);
   const containerOffset = useRef(null);
 
-  // useEffect(() => {
-  //   // Set the container scroll position based on the current time.
-  //   const currentMinute = new Date().getHours() * 60;
-  //   container.current.scrollTop =
-  //     ((container.current.scrollHeight -
-  //       containerNav.current.offsetHeight -
-  //       containerOffset.current.offsetHeight) *
-  //       currentMinute) /
-  //     1440;
-  // }, []);
+  useEffect(() => {
+    // Set the container scroll position based on the current time.
+    container.current &&
+      (container.current.scrollTop =
+        ((container.current.scrollHeight -
+          containerNav.current.offsetHeight -
+          containerOffset.current.offsetHeight) *
+          (new Date().getHours() * 60)) /
+        1440);
+  }, []);
 
   const { data, error } = useSWR("/api/events", fetcher);
 
