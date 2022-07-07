@@ -79,7 +79,7 @@ export default function ProjectsPage() {
           </div>
           <div className="flex items-center space-x-2">
             <p className="text-sm font-medium text-[#7E623A]">Quick chat</p>
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EED5B0]">
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#625DF5]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 text-[#7E623A]"

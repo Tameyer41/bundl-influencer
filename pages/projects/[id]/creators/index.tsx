@@ -29,7 +29,10 @@ function classNames(...classes) {
 const ProjectCreatorPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { data, error } = useSWR(`/api/projects/${router.query.id}`, fetcher);
+  const { data, error } = useSWR(
+    `/api/projects/${router.query.id}/creator-list`,
+    fetcher
+  );
 
   if (status === "loading") {
     return <div>Authenticating ...</div>;
@@ -91,6 +94,7 @@ const ProjectCreatorPage = () => {
     { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
   ];
+  console.log(data);
 
   return (
     <div>
@@ -214,16 +218,41 @@ const ProjectCreatorPage = () => {
       </div>
       <div className="w-full h-screen">
         <div className=" mt-8 px-6 lg:px-8 py-4 space-y-12">
-          <div className="space-y-2">
-            <h2 className="font-medium text-xl text-gray-900">
-              {" "}
-              Project overview
-            </h2>
-            <p className="text-sm font-normal text-gray-700">
-              {" "}
-              {data.project.description && data.project.description}
-            </p>
-          </div>
+          <ul
+            role="list"
+            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+          >
+            {data.projectsOnUsers.map((user) => (
+              <li key={user.user.id} className="relative">
+                <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                  {user.user.image ? (
+                    <img
+                      src={user.user.image}
+                      alt=""
+                      className="object-cover pointer-events-none group-hover:opacity-75"
+                    />
+                  ) : (
+                    <p> No image</p>
+                  )}
+
+                  <button
+                    type="button"
+                    className="absolute inset-0 focus:outline-none"
+                  >
+                    <span className="sr-only">
+                      View details for {user.user.name}
+                    </span>
+                  </button>
+                </div>
+                <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                  {user.user.name}
+                </p>
+                <p className="block text-sm font-medium text-gray-500 pointer-events-none">
+                  {user.user.email}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

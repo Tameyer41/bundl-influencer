@@ -56,7 +56,7 @@ const projects = [
     totalMembers: 12,
     lastUpdated: "March 17, 2020",
     pinned: true,
-    bgColorClass: "bg-[#CEAA75]",
+    bgColorClass: "bg-[#625DF5]",
   },
   // More projects...
 ];
@@ -396,7 +396,7 @@ const ProjectsHome: NextPage<{
                 <p className="text-sm font-medium text-[#7E623A]">
                   Action needed
                 </p>
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EED5B0]">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#625DF5]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-[#7E623A]"

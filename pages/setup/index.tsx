@@ -132,7 +132,7 @@ const SetupPage = () => {
                 <div className="flex">
                   <button
                     type="button"
-                    className="ml-4 rounded-l border border-transparent bg-[#EED5B0] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
                   >
                     Build your profile
                   </button>
@@ -177,7 +177,7 @@ const SetupPage = () => {
                 <div className="flex">
                   <button
                     type="button"
-                    className="ml-4 rounded-l border border-transparent bg-[#EED5B0] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
                   >
                     View campaigns
                   </button>

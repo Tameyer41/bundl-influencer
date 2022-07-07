@@ -29,7 +29,10 @@ function classNames(...classes) {
 const Project = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { data, error } = useSWR(`/api/projects/${router.query.id}`, fetcher);
+  const { data, error } = useSWR(
+    `/api/projects/${router.query.id}/admin-list`,
+    fetcher
+  );
 
   if (status === "loading") {
     return <div>Authenticating ...</div>;

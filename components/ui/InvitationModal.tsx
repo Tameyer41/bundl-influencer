@@ -41,9 +41,9 @@ export default function InvitationModal() {
   return (
     <div>
       <div onClick={openModal} className="flex">
-        <div className="w-full text-[#7E623A] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
+        <div className="w-full text-[#404040] group flex items-center px-[8px] h-[30px] text-sm font-medium rounded cursor-pointer">
           <div
-            className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#EED5B0] text-[#7E623A] rounded-full justify-center"
+            className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#625DF5] text-white rounded-full justify-center"
             aria-hidden="true"
           >
             +

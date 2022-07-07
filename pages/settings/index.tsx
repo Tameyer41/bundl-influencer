@@ -124,19 +124,27 @@ const SettingsPage = () => {
 
   return (
     <>
-      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
+      <main className="max-w-[70rem] pt-6 pb-16 px-6">
+        <div className="mb-6">
+          <h2 className="text-sm font-semibold text-[#212121] text-opacity-60">
+            Bundl Marketing
+          </h2>
+          <h1 className="text-3xl text-[#212121] font-medium">
+            Workspace Settings
+          </h1>
+        </div>
         <form onSubmit={updateUser}>
           <div className="space-y-6">
             <div className="block max-w-full overflow-auto">
               <div className="border-b border-gray-200">
-                <nav className="-mb-px flex space-x-8">
+                <nav className="-mb-px flex space-x-4">
                   {tabs.map((tab) => (
                     <Link key={tab.name} href={tab.href}>
                       <a
                         className={classNames(
                           tab.current
-                            ? "border-indigo-500 text-indigo-600"
-                            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                            ? "border-[#625df5] text-[#212121]"
+                            : "border-transparent text-[#212121] text-opacity-60 hover:text-[#212121]",
                           "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                         )}
                       >
@@ -148,12 +156,11 @@ const SettingsPage = () => {
               </div>
             </div>
             <div>
-              <h1 className="text-lg leading-6 font-medium text-gray-900">
-                User Settings
+              <h1 className="text-lg font-semibold text-[#212121]">
+                Name and photos
               </h1>
-              <p className="mt-1 text-sm text-gray-500">
-                Let’s get started by filling in the information below to update
-                your account.
+              <p className="mt-1 text-sm text-[#212121] font-normal">
+                Changing your name below will update your name on your profile.
               </p>
             </div>
 
@@ -176,13 +183,30 @@ const SettingsPage = () => {
                 />
               </div>
             </div>
-            <div>
-              <p>Upload a .png or .jpg image (max 1MB).</p>
-              <input
-                onChange={uploadPhoto}
-                type="file"
-                accept="image/png, image/jpeg"
-              />
+            <div className="sm:col-span-6">
+              <label
+                htmlFor="photo"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Photo
+              </label>
+              <div className="mt-1 flex items-center">
+                <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                  <svg
+                    className="h-full w-full text-gray-300"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </span>
+                <input
+                  onChange={uploadPhoto}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                />
+              </div>
             </div>
             <div className="flex justify-end">
               <button

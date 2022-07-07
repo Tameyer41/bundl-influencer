@@ -36,11 +36,16 @@ const navigation = [
 ];
 
 const actions = [
-  { name: "Activity", url: "/activity", icon: ChatAlt2Icon, current: false },
+  {
+    name: "Activity",
+    url: "/activity",
+    icon: LightningBoltIcon,
+    current: false,
+  },
   {
     name: "Messages",
     url: "/messages",
-    icon: LightningBoltIcon,
+    icon: ChatAlt2Icon,
     current: false,
   },
 ];
@@ -210,8 +215,8 @@ export default function AdminLayout(props) {
                       <div
                         className={
                           router.pathname.replace("/[id]", "") == item.url
-                            ? "bg-[#F0EFF2] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
-                            : "hover:bg-[#F0EFF2] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                            ? "bg-[#F0EFF2] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                            : "hover:bg-[#F0EFF2] hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
                         }
                       >
                         <div className="text-base mr-4">{item.icon}</div>

@@ -41,7 +41,6 @@ export default function AddToProjectModal(user: any) {
         }
       );
       const data = await response.json();
-      console.log(data);
       setSelected("");
       setOpen(false);
     } catch (error) {

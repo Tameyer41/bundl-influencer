@@ -137,13 +137,25 @@ const AdminHome: NextPage<{
               </div>
             </div>
             <div className="mt-1">
-              <div className="flex w-full flex-row flex-wrap">
-                <div className="w-1/2 p-2">
-                  <div className="relative flex h-96 rounded-md border border-gray-200 p-2 shadow-sm"></div>
-                </div>
-                <div className="w-1/2 p-2">
-                  <div className="relative flex h-96 rounded-md border border-gray-200 p-2 shadow-sm"></div>
-                </div>
+              <div className="w-full h-full grid place-items-center space-y-4">
+                <img
+                  src="https://cdn.loom.com/assets/[1]/home-empty-state-202b040f5f82bdb987f401a6a21fe2e1.png"
+                  className="w-1/2"
+                />
+                <h1 className="block text-gray-900 font-medium text-2xl">
+                  {" "}
+                  Work's always better together
+                </h1>
+                <h2 className="text-gray-500 font-normal text-lg max-w-lg text-center">
+                  Add teammates and you will be able to collaborate and quickly
+                  get a sense of what is happening at work.
+                </h2>
+                <button
+                  type="button"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Send an invite
+                </button>
               </div>
             </div>
           </main>
