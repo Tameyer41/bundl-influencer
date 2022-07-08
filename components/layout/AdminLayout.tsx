@@ -33,6 +33,7 @@ const navigation = [
   },
 
   { name: "Calendar", url: "/calendar", icon: "🚀", current: false },
+  { name: "Private", url: "/private", icon: "🔒", current: false },
 ];
 
 const actions = [

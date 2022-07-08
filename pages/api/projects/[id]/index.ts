@@ -8,7 +8,12 @@ export default async function handle(
   const projectId = req.query.id;
 
   if (req.method === "GET") {
-    handleGET(projectId, res);
+    try {
+      await handleGET(projectId, res);
+      res.status(200);
+    } catch (error) {
+      res.status(error.status).json(error.response.data);
+    }
   } else if (req.method === "PUT") {
     handlePUT(req, res);
   } else if (req.method === "DELETE") {
@@ -33,16 +38,27 @@ async function handleGET(projectId, res: NextApiResponse) {
     },
     where: { id: projectId },
   });
-  const projectsOnUsers = await prisma.projectsOnUsers.findMany({
+  const projectAdmins = await prisma.projectsOnUsers.findMany({
     include: {
       user: true,
     },
     where: {
       projectId: projectId,
+      NOT: {
+        role: "Creator",
+      },
     },
   });
-  res.json({ project, projectsOnUsers });
-  res.status(200);
+  const projectCreators = await prisma.projectsOnUsers.findMany({
+    include: {
+      user: true,
+    },
+    where: {
+      projectId: projectId,
+      role: "Creator",
+    },
+  });
+  res.json({ project, projectAdmins, projectCreators });
 }
 
 // UPDATE /api/project/:id

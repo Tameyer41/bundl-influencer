@@ -41,7 +41,7 @@ async function handleGET(projectId, res: NextApiResponse) {
     },
   });
   res.json({ project, projectsOnUsers });
-  res.status(200);
+  res.status(200).end();
 }
 
 // UPDATE /api/project/:id

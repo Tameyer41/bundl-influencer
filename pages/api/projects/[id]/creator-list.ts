@@ -8,7 +8,12 @@ export default async function handle(
   const projectId = req.query.id;
 
   if (req.method === "GET") {
-    handleGET(projectId, res);
+    try {
+      const result = await handleGET(projectId, res);
+      res.status(200).json({ result });
+    } catch (err) {
+      res.status(500).json({ error: "failed to load data" });
+    }
   } else {
     throw new Error(
       `The HTTP ${req.method} method is not supported at this route.`
@@ -38,8 +43,8 @@ async function handleGET(projectId, res: NextApiResponse) {
       role: "Creator",
     },
   });
-  res.json({ project, projectsOnUsers });
-  res.status(200);
+  res.status(200).json({ project, projectsOnUsers });
+  return;
 }
 
 // UPDATE /api/project/:id
