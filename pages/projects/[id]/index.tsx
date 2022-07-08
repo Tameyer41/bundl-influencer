@@ -275,20 +275,17 @@ const Project = () => {
             {data.project.brief ? (
               <Link href={`/projects/${data.project.id}/brief`}>
                 <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer">
-                  <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-blue-200 w-16 h-28"></div>
+                  <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-[#48DAFD] w-16 h-28"></div>
                   <div className="items-center block py-4 px-8 text-left w-3/4">
                     <p className="text-gray-900 text-lg font-medium">
                       Project brief
                     </p>
                     <div className="flex items-center space-x-2 mt-1">
-                      <div className="h-2 w-full bg-slate-200 rounded"></div>
-                      <div className="h-2 w-full bg-slate-200 rounded"></div>
+                      <div className="h-4 w-full bg-slate-100 rounded"></div>
+                      <div className="h-4 w-full bg-slate-100 rounded"></div>
                     </div>
                     <div className="flex items-center space-x-2 mt-2">
-                      <div className="h-2 w-full bg-slate-200 rounded"></div>
-                    </div>
-                    <div className="flex items-center space-x-2 mt-2">
-                      <div className="h-2 w-full bg-slate-200 rounded"></div>
+                      <div className="h-2 w-full bg-slate-100 rounded"></div>
                     </div>
                   </div>
                 </a>

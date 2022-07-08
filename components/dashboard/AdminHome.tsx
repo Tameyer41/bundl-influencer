@@ -4,6 +4,34 @@ import { format } from "date-fns";
 import { NextPage } from "next";
 import useSWR from "swr";
 import { CogIcon, XIcon } from "@heroicons/react/outline";
+import { Tab } from "@headlessui/react";
+
+const features = [
+  {
+    title: "Payroll",
+    description:
+      "Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.",
+    image: "test1",
+  },
+  {
+    title: "Claim expenses",
+    description:
+      "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.",
+    image: "test2",
+  },
+  {
+    title: "VAT handling",
+    description:
+      "We only sell our software to companies who don't deal with VAT at all, so technically we do all the VAT stuff they need.",
+    image: "test3",
+  },
+  {
+    title: "Reporting",
+    description:
+      "Easily export your data into an Excel spreadsheet where you can do whatever the hell you want with it.",
+    image: "test4",
+  },
+];
 
 const projects = [
   {
@@ -56,6 +84,7 @@ const AdminHome: NextPage<{
   projects: { name: string; id: string; description: string }[];
 }> = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  let [tabOrientation, setTabOrientation] = useState("horizontal");
   const { data, error } = useSWR("/api/projects/feed", fetcher);
 
   if (error) return <div>Failed to load</div>;

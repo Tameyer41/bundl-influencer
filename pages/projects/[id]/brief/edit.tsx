@@ -1,7 +1,11 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { AdjustmentsIcon, DotsVerticalIcon } from "@heroicons/react/solid";
+import {
+  AdjustmentsIcon,
+  ArrowLeftIcon,
+  DotsVerticalIcon,
+} from "@heroicons/react/solid";
 import { Fragment, useState, useMemo } from "react";
 import Image from "next/image";
 import { Menu, Transition } from "@headlessui/react";
@@ -247,13 +251,26 @@ export default function ProjectBrief() {
         />
       </div>
       <div className="absolute bottom-20 right-20">
-        <button
-          type="button"
-          onClick={() => submitForm()}
-          className="bg-[#635bff] text-white px-3 h-9 text-sm rounded text-center"
-        >
-          Submit Brief
-        </button>
+        <div className="flex items-center space-x-4">
+          <Link href={`/projects/${data.project.id}`}>
+            <span className="relative z-0 inline-flex shadow-sm rounded-md">
+              <button
+                type="button"
+                className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <span className="sr-only">Back</span>
+                <ArrowLeftIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => submitForm()}
+            className="bg-[#635bff] text-white px-3 h-9 text-sm rounded text-center"
+          >
+            Submit Brief
+          </button>
+        </div>
       </div>
     </div>
   );
