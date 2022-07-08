@@ -1,25 +1,13 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Modal from "components/ui/Modal";
 import moment from "moment";
-import { NextPage, GetStaticProps } from "next";
+import { NextPage } from "next";
 import useSWR from "swr";
 import Image from "next/image";
-
-import {
-  ClockIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  ViewListIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import {
-  ChevronRightIcon,
-  DotsVerticalIcon,
-  SearchIcon,
-  SelectorIcon,
-} from "@heroicons/react/solid";
+import { ChevronRightIcon, DotsVerticalIcon } from "@heroicons/react/solid";
+import { CogIcon } from "@heroicons/react/outline";
 
 const projects = [
   {
@@ -71,33 +59,36 @@ const fetcher = (arg: any, ...args: any) =>
 const ProjectsHome: NextPage<{
   projects: { name: string; id: string; description: string }[];
 }> = (props) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { data, error } = useSWR("/api/projects/feed", fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data)
     return (
-      <div className="w-full h-screen grid place-items-center">
-        <svg
-          className="animate-spin h-5 w-5 text-white"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="text-gray-400 opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth={3}
-          ></circle>
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
+      <div className="w-full">
+        <div className="border-b border-gray-200 px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
+              Projects
+            </h1>
+          </div>
+          <div className="flex">
+            <button
+              type="button"
+              className="mx-4 rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
+            >
+              Create a project
+            </button>
+            <span className="relative z-0 inline-flex shadow-sm rounded-md">
+              <button
+                type="button"
+                className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <span className="sr-only">Previous</span>
+                <CogIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
     );
 
@@ -117,6 +108,15 @@ const ProjectsHome: NextPage<{
                 </div>
                 <div className="flex">
                   <Modal />
+                  <span className="relative z-0 inline-flex shadow-sm rounded-md">
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                    >
+                      <span className="sr-only">Previous</span>
+                      <CogIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </span>
                 </div>
               </div>
               {/* Pinned projects */}

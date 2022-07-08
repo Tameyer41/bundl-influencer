@@ -128,7 +128,7 @@ export default function AdminLayout(props) {
                         <div
                           onClick={() => setSidebarOpen(false)}
                           className={
-                            router.pathname.replace("/[id]", "") == item.url
+                            "/" + router.pathname.split("/")[1] == item.url
                               ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                               : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                           }
@@ -182,7 +182,7 @@ export default function AdminLayout(props) {
                     <Link key={item.name} href={item.url}>
                       <div
                         className={
-                          router.pathname.replace("/[id]", "") == item.url
+                          "/" + router.pathname.split("/")[1] == item.url
                             ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                             : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                         }
@@ -215,7 +215,7 @@ export default function AdminLayout(props) {
                     <Link key={item.name} href={item.url}>
                       <div
                         className={
-                          router.pathname.replace("/[id]", "") == item.url
+                          "/" + router.pathname.split("/")[1] == item.url
                             ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
                             : "hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
                         }
