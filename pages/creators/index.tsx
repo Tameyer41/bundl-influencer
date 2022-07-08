@@ -84,7 +84,7 @@ export default function CreatorsPage() {
       </div>
       {/* Value prop start */}
       <div className="px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-screen mx-auto flex gap-[16px] overflow-x-auto pt-6 horizontal-scroll">
+        <div className="max-w-screen mx-auto flex gap-[16px] overflow-x-auto horizontal-scroll">
           <div className="relative inline-block h-[330px] flex-none">
             <div className="absolute">
               <div className="flex-start relative flex h-full w-[320px] flex-col p-[24px]">
