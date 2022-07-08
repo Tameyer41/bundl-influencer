@@ -128,8 +128,8 @@ export default function AdminLayout(props) {
                           onClick={() => setSidebarOpen(false)}
                           className={
                             router.pathname.replace("/[id]", "") == item.url
-                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-[#E7E7E7] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
                           }
                         >
                           <p className="text-[18px] pr-[12px]">{item.icon}</p>
@@ -182,8 +182,8 @@ export default function AdminLayout(props) {
                       <div
                         className={
                           router.pathname.replace("/[id]", "") == item.url
-                            ? "mx-[8px] mb-[2px] px-2 py-2 bg-[#F0EFF2] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                            : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-[#F0EFF2] hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                            ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                            : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                         }
                       >
                         <div className="w-[30px] flex items-center justify-center">
@@ -215,8 +215,8 @@ export default function AdminLayout(props) {
                       <div
                         className={
                           router.pathname.replace("/[id]", "") == item.url
-                            ? "bg-[#F0EFF2] hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
-                            : "hover:bg-[#F0EFF2] hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                            ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                            : "hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
                         }
                       >
                         <div className="text-base mr-4">{item.icon}</div>
@@ -232,7 +232,7 @@ export default function AdminLayout(props) {
                 </p>
                 <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                   <Link href="/settings">
-                    <div className="w-full hover:bg-[#E7E7E7] hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
+                    <div className="w-full hover:bg-gray-200 hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
                       <div
                         className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
                         aria-hidden="true"

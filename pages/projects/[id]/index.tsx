@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import Link from "next/link";
-import { PlusSmIcon } from "@heroicons/react/solid";
+import { AdjustmentsIcon, PlusSmIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/solid";
@@ -97,11 +97,16 @@ const Project = () => {
 
   return (
     <div>
-      <div className="relative pb-5 sm:pb-0 border-b border-gray-200 max-w-7xl mx-auto px-6 lg:px-8 py-4">
+      <div className="relative pb-5 sm:pb-0 border-b border-gray-200 mx-auto px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">
-            {data.project.name}
-          </h3>
+          <div className="flex items-center space-x-4">
+            <div className="h-14 w-14 rounded-xl bg-[#48DAFD] items-center justify-center flex">
+              <AdjustmentsIcon className="w-8 h-8 text-white"></AdjustmentsIcon>
+            </div>
+            <h3 className="text-2xl leading-6 font-medium text-gray-900">
+              {data.project.name}
+            </h3>
+          </div>
           <div className="mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start">
             <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
               Open
@@ -201,7 +206,7 @@ const Project = () => {
                   <a
                     className={classNames(
                       tab.current
-                        ? "border-[#635bff] text-[#635bff]"
+                        ? "border-cyan-600 text-cyan-600"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
                       "whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm"
                     )}
@@ -297,10 +302,7 @@ const Project = () => {
                 </p>
                 <div className="flex items-center space-x-2 justify-center">
                   <Link href={`/projects/${data.project.id}/brief/edit`}>
-                    <a
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#635bff] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
+                    <a className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#625DF5] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       Create project brief
                     </a>
                   </Link>
