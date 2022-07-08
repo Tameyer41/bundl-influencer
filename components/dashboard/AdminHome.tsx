@@ -1,25 +1,9 @@
-import { Fragment, useState, useEffect } from "react";
-import Link from "next/link";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import { useState } from "react";
 import Modal from "components/ui/Modal";
-import moment from "moment";
-import { NextPage, GetStaticProps } from "next";
+import { format } from "date-fns";
+import { NextPage } from "next";
 import useSWR from "swr";
-import Image from "next/image";
-
-import {
-  ClockIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  ViewListIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import {
-  ChevronRightIcon,
-  DotsVerticalIcon,
-  SearchIcon,
-  SelectorIcon,
-} from "@heroicons/react/solid";
+import { CogIcon, XIcon } from "@heroicons/react/outline";
 
 const projects = [
   {
@@ -101,6 +85,8 @@ const AdminHome: NextPage<{
       </div>
     );
 
+  let today = format(new Date(), "EEEE, LLLL d");
+
   return (
     <>
       <div className="min-h-full">
@@ -116,11 +102,20 @@ const AdminHome: NextPage<{
               </div>
               <div className="flex">
                 <Modal />
+                <span className="relative z-0 inline-flex shadow-sm rounded-md">
+                  <button
+                    type="button"
+                    className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <span className="sr-only">Previous</span>
+                    <CogIcon className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                </span>
               </div>
             </div>
             {/* Home Dashboard Info */}
             <div className="grid place-items-center">
-              <p className="mb-1 text-base font-normal">Saturday, May 28</p>
+              <p className="mb-1 text-base font-normal">{today}</p>
               <h1 className="text-3xl font-normal">Good morning, Tyler</h1>
               <div className="mt-4 mb-3 flex h-12 items-center rounded-full bg-[#f9f8f8]">
                 <div className="mx-4 text-sm text-[#6d6e6f]">My week</div>
@@ -136,26 +131,57 @@ const AdminHome: NextPage<{
                 </div>
               </div>
             </div>
-            <div className="mt-1">
-              <div className="w-full h-full grid place-items-center space-y-4">
-                <img
-                  src="https://cdn.loom.com/assets/[1]/home-empty-state-202b040f5f82bdb987f401a6a21fe2e1.png"
-                  className="w-1/2"
-                />
-                <h1 className="block text-gray-900 font-medium text-2xl">
-                  {" "}
-                  Work's always better together
-                </h1>
-                <h2 className="text-gray-500 font-normal text-lg max-w-lg text-center">
-                  Add teammates and you will be able to collaborate and quickly
-                  get a sense of what is happening at work.
-                </h2>
-                <button
-                  type="button"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Send an invite
-                </button>
+            {/*  Start of main checklist */}
+            <div className="mx-auto max-w-7xl px-8">
+              <div className="w-full rounded-xl border border-gray-200 grid grid-cols-4 bg-white mt-4">
+                <div className="col-span-1 p-6 space-y-4">
+                  <div className="ring-1 ring-sky-400 relative block bg-sky-50 border rounded-lg shadow-sm px-4 py-2.5 cursor-pointer sm:flex sm:space-x-4 focus:outline-none items-center">
+                    <span className="flex items-center">
+                      <span className="text-sm flex flex-col">
+                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full border border-gray-500">
+                          <span className="text-base font-medium leading-none text-gray-500">
+                            1
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
+                      <span className="font-medium text-gray-900">
+                        Customize home
+                      </span>
+                    </span>
+                  </div>
+                  <div className="border-gray-300 relative block bg-white border rounded-lg hover:shadow-sm px-4 py-2.5 cursor-pointer sm:flex sm:space-x-4 focus:outline-none items-center">
+                    <span className="flex items-center">
+                      <span className="text-sm flex flex-col">
+                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full border border-gray-500">
+                          <span className="text-base font-medium leading-none text-gray-500">
+                            2
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
+                      <span className="font-medium text-gray-900">
+                        Try out goals
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-3 bg-slate-50 p-6 relative grid place-items-center rounded-r-xl">
+                  <div className="absolute top-4 right-4">
+                    <XIcon className="h-5 w-5 text-gray-500"></XIcon>
+                  </div>
+                  <div className="flex items-center space-x-6 max-w-2xl">
+                    <img
+                      src="https://cdn.loom.com/assets/[1]/home-empty-state-202b040f5f82bdb987f401a6a21fe2e1.png"
+                      className="w-1/2"
+                    />
+                    <p className="text-sm font-normal text-gray-700">
+                      Customize your background to make home your own
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </main>

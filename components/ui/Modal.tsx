@@ -170,33 +170,33 @@ export default function Modal() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity" />
           </Transition.Child>
 
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-200"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-100"
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="mx-auto max-w-3xl transform rounded-xl bg-white p-1 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div className="mx-auto max-w-3xl transform rounded-lg bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <form
-                className="flex h-full flex-col bg-white"
+                className="flex h-full flex-col bg-white rounded-lg"
                 onSubmit={submitData}
               >
                 <div className="flex-1">
                   {/* Header */}
-                  <div className="bg-gray-50 px-4 py-6 sm:px-6">
+                  <div className="bg-gray-50 px-4 py-6 sm:px-6 rounded-lg">
                     <div className="flex items-start justify-between space-x-3">
                       <div className="space-y-1">
                         <Dialog.Title className="text-lg font-medium text-gray-900">
@@ -214,8 +214,7 @@ export default function Modal() {
                           className="text-gray-400 hover:text-gray-500"
                           onClick={() => setOpen(false)}
                         >
-                          <span className="sr-only">Close panel</span>
-                          <XIcon className="h-6 w-6" aria-hidden="true" />
+                          <XIcon className="h-6 w-6" />
                         </button>
                       </div>
                     </div>
