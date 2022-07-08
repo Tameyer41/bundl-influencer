@@ -24,15 +24,16 @@ import InvitationModal from "components/ui/InvitationModal";
 
 const navigation = [
   { name: "Overview", url: "/", icon: "🏠", current: true },
-  { name: "Projects", url: "/projects", icon: "📦", current: false },
+  { name: "Campaigns", url: "/projects", icon: "🚀", current: false },
   {
-    name: "Creator Discovery",
+    name: "Influencer Discovery",
     url: "/creators",
     icon: "👥",
     current: false,
   },
 
-  { name: "Calendar", url: "/calendar", icon: "🚀", current: false },
+  { name: "Content Calendar", url: "/calendar", icon: "🗓️", current: false },
+  { name: "Products", url: "/products", icon: "🚛", current: false },
   { name: "Private", url: "/private", icon: "🔒", current: false },
 ];
 

@@ -6,6 +6,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/solid";
 import Router from "next/router";
 import useSWR, { mutate } from "swr";
+import { InformationCircleIcon } from "@heroicons/react/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -47,9 +48,12 @@ export default function ProjectNavbar(props) {
           <div className="h-14 w-14 rounded-xl bg-[#48DAFD] items-center justify-center flex">
             <AdjustmentsIcon className="w-8 h-8 text-white"></AdjustmentsIcon>
           </div>
-          <h3 className="text-2xl leading-6 font-medium text-gray-900">
+          <h3 className="text-2xl font-medium text-gray-900">
             {props.data.project.name}
           </h3>
+          <button className="cursor-pointer flex items-center">
+            <InformationCircleIcon className="w-5 h-5 text-gray-500" />
+          </button>
         </div>
         <div className="mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start">
           <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">

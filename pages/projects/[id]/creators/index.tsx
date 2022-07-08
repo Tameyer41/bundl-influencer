@@ -57,6 +57,8 @@ const ProjectCreatorPage = () => {
     },
     { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
+    { name: "Deliverables", href: "#", current: false },
+    { name: "Shipments", href: "#", current: false },
   ];
   console.log(data);
 

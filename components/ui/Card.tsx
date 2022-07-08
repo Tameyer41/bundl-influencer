@@ -13,8 +13,8 @@ export default function Card(props) {
   const { user } = props;
   return (
     <>
-      <div className="group px-4 space-y-4">
-        <div className="aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-md bg-gray-200 relative group">
+      <div className="group space-y-4">
+        <div className="aspect-[2/3] w-full cursor-pointer overflow-hidden rounded-md bg-gray-200 relative group">
           <div className="z-10 absolute top-4 right-2 text-left">
             <AddToProjectModal user={user} />
           </div>
@@ -24,7 +24,7 @@ export default function Card(props) {
                 src={user.image}
                 className="h-full w-full object-cover object-center"
                 width={500}
-                height={300}
+                height={800}
               />
             </Link>
           ) : (

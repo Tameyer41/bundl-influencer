@@ -7,6 +7,7 @@ import { PlusSmIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import useSWR, { mutate } from "swr";
 import ProjectNavbar from "../../../components/layout/projects/ProjectNavbar";
+import DOMPurify from "dompurify";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -60,7 +61,15 @@ const Project = () => {
     },
     { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
+    { name: "Deliverables", href: "#", current: false },
+    { name: "Shipments", href: "#", current: false },
   ];
+
+  const createMarkup = (html) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
 
   return (
     <div>
@@ -120,17 +129,19 @@ const Project = () => {
             {data.project.brief ? (
               <Link href={`/projects/${data.project.id}/brief`}>
                 <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer">
-                  <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-[#48DAFD] w-16 h-28"></div>
-                  <div className="items-center block py-4 px-8 text-left w-3/4">
+                  <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-slate-500 w-28 h-28"></div>
+                  <div className="items-center block pt-2 pb-4 px-8 text-left w-3/4">
                     <p className="text-gray-900 text-lg font-medium">
                       Project brief
                     </p>
-                    <div className="flex items-center space-x-2 mt-1">
-                      <div className="h-4 w-full bg-slate-100 rounded"></div>
-                      <div className="h-4 w-full bg-slate-100 rounded"></div>
-                    </div>
+                    <hr />
                     <div className="flex items-center space-x-2 mt-2">
-                      <div className="h-2 w-full bg-slate-100 rounded"></div>
+                      <div
+                        className="preview text-gray-700 mt-1"
+                        dangerouslySetInnerHTML={createMarkup(
+                          data.project.brief
+                        )}
+                      ></div>
                     </div>
                   </div>
                 </a>

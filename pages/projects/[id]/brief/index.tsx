@@ -64,6 +64,8 @@ export default function ProjectBrief() {
     },
     { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
+    { name: "Deliverables", href: "#", current: false },
+    { name: "Shipments", href: "#", current: false },
   ];
 
   return (

@@ -8,6 +8,8 @@ import {
   QuestionMarkCircleIcon,
   ChevronDownIcon,
 } from "@heroicons/react/solid";
+import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
+import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
 
 import { RadioGroup } from "@headlessui/react";
 
@@ -90,9 +92,10 @@ export default function EventModal() {
       <div onClick={openModal} className="flex">
         <button
           type="button"
-          className="mx-4 rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
+          className="mx-4 flex items-center rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
         >
-          Add an event
+          <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
+          New
         </button>
       </div>
       <Transition.Root
@@ -308,11 +311,11 @@ export default function EventModal() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex-shrink-0 border-t border-gray-200 px-4 py-5 sm:px-6">
+                <div className="flex-shrink-0 px-4 py-5 sm:px-6">
                   <div className="flex justify-end space-x-3">
                     <button
                       type="button"
-                      className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="py-2 px-4 text-sm font-medium text-gray-700 focus:outline-none focus:ring-0"
                       onClick={() => setOpen(false)}
                     >
                       Cancel
@@ -320,9 +323,9 @@ export default function EventModal() {
                     <button
                       type="submit"
                       disabled={!note || !name}
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#625DF5] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                      Create
+                      Save
                     </button>
                   </div>
                 </div>
