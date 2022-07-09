@@ -26,11 +26,7 @@ function Page() {
   });
 
   if (status === "loading") {
-    return (
-      <div className=">
-       
-      </div>
-    );
+    return <div className=""></div>;
   }
 
   const usersQuery = useQuery(["users"], async () => {
