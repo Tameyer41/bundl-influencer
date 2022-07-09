@@ -128,7 +128,7 @@ const Project = () => {
             <h2 className="font-medium text-xl text-gray-900">Key resources</h2>
             {data.project.brief ? (
               <Link href={`/projects/${data.project.id}/brief`}>
-                <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer">
+                <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer max-h-28 overflow-hidden">
                   <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-slate-500 w-28 h-28"></div>
                   <div className="items-center block pt-2 pb-4 px-8 text-left w-3/4">
                     <p className="text-gray-900 text-lg font-medium">
@@ -137,7 +137,7 @@ const Project = () => {
                     <hr />
                     <div className="flex items-center space-x-2 mt-2">
                       <div
-                        className="preview text-gray-700 mt-1"
+                        className="preview text-gray-700 mt-1 overflow-hidden"
                         dangerouslySetInnerHTML={createMarkup(
                           data.project.brief
                         )}

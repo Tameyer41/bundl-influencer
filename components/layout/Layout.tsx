@@ -5,8 +5,7 @@ import { useSession } from "next-auth/react";
 export default function Layout(props) {
   const { data: session, status } = useSession();
   const loading = status === "loading";
-  if (loading)
-    return <div className="w-full h-screen grid place-items-center"></div>;
+  if (loading) return <div className=""></div>;
 
   return (
     <>

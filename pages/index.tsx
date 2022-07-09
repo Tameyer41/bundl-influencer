@@ -15,7 +15,7 @@ const Page = (props) => {
   });
 
   if (status === "loading") {
-    return <div className="w-full h-screen grid place-items-center"></div>;
+    return <div className=""></div>;
   }
 
   if (!session.onboarded) {

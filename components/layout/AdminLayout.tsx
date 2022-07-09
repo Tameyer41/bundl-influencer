@@ -34,7 +34,7 @@ const navigation = [
 
   { name: "Content Calendar", url: "/calendar", icon: "🗓️", current: false },
   { name: "Products", url: "/products", icon: "🚛", current: false },
-  { name: "Private", url: "/private", icon: "🔒", current: false },
+  { name: "Legal", url: "/legal", icon: "🔒", current: false },
 ];
 
 const actions = [

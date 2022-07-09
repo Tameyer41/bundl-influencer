@@ -123,7 +123,14 @@ export default function Modal() {
 
   if (error) return <div>Failed to load</div>;
   if (!data)
-    return <div className="w-full h-screen grid place-items-center"></div>;
+    return (
+      <button
+        type="button"
+        className="mx-4 rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
+      >
+        Create a project
+      </button>
+    );
 
   return (
     <div>
