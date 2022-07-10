@@ -161,7 +161,7 @@ const AdminHome: NextPage<{
             {/*  Start of main checklist */}
             <div className="mx-auto max-w-7xl px-8">
               <div className="w-full rounded-xl border border-gray-200 grid grid-cols-4 bg-white mt-4">
-                <div className="col-span-1 p-6 space-y-4">
+                <div className="col-span-4 md:col-span-1 p-6 space-y-4">
                   <div className="ring-1 ring-sky-400 relative block bg-sky-50 border rounded-lg shadow-sm px-4 py-2.5 cursor-pointer sm:flex sm:space-x-4 focus:outline-none items-center">
                     <span className="flex items-center">
                       <span className="text-sm flex flex-col">
@@ -195,7 +195,7 @@ const AdminHome: NextPage<{
                     </span>
                   </div>
                 </div>
-                <div className="col-span-3 bg-slate-50 p-6 relative grid place-items-center rounded-r-xl">
+                <div className="col-span-4 md:col-span-3 bg-slate-50 p-6 relative grid place-items-center rounded-r-xl">
                   <div className="absolute top-4 right-4">
                     <XIcon className="h-5 w-5 text-gray-500"></XIcon>
                   </div>

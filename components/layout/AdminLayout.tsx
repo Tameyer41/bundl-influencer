@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Dropdown from "./Dropdown";
 import { StandaloneLink } from "components/ui/StandaloneLink";
+import Image from "next/image";
 import {
   HomeIcon,
   SearchIcon,
@@ -117,11 +118,34 @@ export default function AdminLayout(props) {
                 </Transition.Child>
                 <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto standalone:pt-12">
                   <div className="flex-shrink-0 flex items-center px-4">
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                      alt="Workflow"
-                    />
+                    <svg
+                      className="h-8 w-8"
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 595.5 595.3"
+                    >
+                      <path
+                        d="M224.6,12.5H67.3c-30.2,0-54.6,24.5-54.6,54.6v157.3c0,27.2,22.1,49.3,49.3,49.3h212l0,0v-212
+	C274,34.6,251.9,12.5,224.6,12.5z"
+                      />
+                      <path d="M12.7,528.1c0,30.2,24.5,54.6,54.6,54.6h61V467.1H12.7V528.1z" />
+                      <path
+                        d="M274,321.4H62c-27.2,0-49.3,22.1-49.3,49.3v46.9h165v165h46.9c27.2,0,49.3-22.1,49.3-49.3L274,321.4
+	C274,321.4,274,321.4,274,321.4z"
+                      />
+                      <path
+                        d="M527.7,321.4h-212v212c0,27.2,22.1,49.3,49.3,49.3h157.3c30.2,0,54.6-24.5,54.6-54.6V370.7
+	C577.1,343.5,555,321.4,527.7,321.4z"
+                      />
+                      <path
+                        d="M522.4,12.5H365.1c-27.2,0-49.3,22.1-49.3,49.3v212h54.1h53.2h75.9h28.7c27.2,0,49.3-22.1,49.3-49.3V67.2
+	C577.1,37,552.6,12.5,522.4,12.5z M514.3,185.5c0,14.2-11.5,25.6-25.6,25.6h-14.9h-39.5h-27.7h-28.1V100.9
+	c0-14.2,11.5-25.6,25.6-25.6h81.8c15.7,0,28.4,12.7,28.4,28.4V185.5z"
+                      />
+                    </svg>
                   </div>
                   <nav className="mt-5 px-2 space-y-1">
                     {navigation.map((item) => (
@@ -142,25 +166,32 @@ export default function AdminLayout(props) {
                   </nav>
                 </div>
                 <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                  <a href="#" className="flex-shrink-0 group block">
-                    <div className="flex items-center">
-                      <div>
-                        <img
-                          className="inline-block h-12 w-12 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
-                        />
+                  <Link href="/settings">
+                    <a className="flex-shrink-0 group block">
+                      <div className="flex items-center">
+                        <div>
+                          {session.user.image ? (
+                            <Image
+                              src={session.user.image}
+                              className="flex-shrink-0 rounded-full object-cover"
+                              width={48}
+                              height={48}
+                            />
+                          ) : (
+                            <div className="flex-shrink-0 rounded-full w-12 h-12 bg-blue-500"></div>
+                          )}
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                            {session.user.name}
+                          </p>
+                          <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
+                            View profile
+                          </p>
+                        </div>
                       </div>
-                      <div className="ml-3">
-                        <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
-                          Tom Cook
-                        </p>
-                        <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
-                          View profile
-                        </p>
-                      </div>
-                    </div>
-                  </a>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </Transition.Child>
