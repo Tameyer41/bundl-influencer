@@ -6,6 +6,7 @@ import {
   endOfWeek,
   getWeek,
   isToday,
+  isSameWeek,
   isSameMonth,
   differenceInMinutes,
   parse,
@@ -434,6 +435,9 @@ export default function Calendar() {
   let selectedDayMeetings = data.filter((meeting) =>
     isSameDay(parseISO(meeting.startTime), selectedDay)
   );
+
+  console.log(getWeek(new Date(currentWeek)));
+  console.log(getWeek(parse(currentWeek, "MMM-yyyy-dd", new Date())));
 
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
@@ -1021,7 +1025,9 @@ export default function Calendar() {
                       key={meeting.name}
                       className={classNames(
                         getWeek(new Date(meeting.date)) !=
-                          getWeek(new Date(currentWeek)) && `hidden`,
+                          getWeek(
+                            parse(currentWeek, "MMM-yyyy-dd", new Date())
+                          ) && `hidden`,
                         `relative mt-px flex col-start-${
                           parseInt(format(new Date(meeting.date), "i")) + 1
                         }`
@@ -1051,32 +1057,6 @@ export default function Calendar() {
                       </a>
                     </li>
                   ))}
-                  <li
-                    className="relative mt-px flex sm:col-start-3"
-                    style={{ gridRow: "92 / span 30" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
-                      <p className="order-1 font-semibold text-pink-700">
-                        Flight to Paris
-                      </p>
-                      <p className="text-pink-500 group-hover:text-pink-700">
-                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                  <li
-                    className="relative mt-px hidden sm:col-start-6 sm:flex"
-                    style={{ gridRow: "122 / span 24" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
-                      <p className="order-1 font-semibold text-gray-700">
-                        Meeting with design team at Disney
-                      </p>
-                      <p className="text-gray-500 group-hover:text-gray-700">
-                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                      </p>
-                    </a>
-                  </li>
                 </ol>
               </div>
             </div>
