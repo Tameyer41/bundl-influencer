@@ -19,13 +19,15 @@ import {
   parseISO,
   isSameDay,
 } from "date-fns";
-import Button from "components/ui/Button";
+import { Popover } from "@headlessui/react";
+import { usePopper } from "react-popper";
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DotsHorizontalIcon,
   ClockIcon,
+  CheckIcon,
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { eachDayOfInterval } from "date-fns";
@@ -89,6 +91,18 @@ export default function Calendar() {
   let [selectedDay, setSelectedDay] = useState(today);
   let monthOfCurrentWeek = parse(currentWeek, "MMM-yyyy-dd", new Date());
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy-dd", new Date());
+  let [referenceElement, setReferenceElement] = useState();
+  let [popperElement, setPopperElement] = useState();
+  let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [-300, -200],
+        },
+      },
+    ],
+  });
   let newDays = eachDayOfInterval({
     start: startOfWeek(monthOfCurrentWeek),
     end: endOfWeek(monthOfCurrentWeek),
@@ -1045,16 +1059,46 @@ export default function Calendar() {
                         )}`,
                       }}
                     >
-                      <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100">
-                        <p className="order-1 font-semibold text-blue-700">
-                          {meeting.name}
-                        </p>
-                        <p className="text-blue-500 group-hover:text-blue-700">
-                          <time dateTime={`${new Date(meeting.startTime)}`}>
-                            {format(new Date(meeting.startTime), "p")}
-                          </time>
-                        </p>
-                      </a>
+                      <Popover className="group absolute inset-1 rounded-lg ">
+                        <Popover.Button className="bg-blue-50 p-2 hover:bg-blue-100 flex flex-col overflow-y-auto text-xs h-full w-full focus:ring-0 focus:ring-none focus:outline-none focus:outline-0">
+                          <p className="order-1 font-semibold text-blue-700">
+                            {meeting.name}
+                          </p>
+                          <p className="text-blue-500 group-hover:text-blue-700">
+                            <time dateTime={`${new Date(meeting.startTime)}`}>
+                              {format(new Date(meeting.startTime), "p")}
+                            </time>
+                          </p>
+                        </Popover.Button>
+                        <Popover.Panel
+                          style={styles.popper}
+                          {...attributes.popper}
+                          className="w-[350px]"
+                        >
+                          <div className="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-3xl sm:w-full sm:p-6">
+                            <div>
+                              <div className="mt-3 text-center sm:mt-5">
+                                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                                  {meeting.name}
+                                </h3>
+                                <div className="mt-2">
+                                  <p className="text-sm text-gray-500">
+                                    {meeting.location}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mt-5 sm:mt-6">
+                              <button
+                                type="button"
+                                className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                              >
+                                Edit event
+                              </button>
+                            </div>
+                          </div>
+                        </Popover.Panel>
+                      </Popover>
                     </li>
                   ))}
                 </ol>
