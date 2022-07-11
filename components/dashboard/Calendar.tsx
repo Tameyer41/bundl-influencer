@@ -38,30 +38,6 @@ import useSWR from "swr";
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
 
-const meetings = [
-  {
-    id: 1,
-    date: "2022-05-25T00:00",
-    startTime: "2022-05-25T14:00",
-    endTime: "2022-05-25T16:30",
-    name: "Leslie Alexander",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Starbucks",
-  },
-  {
-    id: 2,
-    date: "May 27, 2022",
-    startTime: "2022-05-27T07:00",
-    endTime: "2022-05-27T09:30",
-    name: "Meeting #2",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Starbucks",
-  },
-  // More meetings...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -94,11 +70,12 @@ export default function Calendar() {
   let [referenceElement, setReferenceElement] = useState();
   let [popperElement, setPopperElement] = useState();
   let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "right-start",
     modifiers: [
       {
         name: "offset",
         options: {
-          offset: [-300, -200],
+          offset: [0, 0],
         },
       },
     ],
@@ -1043,7 +1020,9 @@ export default function Calendar() {
                             parse(currentWeek, "MMM-yyyy-dd", new Date())
                           ) && `hidden`,
                         `relative mt-px flex col-start-${
-                          parseInt(format(new Date(meeting.date), "i")) + 1
+                          parseInt(format(new Date(meeting.date), "i")) == 7
+                            ? parseInt(format(new Date(meeting.date), "i")) + 2
+                            : parseInt(format(new Date(meeting.date), "i")) + 1
                         }`
                       )}
                       style={{
@@ -1059,12 +1038,12 @@ export default function Calendar() {
                         )}`,
                       }}
                     >
-                      <Popover className="group absolute inset-1 rounded-lg ">
-                        <Popover.Button className="bg-blue-50 p-2 hover:bg-blue-100 flex flex-col overflow-y-auto text-xs h-full w-full focus:ring-0 focus:ring-none focus:outline-none focus:outline-0">
-                          <p className="order-1 font-semibold text-blue-700">
+                      <Popover className="group absolute inset-1 rounded-lg">
+                        <Popover.Button className="leading-5 bg-blue-50 p-2 hover:bg-blue-100 rounded-lg flex flex-col overflow-y-auto text-xs h-full w-full focus:ring-0 focus:ring-none focus:outline-none focus:outline-0">
+                          <p className="order-1 font-semibold text-blue-700  text-left">
                             {meeting.name}
                           </p>
-                          <p className="text-blue-500 group-hover:text-blue-700">
+                          <p className="text-blue-500 group-hover:text-blue-700  text-left">
                             <time dateTime={`${new Date(meeting.startTime)}`}>
                               {format(new Date(meeting.startTime), "p")}
                             </time>
@@ -1073,9 +1052,19 @@ export default function Calendar() {
                         <Popover.Panel
                           style={styles.popper}
                           {...attributes.popper}
-                          className="w-[350px]"
+                          className="w-[350px] z-10"
                         >
-                          <div className="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-3xl sm:w-full sm:p-6">
+                          <div
+                            className={`${
+                              parseInt(format(new Date(meeting.date), "i")) ==
+                                6 ||
+                              parseInt(format(new Date(meeting.date), "i")) ==
+                                5 ||
+                              parseInt(format(new Date(meeting.date), "i")) == 4
+                                ? "right-[23rem] top-0"
+                                : "left-[10rem] top-0"
+                            } absolute  bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:max-w-3xl sm:w-full sm:p-6`}
+                          >
                             <div>
                               <div className="mt-3 text-center sm:mt-5">
                                 <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -1083,7 +1072,16 @@ export default function Calendar() {
                                 </h3>
                                 <div className="mt-2">
                                   <p className="text-sm text-gray-500">
-                                    {meeting.location}
+                                    {format(
+                                      new Date(meeting.startTime),
+                                      "h:mm a"
+                                    )}
+                                  </p>
+                                  <p className="text-sm text-gray-500">
+                                    {format(
+                                      new Date(meeting.endTime),
+                                      "h:mm a"
+                                    )}
                                   </p>
                                 </div>
                               </div>
