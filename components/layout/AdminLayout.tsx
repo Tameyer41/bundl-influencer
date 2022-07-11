@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import Dropdown from "./Dropdown";
 import { StandaloneLink } from "components/ui/StandaloneLink";
 import Image from "next/image";
+import { mutate } from "swr";
 import {
   HomeIcon,
   SearchIcon,
@@ -24,18 +25,37 @@ import {
 import InvitationModal from "components/ui/InvitationModal";
 
 const navigation = [
-  { name: "Overview", url: "/", icon: "🏠", current: true },
-  { name: "Campaigns", url: "/projects", icon: "🚀", current: false },
+  { name: "Overview", url: "/", icon: "🏠", apiRoute: "", current: true },
+  {
+    name: "Campaigns",
+    url: "/projects",
+    icon: "🚀",
+    apiRoute: "/api/projects/feed",
+    current: false,
+  },
   {
     name: "Influencer Discovery",
     url: "/creators",
     icon: "👥",
+    apiRoute: "/api/users/creators",
     current: false,
   },
 
-  { name: "Content Calendar", url: "/calendar", icon: "🗓️", current: false },
-  { name: "Products", url: "/products", icon: "🚛", current: false },
-  { name: "Legal", url: "/legal", icon: "🔒", current: false },
+  {
+    name: "Content Calendar",
+    url: "/calendar",
+    icon: "🗓️",
+    apiRoute: "/api/events",
+    current: false,
+  },
+  {
+    name: "Products",
+    url: "/products",
+    icon: "🚛",
+    apiRoute: "",
+    current: false,
+  },
+  { name: "Legal", url: "/legal", icon: "🔒", apiRoute: "", current: false },
 ];
 
 const actions = [
@@ -52,6 +72,9 @@ const actions = [
     current: false,
   },
 ];
+
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -245,7 +268,12 @@ export default function AdminLayout(props) {
                 <nav className="flex-1 px-2">
                   {navigation.map((item) => (
                     <Link key={item.name} href={item.url}>
-                      <div
+                      <a
+                        onMouseEnter={() => {
+                          mutate(`${item.apiRoute}`, async (current) => {
+                            return current ?? fetcher(`${item.apiRoute}`);
+                          });
+                        }}
                         className={
                           "/" + router.pathname.split("/")[1] == item.url
                             ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
@@ -254,7 +282,7 @@ export default function AdminLayout(props) {
                       >
                         <div className="text-base mr-4">{item.icon}</div>
                         {item.name}
-                      </div>
+                      </a>
                     </Link>
                   ))}
                 </nav>

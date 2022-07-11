@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import Modal from "components/ui/Modal";
 import moment from "moment";
 import { NextPage } from "next";
-import useSWR, { mutate, useSWRConfig } from "swr";
+import useSWR, { mutate } from "swr";
 import Image from "next/image";
 import { ChevronRightIcon, DotsVerticalIcon } from "@heroicons/react/solid";
 import { CogIcon } from "@heroicons/react/outline";

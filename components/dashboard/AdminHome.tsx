@@ -1,117 +1,11 @@
-import { useState } from "react";
 import Modal from "components/ui/Modal";
 import { format } from "date-fns";
 import { NextPage } from "next";
-import useSWR from "swr";
 import { CogIcon, XIcon } from "@heroicons/react/outline";
-import { Tab } from "@headlessui/react";
-
-const features = [
-  {
-    title: "Payroll",
-    description:
-      "Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.",
-    image: "test1",
-  },
-  {
-    title: "Claim expenses",
-    description:
-      "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.",
-    image: "test2",
-  },
-  {
-    title: "VAT handling",
-    description:
-      "We only sell our software to companies who don't deal with VAT at all, so technically we do all the VAT stuff they need.",
-    image: "test3",
-  },
-  {
-    title: "Reporting",
-    description:
-      "Easily export your data into an Excel spreadsheet where you can do whatever the hell you want with it.",
-    image: "test4",
-  },
-];
-
-const projects = [
-  {
-    id: 1,
-    title: "GraphQL API",
-    initials: "GA",
-    team: "Engineering",
-    members: [
-      {
-        name: "Dries Vincent",
-        handle: "driesvincent",
-        imageUrl:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-      {
-        name: "Lindsay Walton",
-        handle: "lindsaywalton",
-        imageUrl:
-          "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-      {
-        name: "Courtney Henry",
-        handle: "courtneyhenry",
-        imageUrl:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-      {
-        name: "Tom Cook",
-        handle: "tomcook",
-        imageUrl:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    ],
-    totalMembers: 12,
-    lastUpdated: "March 17, 2020",
-    pinned: true,
-    bgColorClass: "bg-[#CEAA75]",
-  },
-  // More projects...
-];
-const pinnedProjects = projects.filter((project) => project.pinned);
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
 
 const AdminHome: NextPage<{
   projects: { name: string; id: string; description: string }[];
 }> = (props) => {
-  // const { data, error } = useSWR("/api/projects/feed", fetcher);
-
-  // if (error) return <div>Failed to load</div>;
-  // if (!data)
-  //   return (
-  //     <div className="w-full h-screen grid place-items-center">
-  //       <svg
-  //         className="animate-spin h-5 w-5 text-white"
-  //         xmlns="http://www.w3.org/2000/svg"
-  //         fill="none"
-  //         viewBox="0 0 24 24"
-  //       >
-  //         <circle
-  //           className="text-gray-400 opacity-25"
-  //           cx="12"
-  //           cy="12"
-  //           r="10"
-  //           stroke="currentColor"
-  //           strokeWidth={3}
-  //         ></circle>
-  //         <path
-  //           className="opacity-75"
-  //           fill="currentColor"
-  //           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-  //         ></path>
-  //       </svg>
-  //     </div>
-  //   );
-
   let today = format(new Date(), "EEEE, LLLL d");
 
   return (
