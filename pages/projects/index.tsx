@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import Modal from "components/ui/Modal";
 import moment from "moment";
 import { NextPage } from "next";
-import useSWR from "swr";
+import useSWR, { mutate, useSWRConfig } from "swr";
 import Image from "next/image";
 import { ChevronRightIcon, DotsVerticalIcon } from "@heroicons/react/solid";
 import { CogIcon } from "@heroicons/react/outline";
@@ -290,7 +290,20 @@ const ProjectsHome: NextPage<{
                         <tr key={project.id} className="hover:bg-gray-50">
                           <td className="max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                             <Link href={`/projects/${project.id}`}>
-                              <a className="px-6 py-3 flex items-center space-x-3 lg:pl-8 lg:pr-6 cursor-pointer text-gray-900">
+                              <a
+                                onMouseEnter={() => {
+                                  mutate(
+                                    `/api/projects/${project.id}`,
+                                    async (current) => {
+                                      return (
+                                        current ??
+                                        fetcher(`/api/projects/${project.id}`)
+                                      );
+                                    }
+                                  );
+                                }}
+                                className="px-6 py-3 flex items-center space-x-3 lg:pl-8 lg:pr-6 cursor-pointer text-gray-900"
+                              >
                                 <div
                                   className={`flex-shrink-0 w-2.5 h-2.5 rounded-full ${project.color}`}
                                   aria-hidden="true"

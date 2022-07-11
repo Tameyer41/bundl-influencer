@@ -7,6 +7,7 @@ import Head from "next/head";
 
 import "@lib/styles/index.css";
 import WithAuth from "@lib/auth/WithAuth";
+import { SWRConfig } from "swr";
 
 export const queryClient = new QueryClient();
 
