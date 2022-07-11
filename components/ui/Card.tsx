@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import { mutate } from "swr";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/solid";
 import AddToProjectModal from "./AddToProjectModal";
+
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,6 +25,11 @@ export default function Card(props) {
           {user.image ? (
             <Link href={`/creators/${user.id}`}>
               <Image
+                onMouseEnter={() => {
+                  mutate(`/api/users/${user.id}`, async (current) => {
+                    return current ?? fetcher(`/api/users/${user.id}`);
+                  });
+                }}
                 src={user.image}
                 className="h-full w-full object-cover object-center"
                 width={500}
@@ -30,6 +39,11 @@ export default function Card(props) {
           ) : (
             <Link href={`/creators/${user.id}`}>
               <img
+                onMouseEnter={() => {
+                  mutate(`/api/users/${user.id}`, async (current) => {
+                    return current ?? fetcher(`/api/users/${user.id}`);
+                  });
+                }}
                 src="https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg"
                 alt="Hand stitched, orange leather long wallet"
                 className="h-full w-full object-cover object-center"
@@ -42,7 +56,14 @@ export default function Card(props) {
           <p className="text-sm font-normal text-gray-500"> {user.name} </p>
         </div>
         <Link href={`/creators/${user.id}`}>
-          <div className="w-full cursor-pointer">
+          <div
+            onMouseEnter={() => {
+              mutate(`/api/users/${user.id}`, async (current) => {
+                return current ?? fetcher(`/api/users/${user.id}`);
+              });
+            }}
+            className="w-full cursor-pointer"
+          >
             <a className="block w-full border border-gray-200 rounded px-4 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 text-center">
               {" "}
               View profile{" "}

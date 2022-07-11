@@ -66,7 +66,7 @@ const AdminHome: NextPage<{
                         </span>
                       </span>
                     </span>
-                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
+                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-left">
                       <span className="font-medium text-gray-900">
                         Customize home
                       </span>
@@ -82,7 +82,7 @@ const AdminHome: NextPage<{
                         </span>
                       </span>
                     </span>
-                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
+                    <span className="mt-2 flex text-sm sm:mt-0 sm:flex-col sm:ml-4 sm:text-left">
                       <span className="font-medium text-gray-900">
                         Try out goals
                       </span>

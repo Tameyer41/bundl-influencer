@@ -1,7 +1,7 @@
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { useState } from "react";
 import { filter } from "lodash";
 import Modal from "components/ui/Modal";
