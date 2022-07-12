@@ -110,7 +110,7 @@ export default function Calendar() {
   }
 
   function changeToWeek() {
-    let firstDayCurrentMonth = new Date(currentMonth);
+    let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy-dd", new Date());
     setCurrentWeek(format(firstDayCurrentMonth, "MMM-yyyy-dd"));
     setCurrentView("week");
   }
@@ -427,9 +427,6 @@ export default function Calendar() {
   let selectedDayMeetings = data.filter((meeting) =>
     isSameDay(parseISO(meeting.startTime), selectedDay)
   );
-
-  console.log(getWeek(new Date(currentWeek)));
-  console.log(getWeek(parse(currentWeek, "MMM-yyyy-dd", new Date())));
 
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
