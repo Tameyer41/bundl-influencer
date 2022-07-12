@@ -6,7 +6,7 @@ import {
   endOfWeek,
   getWeek,
   isToday,
-  isSameWeek,
+  formatDuration,
   isSameMonth,
   differenceInMinutes,
   parse,
@@ -1009,21 +1009,23 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
-                  <p
-                    className="col-start-2"
+                  <div
+                    className={`col-start-${getDay(new Date(today)) + 1}`}
                     style={{
                       gridRow: `${
-                        parseInt(format(new Date(), "H")) * 12 + 2
+                        parseInt(format(new Date(), "H")) * 12 + 3
                       } / span 5`,
                     }}
                   >
                     <div className="group">
-                      <div className="w-full h-1 bg-blue-600 rounded-full group"></div>
-                      <p className="group-hover:block hidden text-sm font-normal text-gray-700">
+                      <div className="flex">
+                        <div className="w-full h-[2px] m-1 z-10 mt-2 bg-blue-600 rounded-full group"></div>
+                      </div>
+                      <p className="group-hover:block hidden text-sm font-normal text-gray-700 text-center">
                         {format(new Date(), "h:mm a")}
                       </p>
                     </div>
-                  </p>
+                  </div>
                   {data.map((meeting) => (
                     <li
                       key={meeting.name}
@@ -1074,9 +1076,9 @@ export default function Calendar() {
                               parseInt(format(new Date(meeting.date), "i")) ==
                                 5 ||
                               parseInt(format(new Date(meeting.date), "i")) == 4
-                                ? "right-[22.5rem] top-0"
+                                ? "right-[20.75rem] top-0"
                                 : "left-[8rem] top-0"
-                            } absolute h-[375px] px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
+                            } absolute px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
                           >
                             <div>
                               <div className="absolute top-0 left-0 z-10 h-20 w-full bg-gradient-to-b from-blue-100"></div>
@@ -1097,6 +1099,34 @@ export default function Calendar() {
                                       new Date(meeting.endTime),
                                       "h:mm a"
                                     )}
+                                  </p>
+                                  <p className="text-sm text-gray-500">
+                                    {" "}
+                                    (
+                                    {differenceInMinutes(
+                                      new Date(meeting.endTime),
+                                      new Date(meeting.startTime)
+                                    ) > 59
+                                      ? formatDuration(
+                                          {
+                                            hours:
+                                              differenceInMinutes(
+                                                new Date(meeting.endTime),
+                                                new Date(meeting.startTime)
+                                              ) / 60,
+                                          },
+                                          { format: ["hours"] }
+                                        )
+                                      : formatDuration(
+                                          {
+                                            minutes: differenceInMinutes(
+                                              new Date(meeting.endTime),
+                                              new Date(meeting.startTime)
+                                            ),
+                                          },
+                                          { format: ["minutes"] }
+                                        )}
+                                    )
                                   </p>
                                 </div>
                                 {meeting.location && (

@@ -22,7 +22,7 @@ export default function AddToProjectModal(user: any) {
   const { data, error } = useSWR("/api/projects/feed", fetcher);
   const [selected, setSelected] = useState(data ? data[0] : "");
   if (error) return <div>Failed to load</div>;
-  if (!data) return <p> Test </p>;
+  if (!data) return <p className="hidden"> </p>;
 
   function openModal() {
     setOpen(!open);

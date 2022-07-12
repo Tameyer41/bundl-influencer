@@ -18,7 +18,7 @@ export default function Card(props) {
   return (
     <>
       <div className="group space-y-4">
-        <div className="aspect-[2/3] w-full cursor-pointer overflow-hidden rounded-md bg-gray-200 relative group">
+        <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none group cursor-pointer">
           <div className="z-10 absolute top-4 right-2 text-left">
             <AddToProjectModal user={user} />
           </div>
@@ -31,8 +31,8 @@ export default function Card(props) {
                   });
                 }}
                 src={user.image}
-                className="h-full w-full object-cover object-center"
-                width={500}
+                className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                width={800}
                 height={800}
               />
             </Link>
@@ -46,7 +46,7 @@ export default function Card(props) {
                 }}
                 src="https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg"
                 alt="Hand stitched, orange leather long wallet"
-                className="h-full w-full object-cover object-center"
+                className="w-full h-full object-center object-cover lg:w-full lg:h-full"
               />
             </Link>
           )}
@@ -72,7 +72,7 @@ export default function Card(props) {
             </div>
 
             <div className="w-full cursor-pointer">
-              <a className="block w-full border border-gray-200 rounded px-4 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 text-center">
+              <a className="relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200">
                 {" "}
                 View profile{" "}
               </a>

@@ -16,8 +16,8 @@ import { RadioGroup } from "@headlessui/react";
 const colors = [
   {
     name: "Blue",
-    bgColor: "bg-[#EFF3FE]",
-    selectedColor: "ring-blue-300",
+    bgColor: "bg-indigo-50",
+    selectedColor: "ring-indigo-300",
   },
   {
     name: "Emerald",
@@ -25,7 +25,7 @@ const colors = [
     selectedColor: "ring-emerald-100",
   },
   { name: "Amber", bgColor: "bg-amber-100", selectedColor: "ring-amber-200" },
-  { name: "Red", bgColor: "bg-red-200", selectedColor: "ring-red-300" },
+  { name: "Red", bgColor: "bg-pink-50", selectedColor: "ring-pink-300" },
   {
     name: "Violet",
     bgColor: "bg-violet-300",
@@ -129,66 +129,28 @@ export default function EventModal() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="mx-auto max-w-3xl transform rounded-xl bg-white p-1 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div className="mx-auto max-w-3xl transform rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <form
                 className="flex h-full flex-col bg-white"
                 onSubmit={submitData}
               >
                 <div className="flex-1">
                   {/* Header */}
-                  <div className="bg-gray-50 px-4 py-6 sm:px-6">
-                    <div className="flex items-start justify-between space-x-3">
-                      <div className="space-y-1">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">
-                          {" "}
-                          New Event{" "}
-                        </Dialog.Title>
-                        <p className="text-sm text-gray-500">
-                          Add an event to your calendar by filling out the
-                          information below.
-                        </p>
-                      </div>
-                      <div className="flex h-7 items-center">
-                        <button
-                          type="button"
-                          className="text-gray-400 hover:text-gray-500"
-                          onClick={() => setOpen(false)}
-                        >
-                          <span className="sr-only">Close panel</span>
-                          <XIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <input
+                    autoFocus
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    type="text"
+                    name="event-name"
+                    id="event-name"
+                    placeholder="Event name"
+                    className="block w-full border-0 focus:outline-none focus:ring-0 sm:text-lg px-4 sm:px-6"
+                  />
 
                   {/* Divider container */}
-                  <div className="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0">
-                    {/* Event name */}
-                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-                      <div>
-                        <label
-                          htmlFor="event-name"
-                          className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
-                        >
-                          {" "}
-                          Event name{" "}
-                        </label>
-                      </div>
-                      <div className="sm:col-span-2">
-                        <input
-                          autoFocus
-                          onChange={(e) => setName(e.target.value)}
-                          value={name}
-                          type="text"
-                          name="event-name"
-                          id="event-name"
-                          placeholder="Event name"
-                          className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
-                        />
-                      </div>
-                    </div>
+                  <div className="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-100 sm:py-0">
                     {/* Event Time Picker */}
-                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
                       <div>
                         <label
                           htmlFor="event-times"
@@ -198,7 +160,7 @@ export default function EventModal() {
                           Event Times{" "}
                         </label>
                       </div>
-                      <div className="sm:col-span-2 flex items-center space-x-2">
+                      <div className="sm:col-span-3 flex items-center space-x-2">
                         <input
                           onChange={(e) => updateDates(e)}
                           type="datetime-local"
@@ -226,12 +188,12 @@ export default function EventModal() {
                       <RadioGroup
                         value={selectedColor}
                         onChange={setSelectedColor}
-                        className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5"
+                        className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3"
                       >
                         <RadioGroup.Label className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2">
                           Choose an event color
                         </RadioGroup.Label>
-                        <div className="mt-4 flex items-center space-x-3">
+                        <div className="mt-4 flex items-center space-x-3 col-span-3">
                           {colors.map((color) => (
                             <RadioGroup.Option
                               key={color.name}
@@ -260,31 +222,8 @@ export default function EventModal() {
                         </div>
                       </RadioGroup>
                     </div>
-                    {/* Event notes */}
-                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-                      <div>
-                        <label
-                          htmlFor="event-notes"
-                          className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
-                        >
-                          {" "}
-                          Notes{" "}
-                        </label>
-                      </div>
-                      <div className="sm:col-span-2">
-                        <textarea
-                          onChange={(e) => setNote(e.target.value)}
-                          value={note}
-                          id="event-notes"
-                          name="event-notes"
-                          placeholder="Event notes"
-                          rows={3}
-                          className="block w-full rounded-md border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
-                    </div>
                     {/* Event location */}
-                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
                       <div>
                         <label
                           htmlFor="event-location"
@@ -294,7 +233,7 @@ export default function EventModal() {
                           Event location{" "}
                         </label>
                       </div>
-                      <div className="sm:col-span-2">
+                      <div className="sm:col-span-3">
                         <input
                           autoFocus
                           onChange={(e) => setLocation(e.target.value)}
@@ -303,7 +242,30 @@ export default function EventModal() {
                           name="event-location"
                           id="event-location"
                           placeholder="Event location"
-                          className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
+                          className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm placeholder:text-gray-400"
+                        />
+                      </div>
+                    </div>
+                    {/* Event notes */}
+                    <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
+                      <div>
+                        <label
+                          htmlFor="event-notes"
+                          className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
+                        >
+                          {" "}
+                          Notes{" "}
+                        </label>
+                      </div>
+                      <div className="sm:col-span-3">
+                        <textarea
+                          onChange={(e) => setNote(e.target.value)}
+                          value={note}
+                          id="event-notes"
+                          name="event-notes"
+                          placeholder="Event notes"
+                          rows={3}
+                          className="block w-full rounded-md border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm placeholder:text-gray-400"
                         />
                       </div>
                     </div>
@@ -311,7 +273,7 @@ export default function EventModal() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex-shrink-0 px-4 py-5 sm:px-6">
+                <div className="flex-shrink-0 px-4 py-2 sm:px-6">
                   <div className="flex justify-end space-x-3">
                     <button
                       type="button"
