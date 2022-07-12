@@ -16,13 +16,13 @@ import { RadioGroup } from "@headlessui/react";
 const colors = [
   {
     name: "Blue",
-    bgColor: "bg-blue-200",
+    bgColor: "bg-[#EFF3FE]",
     selectedColor: "ring-blue-300",
   },
   {
     name: "Emerald",
-    bgColor: "bg-emerald-100",
-    selectedColor: "ring-emerald-200",
+    bgColor: "bg-[#EEF8F7]",
+    selectedColor: "ring-emerald-100",
   },
   { name: "Amber", bgColor: "bg-amber-100", selectedColor: "ring-amber-200" },
   { name: "Red", bgColor: "bg-red-200", selectedColor: "ring-red-300" },

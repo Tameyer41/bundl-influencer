@@ -51,23 +51,32 @@ export default function Card(props) {
             </Link>
           )}
         </div>
-        <div className="space-y-2">
-          <h2 className="text-base font-medium text-gray-700"> {user.name} </h2>
-          <p className="text-sm font-normal text-gray-500"> {user.name} </p>
-        </div>
         <Link href={`/creators/${user.id}`}>
           <div
+            className="space-y-4 cursor-pointer"
             onMouseEnter={() => {
               mutate(`/api/users/${user.id}`, async (current) => {
                 return current ?? fetcher(`/api/users/${user.id}`);
               });
             }}
-            className="w-full cursor-pointer"
           >
-            <a className="block w-full border border-gray-200 rounded px-4 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 text-center">
-              {" "}
-              View profile{" "}
-            </a>
+            <div className="space-y-1">
+              <h2 className="text-base font-medium text-gray-700 hover:underline">
+                {" "}
+                {user.name}{" "}
+              </h2>
+              <p className="text-sm font-normal text-gray-500">
+                {" "}
+                {user.email}{" "}
+              </p>
+            </div>
+
+            <div className="w-full cursor-pointer">
+              <a className="block w-full border border-gray-200 rounded px-4 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 text-center">
+                {" "}
+                View profile{" "}
+              </a>
+            </div>
           </div>
         </Link>
       </div>

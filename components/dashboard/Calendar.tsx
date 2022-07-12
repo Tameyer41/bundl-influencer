@@ -34,6 +34,7 @@ import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
 import EventModal from "components/ui/EventModal";
 import useSWR from "swr";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -697,7 +698,7 @@ export default function Calendar() {
       {currentView === "week" && (
         <div
           ref={container}
-          className="flex flex-auto flex-col overflow-auto bg-white"
+          className="flex flex-auto flex-col overflow-x-hidden bg-white"
         >
           <div
             style={{ width: "165%" }}
@@ -1061,22 +1062,23 @@ export default function Calendar() {
                               parseInt(format(new Date(meeting.date), "i")) ==
                                 5 ||
                               parseInt(format(new Date(meeting.date), "i")) == 4
-                                ? "right-[23rem] top-0"
-                                : "left-[10rem] top-0"
-                            } absolute  bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:max-w-3xl sm:w-full sm:p-6`}
+                                ? "right-[22.5rem] top-0"
+                                : "left-[8rem] top-0"
+                            } absolute h-[400px] px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
                           >
                             <div>
-                              <div className="mt-3 text-center sm:mt-5">
-                                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                              <div className="mt-3 sm:mt-5">
+                                <h3 className="text-lg font-semibold leading-6 text-gray-900">
                                   {meeting.name}
                                 </h3>
-                                <div className="mt-2">
+                                <div className="mt-2 flex items-center space-x-1">
                                   <p className="text-sm text-gray-500">
                                     {format(
                                       new Date(meeting.startTime),
                                       "h:mm a"
                                     )}
                                   </p>
+                                  <ChevronRightIcon className="w-4 h-4 text-gray-500" />
                                   <p className="text-sm text-gray-500">
                                     {format(
                                       new Date(meeting.endTime),
@@ -1084,9 +1086,16 @@ export default function Calendar() {
                                     )}
                                   </p>
                                 </div>
+                                <div className="flex items-center space-x-1 mt-2">
+                                  <LocationMarkerIcon className="w-4 h-4 text-gray-500" />
+                                  <p className="text-sm text-gray-500">
+                                    {" "}
+                                    {meeting.location}{" "}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                            <div className="mt-5 sm:mt-6">
+                            <div className="mt-5 sm:mt-6 flex items-end">
                               <button
                                 type="button"
                                 className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
