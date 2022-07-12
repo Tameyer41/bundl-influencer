@@ -1009,6 +1009,21 @@ export default function Calendar() {
                       "1.75rem repeat(288, minmax(0, 1fr)) auto",
                   }}
                 >
+                  <p
+                    className="col-start-2"
+                    style={{
+                      gridRow: `${
+                        parseInt(format(new Date(), "H")) * 12 + 2
+                      } / span 5`,
+                    }}
+                  >
+                    <div className="group">
+                      <div className="w-full h-1 bg-blue-600 rounded-full group"></div>
+                      <p className="group-hover:block hidden text-sm font-normal text-gray-700">
+                        {format(new Date(), "h:mm a")}
+                      </p>
+                    </div>
+                  </p>
                   {data.map((meeting) => (
                     <li
                       key={meeting.name}
@@ -1050,7 +1065,7 @@ export default function Calendar() {
                         <Popover.Panel
                           style={styles.popper}
                           {...attributes.popper}
-                          className="w-[350px] z-10"
+                          className="w-[325px] z-10"
                         >
                           <div
                             className={`${
@@ -1061,9 +1076,10 @@ export default function Calendar() {
                               parseInt(format(new Date(meeting.date), "i")) == 4
                                 ? "right-[22.5rem] top-0"
                                 : "left-[8rem] top-0"
-                            } absolute h-[400px] px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
+                            } absolute h-[375px] px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
                           >
                             <div>
+                              <div className="absolute top-0 left-0 z-10 h-20 w-full bg-gradient-to-b from-blue-100"></div>
                               <div className="mt-3 sm:mt-5">
                                 <h3 className="text-lg font-semibold leading-6 text-gray-900">
                                   {meeting.name}
@@ -1083,13 +1099,15 @@ export default function Calendar() {
                                     )}
                                   </p>
                                 </div>
-                                <div className="flex items-center space-x-1 mt-2">
-                                  <LocationMarkerIcon className="w-4 h-4 text-gray-500" />
-                                  <p className="text-sm text-gray-500">
-                                    {" "}
-                                    {meeting.location}{" "}
-                                  </p>
-                                </div>
+                                {meeting.location && (
+                                  <div className="flex items-center space-x-1 mt-2">
+                                    <LocationMarkerIcon className="w-4 h-4 text-gray-500" />
+                                    <p className="text-sm text-gray-500">
+                                      {" "}
+                                      {meeting.location}{" "}
+                                    </p>
+                                  </div>
+                                )}
                               </div>
                             </div>
                             <div className="mt-5 sm:mt-6 flex items-end">

@@ -92,10 +92,10 @@ export default function EventModal() {
       <div onClick={openModal} className="flex">
         <button
           type="button"
-          className="mx-4 flex items-center rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
+          className="mx-4 flex items-center rounded border border-transparent bg-cyan-600 hover:bg-cyan-700 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
         >
           <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
-          New
+          New Event
         </button>
       </div>
       <Transition.Root
