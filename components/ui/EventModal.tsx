@@ -129,7 +129,7 @@ export default function EventModal() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="mx-auto max-w-3xl transform rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div className="mx-auto max-w-2xl transform rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <form
                 className="flex h-full flex-col bg-white"
                 onSubmit={submitData}
@@ -144,7 +144,7 @@ export default function EventModal() {
                     name="event-name"
                     id="event-name"
                     placeholder="Event name"
-                    className="block w-full border-0 focus:outline-none focus:ring-0 sm:text-lg px-4 sm:px-6"
+                    className="block w-full border-0 focus:outline-none focus:ring-0 sm:text-base px-4 sm:px-6"
                   />
 
                   {/* Divider container */}
@@ -277,7 +277,7 @@ export default function EventModal() {
                   <div className="flex justify-end space-x-3">
                     <button
                       type="button"
-                      className="py-2 px-4 text-sm font-medium text-gray-700 focus:outline-none focus:ring-0"
+                      className="mr-4 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-0"
                       onClick={() => setOpen(false)}
                     >
                       Cancel
