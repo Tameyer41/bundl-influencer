@@ -695,7 +695,7 @@ export default function Calendar() {
       {currentView === "week" && (
         <div
           ref={container}
-          className="flex flex-auto flex-col overflow-x-hidden bg-white"
+          className="flex flex-auto flex-col overflow-x-auto lg:overflow-x-hidden bg-white"
         >
           <div
             style={{ width: "165%" }}
@@ -1067,7 +1067,7 @@ export default function Calendar() {
                         <Popover.Panel
                           style={styles.popper}
                           {...attributes.popper}
-                          className="w-[325px] z-10"
+                          className="w-[325px] z-20"
                         >
                           <div
                             className={`${
@@ -1076,8 +1076,8 @@ export default function Calendar() {
                               parseInt(format(new Date(meeting.date), "i")) ==
                                 5 ||
                               parseInt(format(new Date(meeting.date), "i")) == 4
-                                ? "right-[16.75rem] lg:right-[20.75rem] top-0"
-                                : "left-[6rem] lg:left-[9.5rem] top-0"
+                                ? "right-[16.75rem] lg:right-[20.75rem] xl:right-[20.75rem] top-0"
+                                : "left-[6rem] md:left-[6.5rem] lg:left-[8rem] xl:left-[18.5rem] top-0"
                             } absolute px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
                           >
                             <div>

@@ -15,27 +15,31 @@ const SettingsPage = () => {
   const [name, setName] = useState(session.user.name);
 
   const uploadPhoto = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0]!;
     const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/upload-url?file=${filename}`);
+    const fileType = encodeURIComponent(file.type);
+    const res = await fetch(
+      `/api/upload-url?file=${filename}&fileType=${fileType}`
+    );
     const { url, fields } = await res.json();
     const formData = new FormData();
 
     Object.entries({ ...fields, file }).forEach(([key, value]) => {
-      formData.append(key, value);
+      formData.append(key, value as string);
     });
 
     const upload = await fetch(url, {
       method: "POST",
       body: formData,
     });
-    const updated_file_name = fields.key.replace(/ /g, "+");
 
     const photo_data = {
       id: session.id,
-      url: `https://s3.us-east-1.amazonaws.com/projectinfluencer/${filename}`,
+      url: `https://${process.env.NEXT_PUBLIC_BUCKET_NAME}.s3.amazonaws.com/${filename}`,
     };
+
     if (upload.ok) {
+      console.log("Uploaded successfully!");
       try {
         fetch(`/api/users/${session.id}`, {
           credentials: "include",
@@ -45,11 +49,13 @@ const SettingsPage = () => {
           },
           body: JSON.stringify(photo_data),
         }).then(reloadSession);
+        console.log(
+          `https://${process.env.NEXT_PUBLIC_BUCKET_NAME}.s3.amazonaws.com/${filename}`
+        );
         Router.push("/");
       } catch (error) {
         console.error(error);
       }
-      console.log("Uploaded successfully!");
     } else {
       console.error("Upload failed.");
     }

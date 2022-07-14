@@ -109,7 +109,7 @@ export default function ProjectBrief() {
           placeholder={"Write your project brief here..."}
           wrapperClassName="wrapper-class bg-white"
           editorClassName="editor-class"
-          toolbarClassName="toolbar-class !text-black !border-b !border-r-0 !border-l-0 !border-t-0 !border-gray-200 !pb-4"
+          toolbarClassName="!text-gray-700 !border-b !border-r-0 !border-l-0 !border-t-0 !border-gray-200 !pb-4 toolbar-class"
           onEditorStateChange={handleEditorChange}
           toolbar={{
             inline: { inDropdown: true },
