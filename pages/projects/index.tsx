@@ -331,7 +331,6 @@ const ProjectsHome: NextPage<{
                                         className="flex-shrink-0 rounded-full max-w-none object-cover"
                                         width={24}
                                         height={24}
-                                        unoptimized={true}
                                       />
                                     ) : (
                                       <div className="flex-shrink-0 rounded-full w-6 h-6 bg-indigo-600"></div>

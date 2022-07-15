@@ -27,6 +27,7 @@ module.exports = {
       "projectinfluencer.s3.us-east-1.amazonaws.com",
       "projectinfluencer.s3.amazonaws.com",
       "s3.us-east-1.amazonaws.com",
+      "trybundl.com",
     ],
   },
 };

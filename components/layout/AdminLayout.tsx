@@ -199,7 +199,6 @@ export default function AdminLayout(props) {
                               className="flex-shrink-0 rounded-full object-cover"
                               width={48}
                               height={48}
-                              unoptimized={true}
                             />
                           ) : (
                             <div className="flex-shrink-0 rounded-full w-12 h-12 bg-blue-500"></div>
