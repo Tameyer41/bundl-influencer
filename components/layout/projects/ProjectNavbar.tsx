@@ -48,9 +48,15 @@ export default function ProjectNavbar(props) {
           <div className="h-14 w-14 rounded-xl bg-[#48DAFD] items-center justify-center flex">
             <AdjustmentsIcon className="w-8 h-8 text-white"></AdjustmentsIcon>
           </div>
-          <h3 className="text-2xl font-medium text-gray-900">
-            {props.data.project.name}
-          </h3>
+          <div>
+            <h3 className="text-xl font-medium text-gray-900">
+              {props.data.project.name}
+            </h3>
+            <p className="text-sm font-normal text-gray-700">
+              {" "}
+              {props.data.project.description || "No description set"}
+            </p>
+          </div>
           <button className="cursor-pointer flex items-center">
             <InformationCircleIcon className="w-5 h-5 text-gray-500" />
           </button>
@@ -154,7 +160,7 @@ export default function ProjectNavbar(props) {
                 <a
                   className={classNames(
                     tab.current
-                      ? "border-cyan-600 text-cyan-600"
+                      ? "border-sky-500 text-sky-500"
                       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
                     "whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm"
                   )}
