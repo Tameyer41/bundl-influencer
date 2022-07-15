@@ -112,3 +112,4 @@ const ProjectCreatorPage = () => {
 };
 
 export default ProjectCreatorPage;
+ProjectCreatorPage.auth = true;

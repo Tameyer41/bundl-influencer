@@ -17,13 +17,6 @@ export default function CreatorsPage() {
 
   console.log(session);
 
-  if (!session) {
-    return <p>You are not authenticated</p>;
-  }
-  if (session.role !== "admin") {
-    return <p>You are not authenticated</p>;
-  }
-
   if (error) return <div>Failed to load</div>;
   if (!data)
     return (
@@ -163,3 +156,4 @@ export default function CreatorsPage() {
     </>
   );
 }
+CreatorsPage.auth = true;

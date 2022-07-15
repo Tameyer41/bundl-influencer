@@ -24,7 +24,9 @@ function MyApp({
         <QueryClientProvider client={queryClient}>
           {Component.auth ? (
             <WithAuth options={Component.auth}>
-              <Component {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </WithAuth>
           ) : (
             <Layout>

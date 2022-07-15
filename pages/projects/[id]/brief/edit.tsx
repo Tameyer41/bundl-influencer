@@ -149,3 +149,4 @@ export default function ProjectBrief() {
     </div>
   );
 }
+ProjectBrief.auth = true;

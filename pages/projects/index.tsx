@@ -8,6 +8,7 @@ import useSWR, { mutate } from "swr";
 import Image from "next/image";
 import { ChevronRightIcon, DotsVerticalIcon } from "@heroicons/react/solid";
 import { CogIcon } from "@heroicons/react/outline";
+import { useSession } from "next-auth/react";
 
 const projects = [
   {
@@ -56,9 +57,7 @@ function classNames(...classes) {
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
 
-const ProjectsHome: NextPage<{
-  projects: { name: string; id: string; description: string }[];
-}> = (props) => {
+export default function ProjectsHome(props) {
   const { data, error } = useSWR("/api/projects/feed", fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -436,6 +435,5 @@ const ProjectsHome: NextPage<{
       )}
     </>
   );
-};
-
-export default ProjectsHome;
+}
+ProjectsHome.auth = true;

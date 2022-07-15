@@ -204,3 +204,4 @@ const Project = () => {
 };
 
 export default Project;
+Project.auth = true;

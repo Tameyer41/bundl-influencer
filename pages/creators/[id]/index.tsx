@@ -408,3 +408,4 @@ export default function IndividualCreatorsPage() {
     </div>
   );
 }
+IndividualCreatorsPage.auth = true;

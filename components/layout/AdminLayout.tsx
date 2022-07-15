@@ -223,108 +223,104 @@ export default function AdminLayout(props) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        {session && (
-          <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0 z-10">
-            {/* Sidebar component, swap this element with another sidebar if you like */}
-            <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
-              <Dropdown />
-              <SearchModal navigation={navigation} />
-              <div className="py-3">
-                <nav className="flex-1">
-                  {actions.map((item) => (
-                    <Link key={item.name} href={item.url}>
-                      <div
-                        className={
-                          "/" + router.pathname.split("/")[1] == item.url
-                            ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                            : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                        }
-                      >
-                        <div className="w-[30px] flex items-center justify-center">
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? "text-[#646466] text-sm items-center flex"
-                                : "text-gray-500 text-sm items-center flex",
-                              "flex-shrink-0 h-[20px] w-[20px] text-sm items-center flex text-[#646466] mr-4"
-                            )}
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <div className="">{item.name}</div>
+        <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0 z-10">
+          {/* Sidebar component, swap this element with another sidebar if you like */}
+          <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
+            <Dropdown />
+            <SearchModal navigation={navigation} />
+            <div className="py-3">
+              <nav className="flex-1">
+                {actions.map((item) => (
+                  <Link key={item.name} href={item.url}>
+                    <div
+                      className={
+                        "/" + router.pathname.split("/")[1] == item.url
+                          ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                          : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                      }
+                    >
+                      <div className="w-[30px] flex items-center justify-center">
+                        <item.icon
+                          className={classNames(
+                            item.current
+                              ? "text-[#646466] text-sm items-center flex"
+                              : "text-gray-500 text-sm items-center flex",
+                            "flex-shrink-0 h-[20px] w-[20px] text-sm items-center flex text-[#646466] mr-4"
+                          )}
+                          aria-hidden="true"
+                        />
                       </div>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-              <div className="border-t border-[#F0F0F0] pt-4">
-                <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
-                  Navigation
-                </p>
-              </div>
-              <div className="flex flex-col overflow-y-auto">
-                <nav className="flex-1 px-2">
-                  {navigation.map((item) => (
-                    <Link key={item.name} href={item.url}>
-                      <a
-                        onMouseEnter={() => {
-                          mutate(`${item.apiRoute}`, async (current) => {
-                            return current ?? fetcher(`${item.apiRoute}`);
-                          });
-                        }}
-                        className={
-                          "/" + router.pathname.split("/")[1] == item.url
-                            ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
-                            : "hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
-                        }
-                      >
-                        <div className="text-base mr-4">{item.icon}</div>
-                        {item.name}
-                      </a>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-              <div className="pt-4">
-                <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
-                  My Team
-                </p>
-                <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <Link href="/settings">
-                    <div className="w-full hover:bg-gray-200 hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
-                      <div
-                        className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
-                        aria-hidden="true"
-                      >
-                        {session.user.name ? session.user.name.charAt(0) : ""}
-                      </div>
-                      {session.name}
+                      <div className="">{item.name}</div>
                     </div>
                   </Link>
-                </div>
-                <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
-                  <InvitationModal />
-                </div>
+                ))}
+              </nav>
+            </div>
+            <div className="border-t border-[#F0F0F0] pt-4">
+              <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
+                Navigation
+              </p>
+            </div>
+            <div className="flex flex-col overflow-y-auto">
+              <nav className="flex-1 px-2">
+                {navigation.map((item) => (
+                  <Link key={item.name} href={item.url}>
+                    <a
+                      onMouseEnter={() => {
+                        mutate(`${item.apiRoute}`, async (current) => {
+                          return current ?? fetcher(`${item.apiRoute}`);
+                        });
+                      }}
+                      className={
+                        "/" + router.pathname.split("/")[1] == item.url
+                          ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                          : "hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                      }
+                    >
+                      <div className="text-base mr-4">{item.icon}</div>
+                      {item.name}
+                    </a>
+                  </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="pt-4">
+              <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
+                My Team
+              </p>
+              <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
+                <Link href="/settings">
+                  <div className="w-full hover:bg-gray-200 hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
+                    <div
+                      className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
+                      aria-hidden="true"
+                    >
+                      {session.user.name ? session.user.name.charAt(0) : ""}
+                    </div>
+                    {session.name}
+                  </div>
+                </Link>
+              </div>
+              <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
+                <InvitationModal />
               </div>
             </div>
           </div>
-        )}
-        {session && (
-          <div className="md:pl-[280px] flex flex-col flex-1">
-            <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white standalone:h-20 standalone:pt-8">
-              <button
-                type="button"
-                className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                onClick={() => setSidebarOpen(true)}
-              >
-                <span className="sr-only">Open sidebar</span>
-                <MenuIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-
-            <main>{props.props.children}</main>
+        </div>
+        <div className="md:pl-[280px] flex flex-col flex-1">
+          <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white standalone:h-20 standalone:pt-8">
+            <button
+              type="button"
+              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <MenuIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
           </div>
-        )}
+
+          <main>{props.props.children}</main>
+        </div>
         {!session && !loading && <main>{props.props.children}</main>}
       </div>
       <footer className="hidden standalone:flex standalone:fixed standalone:w-full standalone:bottom-0 bg-white z-[100] border-t border-gray-200 mt-auto">

@@ -335,3 +335,4 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
+SettingsPage.auth = true;

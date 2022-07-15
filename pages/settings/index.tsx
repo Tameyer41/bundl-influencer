@@ -50,7 +50,7 @@ const SettingsPage = () => {
           },
           body: JSON.stringify(photo_data),
         });
-        mutate(`/api/users/${session.id}`);
+        await mutate(`/api/users/${session.id}`);
         console.log(
           `https://${process.env.NEXT_PUBLIC_BUCKET_NAME}.s3.amazonaws.com/${filename}`
         );
@@ -239,3 +239,4 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
+SettingsPage.auth = true;

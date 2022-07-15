@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { userInfo } from "os";
 
-const Page = (props) => {
+const IndexPage = (props) => {
   const router = useRouter();
   const { status, data: session } = useSession({
     required: true,
@@ -32,4 +32,5 @@ const Page = (props) => {
   );
 };
 
-export default Page;
+export default IndexPage;
+IndexPage.auth = true;

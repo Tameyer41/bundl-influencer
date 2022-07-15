@@ -4,12 +4,7 @@ import { useSession } from "next-auth/react";
 
 export default function CalendarPage() {
   const router = useRouter();
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/sign-in", "/sign-in", {});
-    },
-  });
+  const { status, data: session } = useSession();
 
   if (status === "loading") {
     return (
@@ -40,3 +35,4 @@ export default function CalendarPage() {
 
   return <Calendar />;
 }
+CalendarPage.auth = true;
