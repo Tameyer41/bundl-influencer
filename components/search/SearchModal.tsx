@@ -25,19 +25,19 @@ export default function SearchModal(props) {
 
   const quickActions = [
     {
-      name: "Add new file...",
+      name: "Invite team...",
       icon: DocumentAddIcon,
       shortcut: "N",
       url: "#",
     },
     {
-      name: "Add new folder...",
+      name: "Create event...",
       icon: FolderAddIcon,
       shortcut: "F",
       url: "#",
     },
-    { name: "Add hashtag...", icon: HashtagIcon, shortcut: "H", url: "#" },
-    { name: "Add label...", icon: TagIcon, shortcut: "L", url: "#" },
+    { name: "Create campaign...", icon: HashtagIcon, shortcut: "H", url: "#" },
+    { name: "Track shipment...", icon: TagIcon, shortcut: "L", url: "#" },
   ];
 
   useEffect(() => {

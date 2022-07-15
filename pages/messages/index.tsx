@@ -43,7 +43,7 @@ export default function ProjectsPage() {
         <div className="flex justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12 text-[#CAA53D]"
+            className="h-12 w-12 text-[#625DF5]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -78,11 +78,11 @@ export default function ProjectsPage() {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium text-[#7E623A]">Quick chat</p>
+            <p className="text-sm font-medium text-gray-700">Quick chat</p>
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#625DF5]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-[#7E623A]"
+                className="h-4 w-4 text-white"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >

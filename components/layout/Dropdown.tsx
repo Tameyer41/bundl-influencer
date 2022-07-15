@@ -38,14 +38,14 @@ export default function Dropdown() {
           <Menu.Button className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px]">
             <div className="flex items-center">
               <div>
-                <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-gray-200"></div>
+                <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-gray-400 animate-pulse"></div>
               </div>
               <div className="ml-3 text-left ">
                 <p className="text-[14px] leading-[18px] font-medium text-[#3F3F3F] group-hover:text-[#404040]">
                   Workspace
                 </p>
 
-                <div className="w-full h-4 bg-gray-200 animate-pulse rounded-full"></div>
+                <div className="w-full h-[14px] mt-1 bg-gray-400 animate-pulse rounded-full"></div>
               </div>
             </div>
           </Menu.Button>
@@ -93,9 +93,9 @@ export default function Dropdown() {
         leaveFrom="transform opacity-100"
         leaveTo="transform opacity-0"
       >
-        <Menu.Items className="pt-2 origin-top-right absolute top-1 left-2.5 w-[300px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-[54]">
+        <Menu.Items className="pt-2 origin-top-right absolute top-[0.2rem] left-2.5 w-[300px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-[54]">
           {/* Start */}
-          <div className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px]">
+          <Menu.Button className="flex-shrink-0 w-full group block mr-[10px] px-[10px] rounded-[5px]">
             <div className="flex items-center">
               <div>
                 {data.image ? (
@@ -118,7 +118,7 @@ export default function Dropdown() {
                 </p>
               </div>
             </div>
-          </div>
+          </Menu.Button>
           {/* End */}
           <div className="px-4 py-3">
             <p className="text-sm">Signed in as</p>
@@ -130,7 +130,7 @@ export default function Dropdown() {
             <Menu.Item>
               <MyLink
                 href="/settings"
-                className="hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm"
+                className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm"
               >
                 Account settings
               </MyLink>
@@ -138,7 +138,8 @@ export default function Dropdown() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href="/support"
+                  target="_blank"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
@@ -151,7 +152,8 @@ export default function Dropdown() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href="/license"
+                  target="_blank"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"

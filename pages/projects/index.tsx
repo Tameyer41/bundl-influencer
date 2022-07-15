@@ -108,13 +108,15 @@ export default function ProjectsHome(props) {
                 <div className="flex">
                   <Modal />
                   <span className="relative z-0 inline-flex shadow-sm rounded-md">
-                    <button
-                      type="button"
-                      className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                      <span className="sr-only">Previous</span>
-                      <CogIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
+                    <Link href="/settings">
+                      <button
+                        type="button"
+                        className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                      >
+                        <span className="sr-only">Previous</span>
+                        <CogIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                    </Link>
                   </span>
                 </div>
               </div>
@@ -370,7 +372,7 @@ export default function ProjectsHome(props) {
             <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-[#CAA53D]"
+                className="h-12 w-12 text-[#625DF5]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -411,7 +413,7 @@ export default function ProjectsHome(props) {
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#625DF5]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-[#7E623A]"
+                    className="h-4 w-4 text-white"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -436,4 +438,8 @@ export default function ProjectsHome(props) {
     </>
   );
 }
-ProjectsHome.auth = true;
+ProjectsHome.auth = {
+  role: "test",
+  loading: <p>test</p>,
+  unauthorized: "/login-with-different-user", // redirect to this url
+};
