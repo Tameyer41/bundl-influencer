@@ -224,7 +224,7 @@ export default function AdminLayout(props) {
 
         {/* Static sidebar for desktop */}
         {session && (
-          <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0">
+          <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0 z-10">
             {/* Sidebar component, swap this element with another sidebar if you like */}
             <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
               <Dropdown />

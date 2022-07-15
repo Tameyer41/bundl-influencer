@@ -194,7 +194,6 @@ export default NextAuth({
         token.onboarded = user.onboarded;
         token.image = user.image;
       }
-
       return token;
     },
     async session({ session, token, user }) {

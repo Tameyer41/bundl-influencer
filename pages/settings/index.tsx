@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Router from "next/router";
 import Link from "next/link";
+import { mutate } from "swr";
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -48,7 +49,8 @@ const SettingsPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(photo_data),
-        }).then(reloadSession);
+        });
+        mutate(`/api/users/${session.id}`);
         console.log(
           `https://${process.env.NEXT_PUBLIC_BUCKET_NAME}.s3.amazonaws.com/${filename}`
         );
@@ -121,7 +123,7 @@ const SettingsPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(objectWithData),
-      }).then(reloadSession);
+      });
       Router.push("/");
     } catch (error) {
       console.error(error);

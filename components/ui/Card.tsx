@@ -24,17 +24,18 @@ export default function Card(props) {
           </div>
           {user.image ? (
             <Link href={`/creators/${user.id}`}>
-              <Image
-                onMouseEnter={() => {
-                  mutate(`/api/users/${user.id}`, async (current) => {
-                    return current ?? fetcher(`/api/users/${user.id}`);
-                  });
-                }}
-                src={user.image}
-                className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                width={800}
-                height={800}
-              />
+              <div className="relative h-80 w-80">
+                <Image
+                  onMouseEnter={() => {
+                    mutate(`/api/users/${user.id}`, async (current) => {
+                      return current ?? fetcher(`/api/users/${user.id}`);
+                    });
+                  }}
+                  src={user.image}
+                  layout="fill" // required
+                  objectFit="cover" // change to suit your needs
+                />
+              </div>
             </Link>
           ) : (
             <Link href={`/creators/${user.id}`}>
@@ -46,7 +47,7 @@ export default function Card(props) {
                 }}
                 src="https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg"
                 alt="Hand stitched, orange leather long wallet"
-                className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                className="h-80 w-80 object-center object-cover"
               />
             </Link>
           )}
