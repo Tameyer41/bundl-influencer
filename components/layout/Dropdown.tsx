@@ -34,11 +34,9 @@ export default function Dropdown() {
             <div className="flex items-center">
               <div>
                 {session.user.image ? (
-                  <Image
+                  <img
                     src={session.user.image}
-                    className="flex-shrink-0 rounded-[6px] object-cover"
-                    width={53}
-                    height={53}
+                    className="flex-shrink-0 rounded-[6px] object-cover w-[53px] h-[53px]"
                   />
                 ) : (
                   <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-blue-500"></div>
@@ -72,11 +70,9 @@ export default function Dropdown() {
             <div className="flex items-center">
               <div>
                 {session.user.image ? (
-                  <Image
+                  <img
                     src={session.user.image}
-                    className="flex-shrink-0 rounded-[6px] object-cover"
-                    width={53}
-                    height={53}
+                    className="flex-shrink-0 rounded-[6px] object-cover w-[53px] h-[53px]"
                   />
                 ) : (
                   <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-blue-500"></div>
