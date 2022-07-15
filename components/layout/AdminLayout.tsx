@@ -194,11 +194,9 @@ export default function AdminLayout(props) {
                       <div className="flex items-center">
                         <div>
                           {session.user.image ? (
-                            <Image
+                            <img
                               src={session.user.image}
-                              className="flex-shrink-0 rounded-full object-cover"
-                              width={48}
-                              height={48}
+                              className="flex-shrink-0 rounded-full object-cover w-12 h-12"
                             />
                           ) : (
                             <div className="flex-shrink-0 rounded-full w-12 h-12 bg-blue-500"></div>
