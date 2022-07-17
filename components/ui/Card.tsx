@@ -18,7 +18,7 @@ export default function Card(props) {
   return (
     <>
       <div className="group space-y-4">
-        <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none group cursor-pointer">
+        <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none group cursor-pointer relative">
           <div className="z-10 absolute top-4 right-2 text-left">
             <AddToProjectModal user={user} />
           </div>

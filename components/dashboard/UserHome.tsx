@@ -65,7 +65,7 @@ export default function UserHome() {
 
   return (
     <>
-      <p> Hey</p>
+      <p> Check back later for more information</p>
     </>
   );
 }

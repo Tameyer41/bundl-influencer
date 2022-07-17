@@ -73,7 +73,7 @@ export default function ProjectsHome(props) {
           <div className="flex">
             <button
               type="button"
-              className="mx-4 rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
+              className="mx-4 rounded border border-transparent bg-blue-500 hover:bg-[#625DF5] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
             >
               Create a project
             </button>

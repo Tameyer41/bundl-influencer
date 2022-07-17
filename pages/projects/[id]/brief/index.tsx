@@ -62,18 +62,18 @@ export default function ProjectBrief() {
       href: `/projects/${data.project.id}/creators`,
       current: false,
     },
-    { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
     { name: "Deliverables", href: "#", current: false },
     { name: "Shipments", href: "#", current: false },
+    { name: "Settings", href: "#", current: false },
   ];
 
   return (
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
-      <div className="w-full h-screen lg:divide-x lg:divide-gray-200 mt-4">
+      <div className="w-full h-screen lg:divide-x lg:divide-gray-200 mt-2 py-4">
         <Link href={`/projects/${data.project.id}`}>
-          <a className="mt-4 ml-8 text-sm font-medium text-gray-500 hover:text-gray-700">
+          <a className="ml-8 text-sm font-medium text-gray-500 hover:text-gray-700">
             {" "}
             Return to summary{" "}
           </a>

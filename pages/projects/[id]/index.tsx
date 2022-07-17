@@ -59,10 +59,10 @@ const Project = () => {
       href: `/projects/${data.project.id}/creators`,
       current: false,
     },
-    { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
     { name: "Deliverables", href: "#", current: false },
     { name: "Shipments", href: "#", current: false },
+    { name: "Settings", href: "#", current: false },
   ];
 
   const createMarkup = (html) => {
@@ -75,9 +75,9 @@ const Project = () => {
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
       <div className="w-full grid grid-cols-12 h-screen lg:divide-x lg:divide-gray-200">
-        <div className="col-span-12 lg:col-span-8 max-w-5xl mt-8 px-6 lg:px-8 py-4 space-y-12">
+        <div className="col-span-12 lg:col-span-8 max-w-5xl mt-2 px-6 lg:px-8 py-4 space-y-12">
           <div className="space-y-2">
-            <h2 className="font-medium text-xl text-gray-900">
+            <h2 className="font-medium text-lg text-gray-900">
               {" "}
               Project overview
             </h2>
@@ -87,7 +87,7 @@ const Project = () => {
             </p>
           </div>
           <div className="space-y-2">
-            <h2 className="font-medium text-xl text-gray-900">
+            <h2 className="font-medium text-lg text-gray-900">
               {" "}
               Project roles{" "}
             </h2>
@@ -125,7 +125,7 @@ const Project = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <h2 className="font-medium text-xl text-gray-900">Key resources</h2>
+            <h2 className="font-medium text-lg text-gray-900">Key resources</h2>
             {data.project.brief ? (
               <Link href={`/projects/${data.project.id}/brief`}>
                 <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer max-h-28 overflow-hidden">
@@ -155,7 +155,7 @@ const Project = () => {
                 </p>
                 <div className="flex items-center space-x-2 justify-center">
                   <Link href={`/projects/${data.project.id}/brief/edit`}>
-                    <a className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#625DF5] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-blue-500 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       Create project brief
                     </a>
                   </Link>
@@ -170,7 +170,7 @@ const Project = () => {
             )}
           </div>
           <div className="space-y-2">
-            <h2 className="font-medium text-xl text-gray-900">Milestones</h2>
+            <h2 className="font-medium text-lg text-gray-900">Milestones</h2>
             <p className="text-sm font-normal text-gray-700">
               Milestones coming soon
             </p>

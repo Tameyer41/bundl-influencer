@@ -64,12 +64,13 @@ const SettingsPage = () => {
   };
 
   const tabs = [
-    { name: "General", href: "#", current: true },
+    { name: "General", href: "/settings", current: true },
     { name: "Creators", href: "/settings/creators", current: false },
-    { name: "Notifications", href: "#", current: false },
-    { name: "Plan", href: "#", current: false },
-    { name: "Billing", href: "#", current: false },
-    { name: "Team Members", href: "#", current: false },
+    { name: "Integrations", href: "/settings/integrations", current: false },
+    { name: "Notifications", href: "/settings/notifications", current: false },
+    { name: "Payouts", href: "/settings/payouts", current: false },
+    { name: "Webhooks", href: "/settings/webhooks", current: false },
+    { name: "API", href: "/settings/api", current: false },
   ];
 
   function classNames(...classes) {
@@ -132,104 +133,132 @@ const SettingsPage = () => {
 
   return (
     <>
-      <main className="max-w-[70rem] pt-6 pb-16 px-6">
+      <main className="lg:max-w-[60rem] lg:mx-auto pt-6 pb-16 px-6">
         <div className="mb-6">
-          <h2 className="text-sm font-semibold text-[#212121] text-opacity-60">
-            Bundl Marketing
-          </h2>
-          <h1 className="text-3xl text-[#212121] font-medium">
-            Workspace Settings
-          </h1>
+          <h1 className="text-2xl text-[#212121] font-medium">Settings</h1>
+        </div>
+        <div className="block max-w-full overflow-auto mb-8">
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex space-x-4">
+              {tabs.map((tab) => (
+                <Link key={tab.name} href={tab.href}>
+                  <a
+                    className={classNames(
+                      tab.current
+                        ? "border-[#625df5] text-[#212121]"
+                        : "border-transparent text-[#212121] text-opacity-60 hover:text-[#212121]",
+                      "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                    )}
+                  >
+                    {tab.name}
+                  </a>
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
         <form onSubmit={updateUser}>
-          <div className="space-y-6">
-            <div className="block max-w-full overflow-auto">
-              <div className="border-b border-gray-200">
-                <nav className="-mb-px flex space-x-4">
-                  {tabs.map((tab) => (
-                    <Link key={tab.name} href={tab.href}>
-                      <a
-                        className={classNames(
-                          tab.current
-                            ? "border-[#625df5] text-[#212121]"
-                            : "border-transparent text-[#212121] text-opacity-60 hover:text-[#212121]",
-                          "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                        )}
-                      >
-                        {tab.name}
-                      </a>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </div>
+          <div className="flex items-end justify-between border-b border-gray-100 pb-6">
             <div>
-              <h1 className="text-lg font-semibold text-[#212121]">
-                Name and photos
-              </h1>
-              <p className="mt-1 text-sm text-[#212121] font-normal">
-                Changing your name below will update your name on your profile.
+              <h2 className="text-xl font-medium text-gray-700">
+                Account settings
+              </h2>
+              <p className="text-gray-500 text-sm">
+                View and update your account details
               </p>
             </div>
-
             <div>
-              <label
-                htmlFor="project-name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Full Name
-              </label>
-              <div className="mt-1">
-                <input
-                  type="text"
-                  name="full-name"
-                  id="full-name"
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={session.user.name}
-                  value={name}
-                  className="block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md"
-                />
+              <div className="flex items-center">
+                <button
+                  type="submit"
+                  className="inline-flex w-full cursor-pointer items-center rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+                >
+                  Save changes
+                </button>
               </div>
             </div>
-            <div className="sm:col-span-6">
-              <label
-                htmlFor="photo"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Photo
-              </label>
-              <div className="mt-1 flex items-center">
-                <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                  <svg
-                    className="h-full w-full text-gray-300"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+          </div>
+          <div className="border-gray-100 flex items-start border-b py-6">
+            <div className="mr-8 w-2/5 flex-shrink-0">
+              <h3 className="text-gray-900 font-medium text-sm">
+                Full Name <span className="text-red-500">*</span>
+              </h3>
+              <p className="text-gray-500 max-w-xs font-normal text-sm">
+                Appears on receipts, invoices, and more
+              </p>
+            </div>
+            <div className="flex-grow">
+              <input
+                type="text"
+                name="full-name"
+                id="full-name"
+                onChange={(e) => setName(e.target.value)}
+                placeholder={session.user.name}
+                value={name}
+                className="shadow-sm w-full rounded-lg bg-white px-4 py-2 text-sm text-gray-700 border border-gray-900 border-opacity-20"
+              />
+            </div>
+          </div>
+          <div className="flex items-start border-b border-gray-100 py-6">
+            <div className="mr-8 w-2/5 flex-shrink-0">
+              <h3 className="text-sm font-medium text-gray-900">Avatar</h3>
+            </div>
+            <div className="flex-grow">
+              <div className="flex items-center">
+                <div className="mr-2 h-6 w-6">
+                  <div className="relative h-full w-full">
+                    <div className="absolute inset-0 h-full w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full h-full"
+                        viewBox="0 0 64 64"
+                        version="1.1"
+                      >
+                        <circle
+                          fill="#898FA9"
+                          width="64"
+                          height="64"
+                          cx="32"
+                          cy="32"
+                          r="32"
+                        ></circle>
+                        <text
+                          x="50%"
+                          y="50%"
+                          alignment-baseline="middle"
+                          text-anchor="middle"
+                          font-size="38"
+                          font-weight="600"
+                          dy=".1em"
+                          dominant-baseline="middle"
+                          fill="#ffffff"
+                        >
+                          R
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="file-upload"
+                    className="inline-flex w-full cursor-pointer items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
                   >
-                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                </span>
-                <input
-                  onChange={uploadPhoto}
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                />
+                    {" "}
+                    Choose{" "}
+                  </label>
+                  <input
+                    id="file-upload"
+                    onChange={uploadPhoto}
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    className="hidden"
+                  />
+                </div>
+                <div className="ml-4 text-gray-500 text-sm font-light">
+                  JPG, GIF or PNG. 1MB Max.
+                </div>
               </div>
-            </div>
-            <div className="flex justify-end">
-              <button
-                type="button"
-                className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 mr-4"
-              >
-                Cancel
-              </button>
-
-              <button
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Update
-              </button>
             </div>
           </div>
         </form>

@@ -93,10 +93,10 @@ export default function ProjectBrief() {
       href: `/projects/${data.project.id}/creators`,
       current: false,
     },
-    { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
     { name: "Deliverables", href: "#", current: false },
     { name: "Shipments", href: "#", current: false },
+    { name: "Settings", href: "#", current: false },
   ];
   return (
     <div>

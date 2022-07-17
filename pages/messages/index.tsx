@@ -63,7 +63,7 @@ export default function ProjectsPage() {
           Start a chat with a creator by pressing the button below. You can also
           start a groupchat by pressing multiple users' names.
         </p>
-        <div className="flex items-center justify-between rounded border border-gray-200 p-2 shadow-sm">
+        <div className="hover:bg-gray-50 cursor-pointer flex items-center justify-between rounded border border-gray-200 p-2 shadow-sm">
           <div className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded bg-gray-200">
               🛟

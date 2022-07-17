@@ -45,8 +45,8 @@ export default function ProjectNavbar(props) {
     <div className="relative pb-5 sm:pb-0 border-b border-gray-200 mx-auto px-6 lg:px-8 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <div className="h-14 w-14 rounded-xl bg-[#48DAFD] items-center justify-center flex">
-            <AdjustmentsIcon className="w-8 h-8 text-white"></AdjustmentsIcon>
+          <div className="h-12 w-12 rounded-xl bg-blue-500 items-center justify-center flex">
+            <AdjustmentsIcon className="w-6 h-6 text-white"></AdjustmentsIcon>
           </div>
           <div>
             <h3 className="text-xl font-medium text-gray-900">
@@ -62,8 +62,8 @@ export default function ProjectNavbar(props) {
           </button>
         </div>
         <div className="mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start">
-          <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
-            Open
+          <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-500 text-white">
+            In Progress
           </span>
           <Menu as="div" className="ml-3 relative inline-block text-left">
             <div>

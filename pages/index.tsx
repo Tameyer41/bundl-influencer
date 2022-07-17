@@ -21,6 +21,7 @@ const IndexPage = (props) => {
   if (!session.onboarded) {
     router.push("/setup", "/setup", {});
   }
+
   if (session.role !== "admin") {
     return <UserHome />;
   }

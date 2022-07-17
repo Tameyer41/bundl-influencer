@@ -128,16 +128,16 @@ const SetupPage = () => {
               </p>
             </div>
             <div className="ml-auto">
-              <Link href="/settings">
+              <Link href="/setup/upload-files">
                 <div className="flex">
                   <button
                     type="button"
-                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-white  py-2 px-4 text-sm font-medium shadow-sm"
                   >
                     Build your profile
                   </button>
                   <div className="-ml-px relative block">
-                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#CEAA75] border border-transparent text-sm font-medium">
+                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#625DF5] bg-opacity-90 border border-transparent text-sm font-medium">
                       <ChevronRightIcon
                         className="h-5 w-5 text-white"
                         aria-hidden="true"
@@ -169,7 +169,7 @@ const SetupPage = () => {
                 View creative campaigns
               </h4>
               <p className="text-[#6c6c84] dark:text-dark-grey text-[14px]">
-                See what EKHO has put together
+                See what campaigns are available
               </p>
             </div>
             <div className="ml-auto">
@@ -177,12 +177,12 @@ const SetupPage = () => {
                 <div className="flex">
                   <button
                     type="button"
-                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-[#7E623A]  py-2 px-4 text-sm font-medium shadow-sm"
+                    className="ml-4 rounded-l border border-transparent bg-[#625DF5] text-white  py-2 px-4 text-sm font-medium shadow-sm"
                   >
                     View campaigns
                   </button>
                   <div className="-ml-px relative block">
-                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#CEAA75] border border-transparent text-sm font-medium">
+                    <div className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r bg-[#625DF5] bg-opacity-90 border border-transparent text-sm font-medium">
                       <ChevronRightIcon
                         className="h-5 w-5 text-white"
                         aria-hidden="true"

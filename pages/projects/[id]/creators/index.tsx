@@ -5,6 +5,7 @@ import Router from "next/router";
 import useSWR, { mutate } from "swr";
 import ProjectNavbar from "../../../../components/layout/projects/ProjectNavbar";
 import Link from "next/link";
+import Image from "next/image";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -56,10 +57,10 @@ const ProjectCreatorPage = () => {
       href: `/projects/${data.project.id}/creators`,
       current: true,
     },
-    { name: "Activity", href: "#", current: false },
     { name: "Documents", href: "#", current: false },
     { name: "Deliverables", href: "#", current: false },
     { name: "Shipments", href: "#", current: false },
+    { name: "Settings", href: "#", current: false },
   ];
   console.log(data);
 
@@ -67,44 +68,71 @@ const ProjectCreatorPage = () => {
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
       <div className="w-full h-screen">
-        <div className=" mt-8 px-6 lg:px-8 py-4 space-y-12">
-          <ul
-            role="list"
-            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
-          >
-            {data.projectCreators.map((user) => (
-              <Link href={`/creators/${user.user.id}`}>
-                <li key={user.user.id} className="relative">
-                  <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                    {user.user.image ? (
-                      <img
-                        src={user.user.image}
-                        alt=""
-                        className="object-cover pointer-events-none group-hover:opacity-75"
-                      />
-                    ) : (
-                      <p> No image</p>
-                    )}
+        <div className="mt-2 px-6 lg:px-8 py-4 space-y-12">
+          {data.projectCreators.length > 0 ? (
+            <ul
+              role="list"
+              className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+            >
+              {data.projectCreators.map((user) => (
+                <Link href={`/creators/${user.user.id}`}>
+                  <li key={user.user.id} className="relative">
+                    <div className="group block relative rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden h-80 w-64">
+                      {user.user.image ? (
+                        <Image
+                          src={user.user.image}
+                          className="object-cover pointer-events-none group-hover:opacity-75"
+                          layout="fill" // required
+                          objectFit="cover" // change to suit your needs
+                        />
+                      ) : (
+                        <p> No image</p>
+                      )}
 
-                    <button
-                      type="button"
-                      className="absolute inset-0 focus:outline-none"
-                    >
-                      <span className="sr-only">
-                        View details for {user.user.name}
-                      </span>
-                    </button>
-                  </div>
-                  <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
-                    {user.user.name}
+                      <button
+                        type="button"
+                        className="absolute inset-0 focus:outline-none"
+                      >
+                        <span className="sr-only">
+                          View details for {user.user.name}
+                        </span>
+                      </button>
+                    </div>
+                    <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                      {user.user.name}
+                    </p>
+                    <p className="block text-sm font-medium text-gray-500 pointer-events-none">
+                      {user.user.email}
+                    </p>
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          ) : (
+            <div className="overflow-hidden">
+              <div className="grid place-items-center h-[650px]">
+                <div
+                  data-empty-state-target="emptyState"
+                  className="text-center"
+                >
+                  <img
+                    src="https://ik.imagekit.io/9km72asqu/Shipping_Empty_State_WKvEcNLjK.png?updatedAt=1640561745610"
+                    className="w-1/2 mx-auto"
+                  />
+                  <p className="mt-8 text-xl font-medium text-[#172B4D] text-center">
+                    No creators found
                   </p>
-                  <p className="block text-sm font-medium text-gray-500 pointer-events-none">
-                    {user.user.email}
+                  <p className="mt-2 text-sm text-[#172B4D] max-w-xl mx-auto mb-8 text-center">
+                    Add a few creators to your campaign to get this party
+                    started
                   </p>
-                </li>
-              </Link>
-            ))}
-          </ul>
+                  <button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Select Creators
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

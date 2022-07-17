@@ -3,7 +3,7 @@ import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import useSWR, { mutate } from "swr";
 import {
-  DotsVerticalIcon,
+  DotsHorizontalIcon,
   CheckIcon,
   SelectorIcon,
 } from "@heroicons/react/solid";
@@ -53,7 +53,10 @@ export default function AddToProjectModal(user: any) {
       <div onClick={openModal} className="flex">
         <div className="group-hover:flex hidden -my-2 p-2 rounded-md border border-gray-200 bg-white items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
           <span className="sr-only">Open options</span>
-          <DotsVerticalIcon className="h-5 w-5" aria-hidden="true" />
+          <DotsHorizontalIcon
+            className="h-5 w-5 text-gray-900"
+            aria-hidden="true"
+          />
         </div>
       </div>
       <Transition.Root

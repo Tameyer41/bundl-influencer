@@ -1,15 +1,8 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
 import useSWR, { mutate } from "swr";
-import {
-  LinkIcon,
-  PlusSmIcon,
-  QuestionMarkCircleIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/solid";
+import { InboxIcon } from "@heroicons/react/outline";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
-import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
 
 import { RadioGroup } from "@headlessui/react";
 
@@ -92,7 +85,7 @@ export default function EventModal() {
       <div onClick={openModal} className="flex">
         <button
           type="button"
-          className="mx-4 flex items-center rounded border border-transparent bg-cyan-600 hover:bg-cyan-700 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
+          className="mx-4 flex items-center rounded border border-transparent bg-blue-500 hover:bg-blue-600 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
         >
           <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
           New Event
@@ -129,23 +122,24 @@ export default function EventModal() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="mx-auto max-w-2xl transform rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-              <form
-                className="flex h-full flex-col bg-white"
-                onSubmit={submitData}
-              >
-                <div className="flex-1">
+            <div className="mx-auto max-w-2xl transform overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all">
+              <form className="flex h-full flex-col" onSubmit={submitData}>
+                <div className="flex-1 divide-y divide-gray-500 divide-opacity-10">
                   {/* Header */}
-                  <input
-                    autoFocus
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                    type="text"
-                    name="event-name"
-                    id="event-name"
-                    placeholder="Event name"
-                    className="block w-full border-0 focus:outline-none focus:ring-0 sm:text-base px-4 sm:px-6"
-                  />
+
+                  <div className="relative">
+                    <input
+                      autoFocus
+                      className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-sm"
+                      value={name}
+                      type="text"
+                      name="event-name"
+                      id="event-name"
+                      placeholder="Event name..."
+                      autoComplete="off"
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
 
                   {/* Divider container */}
                   <div className="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-100 sm:py-0">

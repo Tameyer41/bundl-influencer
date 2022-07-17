@@ -6,7 +6,6 @@ import Loader from "@lib/components/Loader";
 function WithAuth({ children, options }) {
   const { data: session, status } = useSession();
   const isUser = !!session?.user;
-  const currentUser = session?.user;
   useEffect(() => {
     // Do nothing while loading
     if (status === "loading") {

@@ -1077,7 +1077,7 @@ export default function Calendar() {
                                 5 ||
                               parseInt(format(new Date(meeting.date), "i")) == 4
                                 ? "right-[16.75rem] lg:right-[20.75rem] xl:right-[20.75rem] top-0"
-                                : "left-[6rem] md:left-[6.5rem] lg:left-[8rem] xl:left-[18.5rem] top-0"
+                                : "left-[6rem] md:left-[6.5rem] lg:left-[8rem] xl:left-[8.5rem] top-0"
                             } absolute px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
                           >
                             <div>
