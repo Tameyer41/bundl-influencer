@@ -35,6 +35,7 @@ import { useState } from "react";
 import EventModal from "components/ui/EventModal";
 import useSWR from "swr";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
+import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -169,9 +170,10 @@ export default function Calendar() {
               <div className="ml-6 h-6 w-px bg-gray-300" />
               <button
                 type="button"
-                className="mx-4 rounded border border-transparent bg-[#625DF5] hover:bg-[#342DF2] transition-colors duration-250 text-white  py-2 px-4 text-sm font-medium shadow-sm"
+                className="mx-4 flex items-center rounded border border-transparent bg-[#3483BB] hover:bg-opacity-90 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
               >
-                Add an event
+                <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
+                New Event
               </button>
             </div>
             <div className="relative ml-6 md:hidden">
