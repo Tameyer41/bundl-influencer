@@ -61,15 +61,26 @@ export default function Card(props) {
               });
             }}
           >
-            <div className="space-y-1">
-              <h2 className="text-base font-medium text-gray-700 hover:underline">
-                {" "}
-                {user.name}{" "}
-              </h2>
-              <p className="text-sm font-normal text-gray-500">
-                {" "}
-                {user.email}{" "}
-              </p>
+            <div className="flex justify-between mt-4">
+              <div className="overflow-hidden">
+                <h2 className="truncate text-sm font-medium text-gray-900">
+                  {user.name ? user.name : "No name"}
+                </h2>
+                <p className="text-gray-500 text-sm font-normal">
+                  <span>{user.email}</span>
+                </p>
+              </div>
+              <span className="text-emerald-400">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="inline-block h-6 w-6 fill-current"
+                >
+                  <circle cx="12" cy="12" r="3" fill="#2DCA72"></circle>
+                </svg>
+              </span>
             </div>
 
             <div className="w-full cursor-pointer">

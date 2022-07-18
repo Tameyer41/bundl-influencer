@@ -11,34 +11,17 @@ import { convertToHTML } from "draft-convert";
 import Router from "next/router";
 import Link from "next/link";
 import ProjectNavbar from "../../../../components/layout/projects/ProjectNavbar";
+import Tiptap from "../../../../components/wysiwyg/Tiptap";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
 
 export default function ProjectBrief() {
   const { data: session, status } = useSession();
-  const Editor = useMemo(() => {
-    return dynamic(
-      () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-      { ssr: false }
-    );
-  }, []);
-  const [editor, setEditor] = useState(EditorState.createEmpty());
+
   const [convertedContent, setConvertedContent] = useState(null);
   const router = useRouter();
   const { data, error } = useSWR(`/api/projects/${router.query.id}`, fetcher);
-
-  const handleEditorChange = (state) => {
-    setEditor(state);
-    convertContentToHTML();
-  };
-  const convertContentToHTML = () => {
-    let currentContentAsHTML = convertToHTML(editor.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
-  };
 
   if (status === "loading") {
     return <div>Authenticating ...</div>;
@@ -101,50 +84,8 @@ export default function ProjectBrief() {
   return (
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
-      <div className="w-full h-screen lg:divide-x lg:divide-gray-200 px-8 text-black mt-4">
-        {/* Stuff goes here */}
-        <Editor
-          ref={editor}
-          editorState={editor}
-          placeholder={"Write your project brief here..."}
-          wrapperClassName="wrapper-class bg-white"
-          editorClassName="editor-class"
-          toolbarClassName="!text-gray-700 !border-b !border-r-0 !border-l-0 !border-t-0 !border-gray-200 !pb-4 toolbar-class"
-          onEditorStateChange={handleEditorChange}
-          toolbar={{
-            inline: { inDropdown: true },
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-          }}
-          hashtag={{
-            separator: " ",
-            trigger: "#",
-          }}
-        />
-      </div>
-      <div className="absolute bottom-20 right-20">
-        <div className="flex items-center space-x-4">
-          <Link href={`/projects/${data.project.id}`}>
-            <span className="relative z-0 inline-flex shadow-sm rounded-md">
-              <button
-                type="button"
-                className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <span className="sr-only">Back</span>
-                <ArrowLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </span>
-          </Link>
-          <button
-            type="button"
-            onClick={() => submitForm()}
-            className="bg-[#635bff] text-white px-3 h-9 text-sm rounded text-center"
-          >
-            Submit Brief
-          </button>
-        </div>
+      <div className="max-w-7xl mx-auto">
+        <Tiptap projectName={data.project.name} />
       </div>
     </div>
   );

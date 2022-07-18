@@ -73,3 +73,86 @@ a {
   @apply min-h-[98vh];
   @apply p-1;
 }
+
+.bubble-menu {
+  @apply flex;
+  @apply bg-white;
+  @apply py-1;
+  @apply px-2;
+  @apply space-x-2;
+  @apply rounded;
+  @apply border;
+  @apply border-gray-200;
+}
+.bubble-menu button {
+  @apply border-0;
+  @apply bg-transparent;
+  @apply text-gray-900;
+  @apply hover:bg-gray-200;
+  @apply text-[0.85rem];
+  @apply font-medium;
+  @apply px-[0.2rem];
+  @apply opacity-60;
+}
+.bubble-menu button.is-active {
+  @apply border-0;
+  @apply bg-gray-200;
+  @apply text-gray-900;
+  @apply hover:bg-gray-200;
+  @apply text-[0.85rem];
+  @apply font-medium;
+  @apply px-[0.2rem];
+}
+.floating-menu {
+  @apply flex;
+  @apply bg-[#0D0D0D];
+  @apply bg-opacity-10;
+  @apply p-[0.2rem];
+  @apply rounded-[0.5rem];
+}
+.floating-menu button {
+  @apply border-0;
+  @apply bg-none;
+  @apply text-[0.85rem];
+  @apply font-medium;
+  @apply px-[0.2rem];
+  @apply opacity-60;
+}
+h1 {
+  @apply text-[30px];
+  @apply font-medium;
+  @apply leading-[36px];
+  @apply text-gray-900;
+}
+h2 {
+  @apply text-[24px];
+  @apply font-medium;
+  @apply leading-[32px];
+  @apply text-gray-900;
+}
+h3 {
+  @apply text-[20px];
+  @apply font-medium;
+  @apply leading-[28px];
+  @apply text-gray-900;
+}
+h4 {
+  @apply text-[18px];
+  @apply font-medium;
+  @apply leading-[28px];
+  @apply text-gray-900;
+}
+.ProseMirror {
+  @apply mt-4;
+  @apply mx-auto;
+  @apply px-6;
+  @apply lg:px-8;
+  @apply py-4;
+  @apply focus:ring-0;
+  @apply focus:border-0;
+  @apply focus:ring-transparent;
+  @apply focus:border-none;
+  @apply outline-none;
+  @apply focus:outline-none;
+  @apply h-[80vh];
+}

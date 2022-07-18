@@ -51,12 +51,22 @@ export default function AddToProjectModal(user: any) {
   return (
     <div>
       <div onClick={openModal} className="flex">
-        <div className="group-hover:flex hidden -my-2 p-2 rounded-md border border-gray-200 bg-white items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          <span className="sr-only">Open options</span>
-          <DotsHorizontalIcon
-            className="h-5 w-5 text-gray-900"
-            aria-hidden="true"
-          />
+        <div className="absolute top-0 right-0 hidden group-hover:block">
+          <div className="relative h-8 w-8 rounded-lg bg-white hover:bg-gray-50">
+            <button
+              className="inline-flex h-8 w-8 max-w-full items-center rounded-lg p-1"
+              id="headlessui-popover-button-356"
+              type="button"
+              aria-expanded="false"
+            >
+              <svg width="24" height="24" fill="none" className="h-6 w-6">
+                <path
+                  fill="currentColor"
+                  d="M13 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM17 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+                ></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
       <Transition.Root

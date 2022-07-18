@@ -350,12 +350,24 @@ export default function ProjectsHome(props) {
                             {moment(project.updatedAt).format("MMMM Do, YYYY")}
                           </td>
                           <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-                            <a
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900"
+                            <button
+                              className="inline-flex h-8 w-8 max-w-full cursor-pointer items-center rounded-lg bg-transparent p-1 hover:bg-gray-100"
+                              id="headlessui-popover-button-171"
+                              type="button"
+                              aria-expanded="false"
                             >
-                              Edit
-                            </a>
+                              <svg
+                                width="24"
+                                height="24"
+                                fill="none"
+                                className="h-6 w-6 text-gray-900"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M13 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM17 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+                                ></path>
+                              </svg>
+                            </button>
                           </td>
                         </tr>
                       ))}
