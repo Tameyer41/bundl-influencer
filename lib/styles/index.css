@@ -99,6 +99,7 @@ a {
   @apply bg-gray-200;
   @apply text-gray-900;
   @apply hover:bg-gray-200;
+  @apply rounded-sm;
   @apply text-[0.85rem];
   @apply font-medium;
   @apply px-[0.2rem];

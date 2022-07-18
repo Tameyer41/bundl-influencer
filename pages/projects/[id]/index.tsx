@@ -127,25 +127,50 @@ const Project = () => {
           <div className="space-y-2">
             <h2 className="font-medium text-lg text-gray-900">Key resources</h2>
             {data.project.brief ? (
-              <Link href={`/projects/${data.project.id}/brief`}>
-                <a className="w-full border border-gray-200 rounded-md flex items-center text-center space-y-2 cursor-pointer max-h-28 overflow-hidden">
-                  <div className="relative col-span-1 flex shadow-sm rounded-l-md bg-slate-500 w-28 h-28"></div>
-                  <div className="items-center block pt-2 pb-4 px-8 text-left w-3/4">
-                    <p className="text-gray-900 text-lg font-medium">
-                      Project brief
-                    </p>
-                    <hr />
-                    <div className="flex items-center space-x-2 mt-2">
-                      <div
-                        className="preview text-gray-700 mt-1 overflow-hidden"
-                        dangerouslySetInnerHTML={createMarkup(
-                          data.project.brief
-                        )}
-                      ></div>
+              <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+                <Link href={`/projects/${data.project.id}/brief`}>
+                  <a className="flex flex-col rounded-md border border-gray-200 bg-white shadow-sm hover:bg-gray-50 cursor-pointer">
+                    <div className="flex flex-grow flex-col space-y-2 p-4">
+                      <h2 className="text-lg font-medium text-gray-900">
+                        {data.project.name}'s Project Brief
+                      </h2>
+                      <div className="space-y-1">
+                        <div className="flex items-center space-x-1">
+                          <p className="text-sm font-normal text-gray-500">
+                            {data.projectAdmins[0].user.name}
+                          </p>
+                          <p className="text-sm font-normal text-gray-500">∙</p>
+                          <p className="text-sm font-normal text-gray-500">
+                            TBD
+                          </p>
+                        </div>
+                        <p className="text-sm font-normal text-gray-500">
+                          🔒 {data.project.name}
+                        </p>
+                      </div>
+                      <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-gray-900">
+                        <span className="text-xs font-medium leading-none text-white">
+                          {(
+                            data.projectAdmins[0].user.name
+                              .split(" ")
+                              .shift()
+                              .charAt(0) +
+                            data.projectAdmins[0].user.name
+                              .split(" ")
+                              .pop()
+                              .charAt(0)
+                          ).toUpperCase()}
+                        </span>
+                      </span>
                     </div>
-                  </div>
-                </a>
-              </Link>
+                    <div className="flex-shrink-0 items-end bg-gray-100 px-4 py-3">
+                      <p className="text-normal text-sm text-gray-500">
+                        Last viewed just now
+                      </p>
+                    </div>
+                  </a>
+                </Link>
+              </div>
             ) : (
               <div className="w-full border border-gray-200 rounded-md py-4 px-8 mx-auto items-center justify-center text-center space-y-2">
                 <p className="max-w-sm mx-auto text-sm font-normal text-gray-700">
