@@ -1010,16 +1010,24 @@ export default function Calendar() {
                   }}
                 >
                   <div
-                    className={`col-start-${getDay(new Date(today)) + 1}`}
+                    className={classNames(
+                      getWeek(new Date(today)) !=
+                        getWeek(
+                          parse(currentWeek, "MMM-yyyy-dd", new Date())
+                        ) && `hidden`,
+                      `col-start-${getDay(new Date(today)) + 1}`
+                    )}
                     style={{
                       gridRow: `${
-                        parseInt(format(new Date(), "H")) * 12 + 3
+                        parseInt(format(new Date(), "H")) * 12 + 8
                       } / span 5`,
                     }}
                   >
                     <div className="group">
                       <div className="flex">
-                        <div className="w-full h-[2px] m-1 z-10 mt-2 bg-blue-600 rounded-full group"></div>
+                        <div className="h-4 w-[2px] rounded-full bg-indigo-600"></div>
+                        <div className="w-full h-[2px] z-10 mt-2 bg-indigo-600 rounded-full group"></div>
+                        <div className="h-4 w-[2px] rounded-full bg-indigo-600"></div>
                       </div>
                       <p className="group-hover:block hidden text-sm font-normal text-gray-700 text-center">
                         {format(new Date(), "h:mm a")}

@@ -279,7 +279,7 @@ export default function EventModal() {
                     <button
                       type="submit"
                       disabled={!note || !name}
-                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#625DF5] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#3483BB] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Save
                     </button>

@@ -16,6 +16,9 @@ module.exports = {
           100: "#6D78D6",
         },
       },
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+      },
       screens: {
         standalone: { raw: "(display-mode: standalone)" },
       },
@@ -23,7 +26,6 @@ module.exports = {
   },
   plugins: [
     "tailwindcss",
-    "postcss-preset-env",
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
   ],

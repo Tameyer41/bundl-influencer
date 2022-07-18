@@ -93,6 +93,12 @@ export default function SearchModal(props) {
     }
   }
 
+  function handleEventClose() {
+    setOpen(false);
+    setModalState("search");
+    setQuery("");
+  }
+
   return (
     <div>
       <div className="px-2">
@@ -328,7 +334,7 @@ export default function SearchModal(props) {
           <Dialog
             as="div"
             className="fixed inset-0 z-40 overflow-y-auto p-4 sm:p-6 md:p-20"
-            onClose={setOpen}
+            onClose={handleEventClose}
           >
             <Transition.Child
               as={Fragment}

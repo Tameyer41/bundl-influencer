@@ -38,7 +38,7 @@ export default (props) => {
         },
       }),
     ],
-    autofocus: true,
+    autofocus: "end",
     content: `
     <div>
       <p></p>
@@ -51,9 +51,6 @@ export default (props) => {
       <p>
         You can add all sorts of fun to your brief, including emojis, hexadecimal colors, and more! 
       </p>
-      <div>
-      <div>
-      <p></p>
       </div>
     `,
     onUpdate({ editor }) {

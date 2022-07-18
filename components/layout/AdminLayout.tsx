@@ -177,8 +177,8 @@ export default function AdminLayout(props) {
                           onClick={() => setSidebarOpen(false)}
                           className={
                             "/" + router.pathname.split("/")[1] == item.url
-                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                           }
                         >
                           <p className="text-[18px] pr-[12px]">{item.icon}</p>
@@ -203,7 +203,7 @@ export default function AdminLayout(props) {
                           )}
                         </div>
                         <div className="ml-3">
-                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-700">
                             {session.user.name}
                           </p>
                           <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
@@ -235,8 +235,8 @@ export default function AdminLayout(props) {
                     <div
                       className={
                         "/" + router.pathname.split("/")[1] == item.url
-                          ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                          : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                          ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                          : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-gray-700 text-gray-500 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                       }
                     >
                       <div className="w-[30px] flex items-center justify-center">
@@ -273,8 +273,8 @@ export default function AdminLayout(props) {
                       }}
                       className={
                         "/" + router.pathname.split("/")[1] == item.url
-                          ? "bg-gray-200 hover:text-[#3F3F3F] text-[#3F3F3F] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
-                          : "hover:bg-gray-200 hover:text-[#3F3F3F] text-gray-500 group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer group"
+                          ? "bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center px-2 h-10 text-sm font-medium rounded cursor-pointer group"
+                          : "hover:bg-gray-200 hover:text-gray-700 text-gray-500 group flex items-center px-2 h-10 text-sm font-medium rounded cursor-pointer group"
                       }
                     >
                       <div className="text-base mr-4">{item.icon}</div>
@@ -311,7 +311,7 @@ export default function AdminLayout(props) {
           <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white standalone:h-20 standalone:pt-8">
             <button
               type="button"
-              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>

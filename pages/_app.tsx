@@ -19,6 +19,7 @@ function MyApp({
     <>
       <Head>
         <link rel="icon" type="image/png" sizes="196x196" href="favicon.png" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
       <SessionProvider session={session} refetchInterval={5 * 60}>
         <QueryClientProvider client={queryClient}>
