@@ -19,6 +19,7 @@ export default function SearchModal(props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [modalState, setModalState] = useState("search");
 
   const projects = props.navigation;
   const recent = [projects[0], projects[1]];
@@ -29,15 +30,30 @@ export default function SearchModal(props) {
       icon: DocumentAddIcon,
       shortcut: "N",
       url: "#",
+      type: "Action",
     },
     {
       name: "Create event...",
       icon: FolderAddIcon,
       shortcut: "F",
       url: "#",
+      type: "Action",
+      action: "event",
     },
-    { name: "Create campaign...", icon: HashtagIcon, shortcut: "H", url: "#" },
-    { name: "Track shipment...", icon: TagIcon, shortcut: "L", url: "#" },
+    {
+      name: "Create campaign...",
+      icon: HashtagIcon,
+      shortcut: "H",
+      url: "#",
+      type: "Action",
+    },
+    {
+      name: "Track shipment...",
+      icon: TagIcon,
+      shortcut: "L",
+      url: "#",
+      type: "Action",
+    },
   ];
 
   useEffect(() => {
@@ -66,6 +82,17 @@ export default function SearchModal(props) {
           return quickAction.name.toLowerCase().includes(query.toLowerCase());
         });
 
+  function handleComboChange(comboItem) {
+    if (comboItem.type === "Action") {
+      console.log("hurrah");
+      setModalState(comboItem.action);
+      console.log(modalState);
+    } else {
+      setOpen(false);
+      router.push(comboItem.url);
+    }
+  }
+
   return (
     <div>
       <div className="px-2">
@@ -90,204 +117,360 @@ export default function SearchModal(props) {
           </div>
         </div>
       </div>
-      <Transition.Root
-        show={open}
-        as={Fragment}
-        afterLeave={() => setQuery("")}
-      >
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20"
-          onClose={setOpen}
+      {modalState === "search" && (
+        <Transition.Root
+          show={open}
+          as={Fragment}
+          afterLeave={() => setQuery("")}
         >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+          <Dialog
+            as="div"
+            className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20"
+            onClose={setOpen}
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
-          </Transition.Child>
-
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Combobox
-              value={query}
-              onChange={(comboItem: any) => {
-                setOpen(false);
-                router.push(comboItem.url);
-              }}
-              as="div"
-              className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all"
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <div className="relative">
-                <SearchIcon
-                  className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-900 text-opacity-40"
-                  aria-hidden="true"
-                />
-                <Combobox.Input
-                  className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-sm"
-                  placeholder="Search..."
-                  autoComplete="off"
-                  onChange={(event) => setQuery(event.target.value)}
-                />
-              </div>
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
+            </Transition.Child>
 
-              {(query === "" ||
-                filteredProjects.length > 0 ||
-                filteredActions.length > 0) && (
-                <Combobox.Options
-                  static
-                  className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto"
-                >
-                  <li className="p-2">
-                    {query === "" && (
-                      <h2 className="mt-4 mb-2 px-3 text-xs font-semibold text-gray-900">
-                        Recent searches
-                      </h2>
-                    )}
-                    <ul className="text-sm text-gray-700">
-                      {(query === "" ? recent : filteredProjects).map(
-                        (project) => (
-                          <Combobox.Option
-                            key={project.name}
-                            value={project}
-                            className={({ active }) =>
-                              classNames(
-                                "flex cursor-default select-none items-center rounded-md px-3 py-2",
-                                active &&
-                                  "bg-gray-900 bg-opacity-5 text-gray-900"
-                              )
-                            }
-                          >
-                            {({ active }) => (
-                              <>
-                                <FolderIcon
-                                  className={classNames(
-                                    "h-6 w-6 flex-none text-gray-900 text-opacity-40",
-                                    active && "text-opacity-100"
-                                  )}
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-3 flex-auto truncate">
-                                  {project.name}
-                                </span>
-                                {active && (
-                                  <span className="ml-3 flex-none text-gray-500">
-                                    Jump to...
-                                  </span>
-                                )}
-                              </>
-                            )}
-                          </Combobox.Option>
-                        )
-                      )}
-                      {(query === "" ? [] : filteredActions).map((project) => (
-                        <Combobox.Option
-                          key={project.name}
-                          value={project}
-                          className={({ active }) =>
-                            classNames(
-                              "flex cursor-default select-none items-center rounded-md px-3 py-2",
-                              active && "bg-gray-900 bg-opacity-5 text-gray-900"
-                            )
-                          }
-                        >
-                          {({ active }) => (
-                            <>
-                              <project.icon
-                                className={classNames(
-                                  "h-6 w-6 flex-none text-gray-900 text-opacity-40",
-                                  active && "text-opacity-100"
-                                )}
-                                aria-hidden="true"
-                              />
-                              <span className="ml-3 flex-auto truncate">
-                                {project.name}
-                              </span>
-                              {active && (
-                                <span className="ml-3 flex-none text-gray-500">
-                                  Jump to...
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </Combobox.Option>
-                      ))}
-                    </ul>
-                  </li>
-                  {query === "" && (
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Combobox
+                value={query}
+                onChange={(comboItem: any) => {
+                  handleComboChange(comboItem);
+                }}
+                as="div"
+                className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all"
+              >
+                <div className="relative">
+                  <SearchIcon
+                    className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-900 text-opacity-40"
+                    aria-hidden="true"
+                  />
+                  <Combobox.Input
+                    className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-sm"
+                    placeholder="Search..."
+                    autoComplete="off"
+                    onChange={(event) => setQuery(event.target.value)}
+                  />
+                </div>
+
+                {(query === "" ||
+                  filteredProjects.length > 0 ||
+                  filteredActions.length > 0) && (
+                  <Combobox.Options
+                    static
+                    className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto"
+                  >
                     <li className="p-2">
-                      <h2 className="sr-only">Quick actions</h2>
+                      {query === "" && (
+                        <h2 className="mt-4 mb-2 px-3 text-xs font-semibold text-gray-900">
+                          Recent searches
+                        </h2>
+                      )}
                       <ul className="text-sm text-gray-700">
-                        {quickActions.map((action) => (
-                          <Combobox.Option
-                            key={action.shortcut}
-                            value={action}
-                            className={({ active }) =>
-                              classNames(
-                                "flex cursor-default select-none items-center rounded-md px-3 py-2",
-                                active &&
-                                  "bg-gray-900 bg-opacity-5 text-gray-900"
-                              )
-                            }
-                          >
-                            {({ active }) => (
-                              <>
-                                <action.icon
-                                  className={classNames(
-                                    "h-6 w-6 flex-none text-gray-900 text-opacity-40",
-                                    active && "text-opacity-100"
+                        {(query === "" ? recent : filteredProjects).map(
+                          (project) => (
+                            <Combobox.Option
+                              key={project.name}
+                              value={project}
+                              className={({ active }) =>
+                                classNames(
+                                  "flex cursor-default select-none items-center rounded-md px-3 py-2",
+                                  active &&
+                                    "bg-gray-900 bg-opacity-5 text-gray-900"
+                                )
+                              }
+                            >
+                              {({ active }) => (
+                                <>
+                                  <FolderIcon
+                                    className={classNames(
+                                      "h-6 w-6 flex-none text-gray-900 text-opacity-40",
+                                      active && "text-opacity-100"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3 flex-auto truncate">
+                                    {project.name}
+                                  </span>
+                                  {active && (
+                                    <span className="ml-3 flex-none text-gray-500">
+                                      Jump to...
+                                    </span>
                                   )}
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-3 flex-auto truncate">
-                                  {action.name}
-                                </span>
-                                <span className="ml-3 flex-none text-xs font-semibold text-gray-500">
-                                  <kbd className="font-sans">⌘</kbd>
-                                  <kbd className="font-sans">
-                                    {action.shortcut}
-                                  </kbd>
-                                </span>
-                              </>
-                            )}
-                          </Combobox.Option>
-                        ))}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          )
+                        )}
+                        {(query === "" ? [] : filteredActions).map(
+                          (project) => (
+                            <Combobox.Option
+                              key={project.name}
+                              value={project}
+                              className={({ active }) =>
+                                classNames(
+                                  "flex cursor-default select-none items-center rounded-md px-3 py-2",
+                                  active &&
+                                    "bg-gray-900 bg-opacity-5 text-gray-900"
+                                )
+                              }
+                            >
+                              {({ active }) => (
+                                <>
+                                  <project.icon
+                                    className={classNames(
+                                      "h-6 w-6 flex-none text-gray-900 text-opacity-40",
+                                      active && "text-opacity-100"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3 flex-auto truncate">
+                                    {project.name}
+                                  </span>
+                                  {active && (
+                                    <span className="ml-3 flex-none text-gray-500">
+                                      Jump to...
+                                    </span>
+                                  )}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          )
+                        )}
                       </ul>
                     </li>
-                  )}
-                </Combobox.Options>
-              )}
-
-              {query !== "" &&
-                filteredProjects.length === 0 &&
-                filteredActions.length === 0 && (
-                  <div className="py-14 px-6 text-center sm:px-14">
-                    <FolderIcon
-                      className="mx-auto h-6 w-6 text-gray-900 text-opacity-40"
-                      aria-hidden="true"
-                    />
-                    <p className="mt-4 text-sm text-gray-900">
-                      We couldn't find any projects with that term. Please try
-                      again.
-                    </p>
-                  </div>
+                    {query === "" && (
+                      <li className="p-2">
+                        <h2 className="sr-only">Quick actions</h2>
+                        <ul className="text-sm text-gray-700">
+                          {quickActions.map((action) => (
+                            <Combobox.Option
+                              key={action.shortcut}
+                              value={action}
+                              className={({ active }) =>
+                                classNames(
+                                  "flex cursor-default select-none items-center rounded-md px-3 py-2",
+                                  active &&
+                                    "bg-gray-900 bg-opacity-5 text-gray-900"
+                                )
+                              }
+                            >
+                              {({ active }) => (
+                                <>
+                                  <action.icon
+                                    className={classNames(
+                                      "h-6 w-6 flex-none text-gray-900 text-opacity-40",
+                                      active && "text-opacity-100"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3 flex-auto truncate">
+                                    {action.name}
+                                  </span>
+                                  <span className="ml-3 flex-none text-xs font-semibold text-gray-500">
+                                    <kbd className="font-sans">⌘</kbd>
+                                    <kbd className="font-sans">
+                                      {action.shortcut}
+                                    </kbd>
+                                  </span>
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))}
+                        </ul>
+                      </li>
+                    )}
+                  </Combobox.Options>
                 )}
-            </Combobox>
-          </Transition.Child>
-        </Dialog>
-      </Transition.Root>
+
+                {query !== "" &&
+                  filteredProjects.length === 0 &&
+                  filteredActions.length === 0 && (
+                    <div className="py-14 px-6 text-center sm:px-14">
+                      <FolderIcon
+                        className="mx-auto h-6 w-6 text-gray-900 text-opacity-40"
+                        aria-hidden="true"
+                      />
+                      <p className="mt-4 text-sm text-gray-900">
+                        We couldn't find any projects with that term. Please try
+                        again.
+                      </p>
+                    </div>
+                  )}
+              </Combobox>
+            </Transition.Child>
+          </Dialog>
+        </Transition.Root>
+      )}
+      {modalState === "event" && (
+        <Transition.Root
+          show={open}
+          as={Fragment}
+          afterLeave={() => setQuery("")}
+        >
+          <Dialog
+            as="div"
+            className="fixed inset-0 z-40 overflow-y-auto p-4 sm:p-6 md:p-20"
+            onClose={setOpen}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
+            </Transition.Child>
+
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="mx-auto max-w-2xl transform overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all">
+                <form className="flex h-full flex-col">
+                  <div className="flex-1 divide-y divide-gray-500 divide-opacity-10">
+                    {/* Header */}
+
+                    <div className="relative">
+                      <input
+                        autoFocus
+                        className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-sm"
+                        type="text"
+                        name="event-name"
+                        id="event-name"
+                        placeholder="Event name..."
+                        autoComplete="off"
+                      />
+                    </div>
+
+                    {/* Divider container */}
+                    <div className="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-100 sm:py-0">
+                      {/* Event Time Picker */}
+                      <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
+                        <div>
+                          <label
+                            htmlFor="event-times"
+                            className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
+                          >
+                            {" "}
+                            Event Times{" "}
+                          </label>
+                        </div>
+                        <div className="sm:col-span-3 flex items-center space-x-2">
+                          <input
+                            type="datetime-local"
+                            id="event-times"
+                            name="event-times"
+                            min="2022-05-01T00:00"
+                            max="2025-12-31T00:00"
+                            className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
+                          />
+                          <input
+                            type="datetime-local"
+                            id="event-times"
+                            name="event-times"
+                            min="2022-05-01T00:00"
+                            max="2025-12-31T00:00"
+                            className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-700"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Event location */}
+                      <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
+                        <div>
+                          <label
+                            htmlFor="event-location"
+                            className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
+                          >
+                            {" "}
+                            Event location{" "}
+                          </label>
+                        </div>
+                        <div className="sm:col-span-3">
+                          <input
+                            autoFocus
+                            type="text"
+                            name="event-location"
+                            id="event-location"
+                            placeholder="Event location"
+                            className="block w-full rounded-md border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm placeholder:text-gray-400"
+                          />
+                        </div>
+                      </div>
+                      {/* Event notes */}
+                      <div className="space-y-1 px-4 sm:grid sm:grid-cols-4 sm:space-y-0 sm:px-6 sm:py-3">
+                        <div>
+                          <label
+                            htmlFor="event-notes"
+                            className="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2"
+                          >
+                            {" "}
+                            Notes{" "}
+                          </label>
+                        </div>
+                        <div className="sm:col-span-3">
+                          <textarea
+                            id="event-notes"
+                            name="event-notes"
+                            placeholder="Event notes"
+                            rows={3}
+                            className="block w-full rounded-md border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm placeholder:text-gray-400"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex-shrink-0 px-4 py-2 sm:px-6">
+                    <div className="flex justify-end space-x-3">
+                      <button
+                        type="button"
+                        className="mr-4 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-0"
+                        onClick={() => setModalState("search")}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#625DF5] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </Transition.Child>
+          </Dialog>
+        </Transition.Root>
+      )}
     </div>
   );
 }
