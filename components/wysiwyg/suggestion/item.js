@@ -42,7 +42,7 @@ const getSuggestionItems = (query) => {
       },
     },
   ]
-    .filter((item) => item.title.toLowerCase().startsWith(query.toLowerCase()))
+    .filter((item) => item.title.toLowerCase())
     .slice(0, 10);
 };
 

@@ -45,10 +45,10 @@ export default (props) => {
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === "heading") {
-            return `${props.projectName + " brief"}`;
+            return `${props.project.name + " brief"}`;
           }
 
-          return `${props.projectName + " brief"}`;
+          return `${props.project.name + " brief"}`;
         },
       }),
     ],
@@ -59,7 +59,7 @@ export default (props) => {
       ) : (
         <div>
           <p></p>
-          <h1>${props.projectName + " brief"}</h1>
+          <h1>${props.project.name + " brief"}</h1>
           <p></p>
           <hr />
           <p></p>
