@@ -121,21 +121,39 @@ const endTimeValues = [
 
 const colors = [
   {
-    name: "Blue",
+    name: "Work",
+    colorName: "Blue",
     bgColor: "bg-indigo-50",
     selectedColor: "ring-indigo-300",
+    displayColor: "bg-indigo-300",
   },
   {
-    name: "Emerald",
+    name: "Personal",
+    colorName: "Emerald",
     bgColor: "bg-[#EEF8F7]",
     selectedColor: "ring-emerald-100",
+    displayColor: "bg-emerald-300",
   },
-  { name: "Amber", bgColor: "bg-amber-100", selectedColor: "ring-amber-200" },
-  { name: "Red", bgColor: "bg-pink-50", selectedColor: "ring-pink-300" },
   {
-    name: "Violet",
+    name: "Meeting",
+    colorName: "Amber",
+    bgColor: "bg-amber-100",
+    selectedColor: "ring-amber-200",
+    displayColor: "bg-amber-300",
+  },
+  {
+    name: "Travel",
+    colorName: "Red",
+    bgColor: "bg-pink-50",
+    selectedColor: "ring-pink-300",
+    displayColor: "bg-pink-300",
+  },
+  {
+    name: "Other",
+    colorName: "Violet",
     bgColor: "bg-violet-300",
     selectedColor: "ring-violet-400",
+    displayColor: "bg-violet-300",
   },
 ];
 
@@ -272,7 +290,7 @@ export default function EventModal() {
                               <span className="flex items-center">
                                 <span
                                   className={
-                                    `${selectedColor.bgColor} ` +
+                                    `${selectedColor.displayColor} ` +
                                     "flex-shrink-0 inline-block h-2 w-2 rounded-full"
                                   }
                                 />
@@ -310,7 +328,7 @@ export default function EventModal() {
                                   >
                                     <span
                                       className={
-                                        `${color.bgColor} ` +
+                                        `${color.displayColor} ` +
                                         "flex-shrink-0 inline-block h-2 w-2 rounded-full"
                                       }
                                     />
@@ -565,7 +583,7 @@ export default function EventModal() {
                           name="event-location"
                           id="event-location"
                           placeholder="Event location"
-                          className="block w-full rounded-md border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>
@@ -582,7 +600,7 @@ export default function EventModal() {
                           name="event-notes"
                           placeholder="Event notes"
                           rows={6}
-                          className="block w-full rounded-md border border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>

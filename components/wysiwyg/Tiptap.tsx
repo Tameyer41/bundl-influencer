@@ -6,15 +6,20 @@ import Highlight from "@tiptap/extension-highlight";
 import Typography from "@tiptap/extension-typography";
 import Focus from "@tiptap/extension-focus";
 import React from "react";
-
+import { useRouter } from "next/router";
+import Router from "next/router";
+import { mutate } from "swr";
 import { ColorHighlighter } from "./ColorHighlighter";
 import { SmilieReplacer } from "./SmilieReplacer";
+import Link from "next/link";
+import { ArrowLeftIcon } from "@heroicons/react/outline";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
 export default (props) => {
+  const router = useRouter();
   const editor = useEditor({
     extensions: [
       CustomDocument,
@@ -39,24 +44,41 @@ export default (props) => {
       }),
     ],
     autofocus: "end",
-    content: `
-    <div>
-      <p></p>
-      <h1>
-        ${props.projectName + " brief"}
-      </h1>
-      <p></p>
-      <hr />
-      <p></p>
-      <p>
-        You can add all sorts of fun to your brief, including emojis, hexadecimal colors, and more! 
-      </p>
-      </div>
+    content: `${
+      props.project.brief ? (
+        props.project.brief
+      ) : (
+        <div>
+          <p></p>
+          <h1>${props.projectName + " brief"}</h1>
+          <p></p>
+          <hr />
+          <p></p>
+          <p>
+            You can add all sorts of fun to your brief, including emojis,
+            hexadecimal colors, and more!
+          </p>
+        </div>
+      )
+    }
+    
     `,
-    onUpdate({ editor }) {
-      console.log(editor.getHTML());
-    },
   });
+
+  async function submitForm(): Promise<void> {
+    let brief = editor.getHTML();
+    const body = { brief };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/projects/${router.query.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+    await mutate(`/api/projects/${router.query.id}`);
+    await Router.push(`/projects/${router.query.id}`);
+  }
 
   return (
     <>
@@ -133,6 +155,28 @@ export default (props) => {
         </BubbleMenu>
       )}
       <EditorContent editor={editor} />
+      <div className="absolute bottom-20 right-20">
+        <div className="flex items-center space-x-4">
+          <Link href={`/projects/${props.project.id}`}>
+            <span className="relative z-0 inline-flex shadow-sm rounded-md">
+              <button
+                type="button"
+                className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <span className="sr-only">Back</span>
+                <ArrowLeftIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => submitForm()}
+            className="bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 text-white px-3 h-9 text-sm rounded text-center"
+          >
+            Submit Brief
+          </button>
+        </div>
+      </div>
     </>
   );
 };

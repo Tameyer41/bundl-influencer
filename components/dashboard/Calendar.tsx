@@ -170,7 +170,7 @@ export default function Calendar() {
               <div className="ml-6 h-6 w-px bg-gray-300" />
               <button
                 type="button"
-                className="mx-4 flex items-center rounded border border-transparent bg-[#3483BB] hover:bg-opacity-90 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
+                className="mx-4 flex items-center rounded border border-transparent bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
               >
                 <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
                 New Event
@@ -194,7 +194,7 @@ export default function Calendar() {
           >
             <div
               ref={containerNav}
-              className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+              className="sticky top-0 z-50 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
             >
               <div className="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
                 {newDays.map((day, dayIdx) => (
@@ -1079,7 +1079,7 @@ export default function Calendar() {
                         <Popover.Panel
                           style={styles.popper}
                           {...attributes.popper}
-                          className="w-[325px] z-20"
+                          className="w-[325px] z-40"
                         >
                           <div
                             className={`${

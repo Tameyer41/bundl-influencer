@@ -71,15 +71,22 @@ export default function ProjectBrief() {
   return (
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
-      <div className="w-full h-screen lg:divide-x lg:divide-gray-200 mt-2 py-4">
-        <Link href={`/projects/${data.project.id}`}>
-          <a className="ml-8 text-sm font-medium text-gray-500 hover:text-gray-700">
-            {" "}
-            Return to summary{" "}
-          </a>
-        </Link>
+      <div className="w-full h-screen mt-2 py-4 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <Link href={`/projects/${data.project.id}`}>
+            <a className="text-sm font-medium text-gray-500 hover:text-gray-700">
+              {" "}
+              Return to summary{" "}
+            </a>
+          </Link>
+          <Link href={`/projects/${data.project.id}/brief/edit`}>
+            <a className="text-sm font-medium text-gray-500 hover:text-gray-700">
+              Edit
+            </a>
+          </Link>
+        </div>
         {/* Stuff goes here */}
-        <div className="prose lg:prose-xl px-4 sm:px-6 lg:px-8">
+        <div className="mt-4">
           <div
             className="preview"
             dangerouslySetInnerHTML={createMarkup(data.project.brief)}

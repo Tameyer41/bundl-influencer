@@ -85,7 +85,7 @@ export default function ProjectBrief() {
     <div>
       <ProjectNavbar data={data} tabs={tabs} />
       <div className="max-w-7xl mx-auto">
-        <Tiptap projectName={data.project.name} />
+        <Tiptap projectName={data.project.name} project={data.project} />
       </div>
     </div>
   );

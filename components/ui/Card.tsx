@@ -18,37 +18,44 @@ export default function Card(props) {
   return (
     <>
       <div className="group space-y-4">
-        <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none group cursor-pointer relative">
+        <div className="w-full min-h-[320px] bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-64 lg:aspect-none group cursor-pointer relative">
           <div className="z-10 absolute top-4 right-2 text-left">
             <AddToProjectModal user={user} />
           </div>
           {user.image ? (
             <Link href={`/creators/${user.id}`}>
-              <div className="relative h-80 w-80">
-                <Image
+              <a>
+                <div className="group relative h-[320px]">
+                  <Image
+                    onMouseEnter={() => {
+                      mutate(`/api/users/${user.id}`, async (current) => {
+                        return current ?? fetcher(`/api/users/${user.id}`);
+                      });
+                    }}
+                    className="group-hover:scale-110 group-hover:transform duration-500"
+                    src={user.image}
+                    layout="fill" // required
+                    objectFit="cover" // change to suit your needs
+                  />
+                  <div className="w-full h-full absolute bg-gradient-to-t from-black opacity-10 z-1 top-0"></div>
+                </div>
+              </a>
+            </Link>
+          ) : (
+            <Link href={`/creators/${user.id}`}>
+              <a className="relative group">
+                <img
                   onMouseEnter={() => {
                     mutate(`/api/users/${user.id}`, async (current) => {
                       return current ?? fetcher(`/api/users/${user.id}`);
                     });
                   }}
-                  src={user.image}
-                  layout="fill" // required
-                  objectFit="cover" // change to suit your needs
+                  src="https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg"
+                  alt="Hand stitched, orange leather long wallet"
+                  className="h-[320px] object-center object-cover group-hover:scale-110 group-hover:transform duration-500"
                 />
-              </div>
-            </Link>
-          ) : (
-            <Link href={`/creators/${user.id}`}>
-              <img
-                onMouseEnter={() => {
-                  mutate(`/api/users/${user.id}`, async (current) => {
-                    return current ?? fetcher(`/api/users/${user.id}`);
-                  });
-                }}
-                src="https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg"
-                alt="Hand stitched, orange leather long wallet"
-                className="h-80 w-80 object-center object-cover"
-              />
+                <div className="w-full h-full absolute bg-gradient-to-t from-black opacity-10 z-1 top-0"></div>
+              </a>
             </Link>
           )}
         </div>
