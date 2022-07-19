@@ -41,7 +41,7 @@ export default function Dropdown() {
                 <div className="flex-shrink-0 rounded-[6px] w-[53px] h-[53px] bg-gray-400 animate-pulse"></div>
               </div>
               <div className="ml-3 text-left ">
-                <p className="text-[14px] leading-[18px] font-medium text-[#3F3F3F] group-hover:text-[#404040]">
+                <p className="text-[14px] leading-[18px] font-medium text-gray-900 group-hover:text-[#404040]">
                   Workspace
                 </p>
 
@@ -72,10 +72,10 @@ export default function Dropdown() {
                 )}
               </div>
               <div className="ml-3 text-left ">
-                <p className="text-[14px] leading-[18px] font-medium text-[#3F3F3F] group-hover:text-[#404040]">
+                <p className="text-[14px] leading-[18px] font-medium text-gray-900 group-hover:text-[#404040]">
                   Workspace
                 </p>
-                <p className="text-[14px] leading-[18px] font-normal text-[#707070] group-hover:text-[#404040]">
+                <p className="text-[14px] leading-[18px] font-normal text-gray-600 group-hover:text-[#404040]">
                   {data.name}
                 </p>
               </div>
@@ -110,10 +110,10 @@ export default function Dropdown() {
                 )}
               </div>
               <div className="ml-3 text-left ">
-                <p className="text-[14px] leading-[18px] font-medium text-[#3F3F3F] group-hover:text-[#404040]">
+                <p className="text-[14px] leading-[18px] font-medium text-gray-900 group-hover:text-[#404040]">
                   Workspace
                 </p>
-                <p className="text-[14px] leading-[18px] font-normal text-[#707070] group-hover:text-[#404040]">
+                <p className="text-[14px] leading-[18px] font-normal text-gray-600 group-hover:text-[#404040]">
                   {data.name}
                 </p>
               </div>
@@ -166,10 +166,11 @@ export default function Dropdown() {
           </div>
           <div className="py-1">
             <div>
-              <Menu.Item onClick={logoutHandler}>
+              <Menu.Item>
                 {({ active }) => (
                   <button
                     type="submit"
+                    onClick={logoutHandler}
                     className={classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "block w-full text-left px-4 py-2 text-sm"

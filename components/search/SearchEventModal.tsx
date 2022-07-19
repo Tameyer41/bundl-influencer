@@ -289,7 +289,7 @@ export default function EventModal(props) {
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "text-white bg-[#3483BB]"
+                                          ? "text-white bg-[#0C3D8D]"
                                           : "text-gray-900",
                                         "cursor-pointer select-none relative py-2 pl-3 pr-9 flex items-center"
                                       )
@@ -354,7 +354,7 @@ export default function EventModal(props) {
                                               prevMonthButtonDisabled &&
                                               "cursor-not-allowed opacity-50"
                                             }
-                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#3483BB]
+                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#0C3D8D]
                                         `}
                                   >
                                     <ChevronLeftIcon className="w-5 h-5 text-gray-600" />
@@ -369,7 +369,7 @@ export default function EventModal(props) {
                                               nextMonthButtonDisabled &&
                                               "cursor-not-allowed opacity-50"
                                             }
-                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#3483BB]
+                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#0C3D8D]
                                         `}
                                   >
                                     <ChevronRightIcon className="w-5 h-5 text-gray-600" />
@@ -413,7 +413,7 @@ export default function EventModal(props) {
                                           className={({ active }) =>
                                             classNames(
                                               active
-                                                ? "text-white bg-[#3483BB]"
+                                                ? "text-white bg-[#0C3D8D]"
                                                 : "text-gray-900",
                                               "cursor-pointer select-none relative py-2 pl-3 pr-9"
                                             )
@@ -438,7 +438,7 @@ export default function EventModal(props) {
                                                   className={classNames(
                                                     active
                                                       ? "text-white"
-                                                      : "text-[#3483BB]",
+                                                      : "text-[#0C3D8D]",
                                                     "absolute inset-y-0 right-0 flex items-center pr-4"
                                                   )}
                                                 >
@@ -491,7 +491,7 @@ export default function EventModal(props) {
                                           className={({ active }) =>
                                             classNames(
                                               active
-                                                ? "text-white bg-[#3483BB]"
+                                                ? "text-white bg-[#0C3D8D]"
                                                 : "text-gray-900",
                                               "cursor-pointer select-none relative py-2 pl-3 pr-9"
                                             )
@@ -516,7 +516,7 @@ export default function EventModal(props) {
                                                   className={classNames(
                                                     active
                                                       ? "text-white"
-                                                      : "text-[#3483BB]",
+                                                      : "text-[#0C3D8D]",
                                                     "absolute inset-y-0 right-0 flex items-center pr-4"
                                                   )}
                                                 >
@@ -553,7 +553,7 @@ export default function EventModal(props) {
                           name="event-location"
                           id="event-location"
                           placeholder="Event location"
-                          className="block w-full rounded-md border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400 bg-gray-50"
+                          className="block w-full rounded-md border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>
@@ -570,7 +570,7 @@ export default function EventModal(props) {
                           name="event-notes"
                           placeholder="Event notes"
                           rows={6}
-                          className="block w-full rounded-md border border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400 bg-gray-50"
+                          className="block w-full rounded-md border border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>
@@ -590,7 +590,7 @@ export default function EventModal(props) {
                     <button
                       type="submit"
                       disabled={!note || !name}
-                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#3483BB] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-[#3483BB] focus:ring-offset-2"
+                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0C3D8D] focus:ring-offset-2"
                     >
                       Save
                     </button>

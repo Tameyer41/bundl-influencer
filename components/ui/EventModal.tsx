@@ -207,7 +207,7 @@ export default function EventModal() {
       <div onClick={openModal} className="flex">
         <button
           type="button"
-          className="mx-4 flex items-center rounded border border-transparent bg-[#3483BB] hover:bg-opacity-90 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
+          className="mx-4 flex items-center rounded border border-transparent bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
         >
           <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
           New Event
@@ -252,7 +252,7 @@ export default function EventModal() {
                   <div className="relative">
                     <input
                       autoFocus
-                      className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-base"
+                      className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-base font-medium"
                       value={name}
                       type="text"
                       name="event-name"
@@ -301,7 +301,7 @@ export default function EventModal() {
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "text-white bg-[#3483BB]"
+                                          ? "text-white bg-[#0C3D8D]"
                                           : "text-gray-900",
                                         "cursor-pointer select-none relative py-2 pl-3 pr-9 flex items-center"
                                       )
@@ -366,7 +366,7 @@ export default function EventModal() {
                                               prevMonthButtonDisabled &&
                                               "cursor-not-allowed opacity-50"
                                             }
-                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#3483BB]
+                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#0C3D8D]
                                         `}
                                   >
                                     <ChevronLeftIcon className="w-5 h-5 text-gray-600" />
@@ -381,7 +381,7 @@ export default function EventModal() {
                                               nextMonthButtonDisabled &&
                                               "cursor-not-allowed opacity-50"
                                             }
-                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#3483BB]
+                                            inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#0C3D8D]
                                         `}
                                   >
                                     <ChevronRightIcon className="w-5 h-5 text-gray-600" />
@@ -425,7 +425,7 @@ export default function EventModal() {
                                           className={({ active }) =>
                                             classNames(
                                               active
-                                                ? "text-white bg-[#3483BB]"
+                                                ? "text-white bg-[#0C3D8D]"
                                                 : "text-gray-900",
                                               "cursor-pointer select-none relative py-2 pl-3 pr-9"
                                             )
@@ -450,7 +450,7 @@ export default function EventModal() {
                                                   className={classNames(
                                                     active
                                                       ? "text-white"
-                                                      : "text-[#3483BB]",
+                                                      : "text-[#0C3D8D]",
                                                     "absolute inset-y-0 right-0 flex items-center pr-4"
                                                   )}
                                                 >
@@ -503,7 +503,7 @@ export default function EventModal() {
                                           className={({ active }) =>
                                             classNames(
                                               active
-                                                ? "text-white bg-[#3483BB]"
+                                                ? "text-white bg-[#0C3D8D]"
                                                 : "text-gray-900",
                                               "cursor-pointer select-none relative py-2 pl-3 pr-9"
                                             )
@@ -528,7 +528,7 @@ export default function EventModal() {
                                                   className={classNames(
                                                     active
                                                       ? "text-white"
-                                                      : "text-[#3483BB]",
+                                                      : "text-[#0C3D8D]",
                                                     "absolute inset-y-0 right-0 flex items-center pr-4"
                                                   )}
                                                 >
@@ -565,7 +565,7 @@ export default function EventModal() {
                           name="event-location"
                           id="event-location"
                           placeholder="Event location"
-                          className="block w-full rounded-md border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400"
                         />
                       </div>
                     </div>
@@ -582,7 +582,7 @@ export default function EventModal() {
                           name="event-notes"
                           placeholder="Event notes"
                           rows={6}
-                          className="block w-full rounded-md border border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border border-gray-200 focus:border-[#0C3D8D] focus:ring-[#0C3D8D] sm:text-sm placeholder:text-gray-400"
                         />
                       </div>
                     </div>
@@ -602,7 +602,7 @@ export default function EventModal() {
                     <button
                       type="submit"
                       disabled={!note || !name}
-                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#3483BB] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#342DF2] focus:outline-none focus:ring-2 focus:ring-[#3483BB] focus:ring-offset-2"
+                      className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0C3D8D] focus:ring-offset-2"
                     >
                       Save
                     </button>

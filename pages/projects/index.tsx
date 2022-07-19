@@ -274,7 +274,7 @@ export default function ProjectsHome(props) {
             <div className="relative">
               <button
                 type="button"
-                className="inline-flex h-9 w-9 max-w-full cursor-pointer items-center rounded-full bg-blue-500 p-0 text-white transition-transform duration-200 ease-out hover:scale-110 hover:transform"
+                className="inline-flex h-9 w-9 max-w-full cursor-pointer items-center rounded-full bg-[#0C3D8D] hover:bg-[#3D64A4] transition duration-250 p-0 text-white ease-out hover:scale-110 hover:transform"
               >
                 <svg
                   width="24"

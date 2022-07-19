@@ -10,6 +10,10 @@
     Apple Color Emoji, Segoe UI Emoji;
 } */
 
+body {
+  @apply antialiased;
+}
+
 .button {
   @apply inline-flex px-2.5 py-1.5 text-xs text-center items-center justify-center border border-transparent font-medium shadow-sm text-white bg-black focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-gray-800;
   @apply disabled:bg-opacity-80;
@@ -163,7 +167,7 @@ h4 {
 }
 
 .react-datepicker-popper {
-  @apply z-[100] w-72 text-sm bg-white px-3 py-2 border border-gray-300 rounded;
+  @apply z-[100] w-72 text-sm bg-white px-3 py-2 border border-gray-300 rounded-lg;
 }
 
 .react-datepicker-left {
@@ -235,23 +239,23 @@ h4 {
 }
 
 .react-datepicker__day--selecting-range-start {
-  @apply bg-white border-2 border-[#3483BB];
+  @apply bg-white border-2 border-[#0C3D8D];
 }
 
 .react-datepicker__day--selecting-range-end {
-  @apply bg-white border-2 border-[#3483BB];
+  @apply bg-white border-2 border-[#0C3D8D];
 }
 
 .react-datepicker__day--selected {
-  @apply bg-[#3483BB] text-white;
+  @apply bg-[#0C3D8D] text-white;
 }
 
 .react-datepicker__day--range-start {
-  @apply bg-[#3483BB] text-white hover:text-gray-700 hover:bg-white;
+  @apply bg-[#0C3D8D] text-white hover:text-gray-700 hover:bg-white;
 }
 
 .react-datepicker__day--range-end {
-  @apply bg-[#3483BB] text-white hover:text-gray-700 hover:bg-white;
+  @apply bg-[#0C3D8D] text-white hover:text-gray-700 hover:bg-white;
 }
 
 @layer utilities {
