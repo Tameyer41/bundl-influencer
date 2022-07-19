@@ -36,6 +36,7 @@ import EventModal from "components/ui/EventModal";
 import useSWR from "swr";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
+import CalendarPopover from "../ui/CalendarPopover";
 
 const fetcher = (arg: any, ...args: any) =>
   fetch(arg, ...args).then((res) => res.json());
@@ -72,7 +73,7 @@ export default function Calendar() {
   let [referenceElement, setReferenceElement] = useState();
   let [popperElement, setPopperElement] = useState();
   let { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: "right-start",
+    placement: "right",
     modifiers: [
       {
         name: "offset",
@@ -1065,104 +1066,7 @@ export default function Calendar() {
                         )}`,
                       }}
                     >
-                      <Popover className="group absolute inset-1 rounded-lg">
-                        <Popover.Button className="leading-5 bg-blue-50 p-2 hover:bg-blue-100 rounded-lg flex flex-col overflow-y-auto text-xs h-full w-full focus:ring-0 focus:ring-none focus:outline-none focus:outline-0">
-                          <p className="order-1 font-semibold text-blue-700  text-left">
-                            {meeting.name}
-                          </p>
-                          <p className="text-blue-500 group-hover:text-blue-700  text-left">
-                            <time dateTime={`${new Date(meeting.startTime)}`}>
-                              {format(new Date(meeting.startTime), "p")}
-                            </time>
-                          </p>
-                        </Popover.Button>
-                        <Popover.Panel
-                          style={styles.popper}
-                          {...attributes.popper}
-                          className="w-[325px] z-40"
-                        >
-                          <div
-                            className={`${
-                              parseInt(format(new Date(meeting.date), "i")) ==
-                                6 ||
-                              parseInt(format(new Date(meeting.date), "i")) ==
-                                5 ||
-                              parseInt(format(new Date(meeting.date), "i")) == 4
-                                ? "right-[16.75rem] lg:right-[20.75rem] xl:right-[20.75rem] top-0"
-                                : "left-[6rem] md:left-[6.5rem] lg:left-[8rem] xl:left-[8.5rem] top-0"
-                            } absolute px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:max-w-3xl sm:w-full sm:p-6 rounded-xl border border-gray-200 bg-white shadow-xl shadow-gray-100`}
-                          >
-                            <div>
-                              <div className="absolute top-0 left-0 z-10 h-20 w-full bg-gradient-to-b from-blue-100"></div>
-                              <div className="mt-3 sm:mt-5">
-                                <h3 className="text-lg font-semibold leading-6 text-gray-900">
-                                  {meeting.name}
-                                </h3>
-                                <div className="mt-2 flex items-center space-x-1">
-                                  <p className="text-sm text-gray-500">
-                                    {format(
-                                      new Date(meeting.startTime),
-                                      "h:mm a"
-                                    )}
-                                  </p>
-                                  <ChevronRightIcon className="w-4 h-4 text-gray-500" />
-                                  <p className="text-sm text-gray-500">
-                                    {format(
-                                      new Date(meeting.endTime),
-                                      "h:mm a"
-                                    )}
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    {" "}
-                                    (
-                                    {differenceInMinutes(
-                                      new Date(meeting.endTime),
-                                      new Date(meeting.startTime)
-                                    ) > 59
-                                      ? formatDuration(
-                                          {
-                                            hours:
-                                              differenceInMinutes(
-                                                new Date(meeting.endTime),
-                                                new Date(meeting.startTime)
-                                              ) / 60,
-                                          },
-                                          { format: ["hours"] }
-                                        )
-                                      : formatDuration(
-                                          {
-                                            minutes: differenceInMinutes(
-                                              new Date(meeting.endTime),
-                                              new Date(meeting.startTime)
-                                            ),
-                                          },
-                                          { format: ["minutes"] }
-                                        )}
-                                    )
-                                  </p>
-                                </div>
-                                {meeting.location && (
-                                  <div className="flex items-center space-x-1 mt-2">
-                                    <LocationMarkerIcon className="w-4 h-4 text-gray-500" />
-                                    <p className="text-sm text-gray-500">
-                                      {" "}
-                                      {meeting.location}{" "}
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                            <div className="mt-5 sm:mt-6 flex items-end">
-                              <button
-                                type="button"
-                                className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                              >
-                                Edit event
-                              </button>
-                            </div>
-                          </div>
-                        </Popover.Panel>
-                      </Popover>
+                      <CalendarPopover meeting={meeting} />
                     </li>
                   ))}
                 </ol>

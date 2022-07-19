@@ -269,3 +269,16 @@ hr {
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.items {
+  @apply relative rounded bg-white text-gray-900 overflow-hidden text-[0.9rem] shadow w-20;
+}
+
+.item {
+  @apply block w-full text-left bg-transparent border-none px-[0.2rem] py-[0.5rem];
+}
+
+.item.is-selected,
+.item:hover {
+  @apply text-[#3D64A4] bg-[#9EB1D1] bg-opacity-10;
+}

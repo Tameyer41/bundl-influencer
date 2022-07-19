@@ -956,6 +956,15 @@
     "@tiptap/extension-strike" "^2.0.0-beta.29"
     "@tiptap/extension-text" "^2.0.0-beta.17"
 
+"@tiptap/suggestion@^2.0.0-beta.97":
+  "integrity" "sha512-3NWG+HE7v2w97Ek6z1tUosoZKpCDH+oAtIG9XoNkK1PmlaVV/H4d6HT9uPX+Y6SeN7fSAqlcXFUGLXcDi9d+Zw=="
+  "resolved" "https://registry.npmjs.org/@tiptap/suggestion/-/suggestion-2.0.0-beta.97.tgz"
+  "version" "2.0.0-beta.97"
+  dependencies:
+    "prosemirror-model" "1.18.1"
+    "prosemirror-state" "1.4.1"
+    "prosemirror-view" "1.26.2"
+
 "@tootallnate/once@1":
   "integrity" "sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw=="
   "resolved" "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"

@@ -13,6 +13,9 @@ import { ColorHighlighter } from "./ColorHighlighter";
 import { SmilieReplacer } from "./SmilieReplacer";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import Commands from "./suggestion/commands";
+import getSuggestionItems from "./suggestion/item";
+import renderItems from "./suggestion/renderItems";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -27,6 +30,12 @@ export default (props) => {
       SmilieReplacer,
       Highlight,
       Typography,
+      Commands.configure({
+        suggestion: {
+          items: getSuggestionItems,
+          render: renderItems,
+        },
+      }),
       StarterKit.configure({
         document: false,
       }),
