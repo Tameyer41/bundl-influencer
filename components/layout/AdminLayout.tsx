@@ -290,7 +290,7 @@ export default function AdminLayout(props) {
               </p>
               <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
                 <Link href="/settings">
-                  <div className="w-full hover:bg-gray-200 hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
+                  <a className="w-full hover:bg-gray-200 hover:text-[#404040] text-[#404040] group flex items-center px-2 py-2 text-sm font-medium rounded cursor-pointer">
                     <div
                       className="mr-3 flex-shrink-0 h-6 w-6 text-sm items-center flex bg-[#455A63] rounded-full justify-center text-white"
                       aria-hidden="true"
@@ -298,7 +298,7 @@ export default function AdminLayout(props) {
                       {session.user.name ? session.user.name.charAt(0) : ""}
                     </div>
                     {session.name}
-                  </div>
+                  </a>
                 </Link>
               </div>
               <div className="py-1 group flex items-center px-2 text-sm font-medium rounded-md w-full">
