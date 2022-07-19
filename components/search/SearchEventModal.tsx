@@ -17,6 +17,7 @@ import {
   ChevronDownIcon,
   PencilIcon,
 } from "@heroicons/react/outline";
+import Router from "next/router";
 
 const startTimeValues = [
   { time: " 00:00 am" },
@@ -143,14 +144,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function EventModal() {
+export default function EventModal(props) {
   const [query, setQuery] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [open, setOpen] = useState(false);
-
-  function openModal() {
-    setOpen(!open);
-  }
+  const [open, setOpen] = useState(true);
 
   const [name, setName] = useState("");
   const [selectedStartTime, setSelectedStartTime] = useState(
@@ -195,8 +192,8 @@ export default function EventModal() {
       setLocation("");
       setNote("");
       setSelectedColor(colors[0]);
-
       setOpen(false);
+      await Router.push("/calendar");
     } catch (error) {
       console.error(error);
     }
@@ -204,15 +201,6 @@ export default function EventModal() {
 
   return (
     <div>
-      <div onClick={openModal} className="flex">
-        <button
-          type="button"
-          className="mx-4 flex items-center rounded border border-transparent bg-[#3483BB] hover:bg-opacity-90 transition-colors duration-250 text-white  py-2 pl-2 pr-4 text-sm font-medium shadow-sm"
-        >
-          <PlusSmIconSolid className="h-5 w-5" aria-hidden="true" />
-          New Event
-        </button>
-      </div>
       <Transition.Root
         show={open}
         as={Fragment}
@@ -221,7 +209,7 @@ export default function EventModal() {
         <Dialog
           as="div"
           className="fixed inset-0 z-40 overflow-y-auto p-4 sm:p-6 md:p-20"
-          onClose={setOpen}
+          onClose={props.onEventClose}
         >
           <Transition.Child
             as={Fragment}
@@ -244,7 +232,7 @@ export default function EventModal() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="mx-auto max-w-2xl transform rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all">
+            <div className="mx-auto max-w-2xl transform rounded-xl bg-white bg-opacity-80 shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all">
               <form className="flex h-full flex-col" onSubmit={submitData}>
                 <div className="flex-1 divide-y divide-gray-500 divide-opacity-10">
                   {/* Header */}
@@ -331,7 +319,7 @@ export default function EventModal() {
                   <div className="space-y-6 py-6 sm:space-y-0 sm:py-0">
                     {/* Event Time Picker */}
                     <div className="flex items-center w-full px-4 sm:px-6">
-                      <span className="inline-block h-6 w-6 overflow-hidden bg-white mr-8">
+                      <span className="inline-block h-6 w-6 overflow-hidden bg-transparent mr-8">
                         <CalendarIcon className="h-full w-full text-gray-500" />
                       </span>
                       <div className="sm:grid sm:grid-cols-2 items-center py-2 border-b border-gray-200">
@@ -399,7 +387,7 @@ export default function EventModal() {
                             {({ open }) => (
                               <>
                                 <div className="mt-1 relative w-1/2">
-                                  <Listbox.Button className="bg-white relative w-full rounded-md pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm cursor-pointer">
+                                  <Listbox.Button className="bg-transparent relative w-full rounded-md pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm cursor-pointer">
                                     <span className="block truncate text-sm font-medium text-gray-700">
                                       {selectedStartTime.time}
                                     </span>
@@ -477,7 +465,7 @@ export default function EventModal() {
                             {({ open }) => (
                               <>
                                 <div className="mt-1 relative w-1/2">
-                                  <Listbox.Button className="bg-white relative w-full rounded-md pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm cursor-pointer">
+                                  <Listbox.Button className="bg-transparent relative w-full rounded-md pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm cursor-pointer">
                                     <span className="block truncate text-sm font-medium text-gray-700">
                                       {selectedEndTime.time}
                                     </span>
@@ -553,7 +541,7 @@ export default function EventModal() {
                     </div>
                     {/* Event location */}
                     <div className="flex items-center w-full px-4 sm:px-6">
-                      <span className="inline-block h-6 w-6 overflow-hidden bg-white mr-8">
+                      <span className="inline-block h-6 w-6 overflow-hidden bg-transparent mr-8">
                         <LocationMarkerIcon className="h-full w-full text-gray-500" />
                       </span>
                       <div className="py-2 border-b border-gray-200 w-full">
@@ -565,13 +553,13 @@ export default function EventModal() {
                           name="event-location"
                           id="event-location"
                           placeholder="Event location"
-                          className="block w-full rounded-md border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>
                     {/* Event notes */}
                     <div className="flex items-center w-full px-4 sm:px-6">
-                      <span className="inline-block h-6 w-6 overflow-hidden bg-white mr-8">
+                      <span className="inline-block h-6 w-6 overflow-hidden bg-transparent mr-8">
                         <PencilIcon className="h-full w-full text-gray-500" />
                       </span>
                       <div className="py-2 w-full">
@@ -582,7 +570,7 @@ export default function EventModal() {
                           name="event-notes"
                           placeholder="Event notes"
                           rows={6}
-                          className="block w-full rounded-md border border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400"
+                          className="block w-full rounded-md border border-gray-200 focus:border-[#3483BB] focus:ring-[#3483BB] sm:text-sm placeholder:text-gray-400 bg-gray-50"
                         />
                       </div>
                     </div>
@@ -595,7 +583,7 @@ export default function EventModal() {
                     <button
                       type="button"
                       className="mr-4 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-0"
-                      onClick={() => setOpen(false)}
+                      onClick={props.onEventClose}
                     >
                       Cancel
                     </button>
@@ -627,7 +615,7 @@ const ButtonInput = forwardRef<RefType, Props>(({ value, onClick }, ref) => (
   <button
     onClick={onClick}
     type="button"
-    className="inline-flex justify-start w-full px-3 py-2 text-sm font-medium text-gray-700 bg-white focus:outline-none focus:ring-offset-0 focus:ring-0"
+    className="inline-flex justify-start w-full px-3 py-2 text-sm font-medium text-gray-700 bg-transparent focus:outline-none focus:ring-offset-0 focus:ring-0"
   >
     {format(new Date(value), "EEEE, dd MMMM yyyy")}
     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
