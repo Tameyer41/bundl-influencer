@@ -24,6 +24,15 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/wysiwyg/suggestion/renderItems.jsx",
+    "components/wysiwyg/suggestion/item.js",
+    "components/wysiwyg/suggestion/commands.js",
+    "components/wysiwyg/suggestion/CommandsList.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -35,10 +35,22 @@ const getSuggestionItems = (query) => {
       },
     },
     {
-      title: "image",
+      title: "divider",
+      command: ({ editor, range }) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setHorizontalRule()
+          .setNode("paragraph", { id: "paragraph-01" })
+          .run();
+      },
+    },
+    {
+      title: `image`,
       command: ({ editor, range }) => {
         console.log("Images support is coming super soon!");
-        editor.chain().focus().deleteRange(range).setNode("paragraph").run();
+        editor.chain().focus().deleteRange(range).setNode("body").run();
       },
     },
   ]

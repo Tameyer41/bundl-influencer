@@ -30,14 +30,14 @@ export default (props) => {
       SmilieReplacer,
       Highlight,
       Typography,
+      StarterKit.configure({
+        document: false,
+      }),
       Commands.configure({
         suggestion: {
           items: getSuggestionItems,
           render: renderItems,
         },
-      }),
-      StarterKit.configure({
-        document: false,
       }),
       Focus.configure({
         mode: "deepest",
@@ -54,12 +54,11 @@ export default (props) => {
     ],
     autofocus: "end",
     content: `${
-      props.project.brief ? (
-        props.project.brief
-      ) : (
-        <div>
+      props.project.brief
+        ? props.project.brief
+        : `<div>
           <p></p>
-          <h1>${props.project.name + " brief"}</h1>
+          <h1>${props.project.name + "'s brief"}</h1>
           <p></p>
           <hr />
           <p></p>
@@ -67,8 +66,7 @@ export default (props) => {
             You can add all sorts of fun to your brief, including emojis,
             hexadecimal colors, and more!
           </p>
-        </div>
-      )
+        </div>`
     }
     
     `,

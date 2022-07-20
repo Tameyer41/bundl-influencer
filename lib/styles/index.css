@@ -11,7 +11,7 @@
 } */
 
 body {
-  @apply antialiased;
+  @apply antialiased [font-feature-settings:'ss01'] scroll-smooth;
 }
 
 .button {

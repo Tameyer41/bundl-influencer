@@ -521,6 +521,13 @@ export default function ProjectsHome(props) {
               </div>
             )}
           </>
+          <div className="mt-4 -mr-2 flex items-center justify-between">
+            <span className="text-sm font-normal text-gray-900">
+              {data.length > 1
+                ? data.length + " results"
+                : data.length + " result"}
+            </span>
+          </div>
           <div className="flex items-center absolute top-5 right-0 mt-3 mr-5 h-5">
             <Menu as="div" className="relative">
               <Menu.Button type="button" className="relative">
@@ -660,7 +667,7 @@ export default function ProjectsHome(props) {
   );
 }
 ProjectsHome.auth = {
-  role: "test",
+  role: "admin",
   loading: <p>test</p>,
-  unauthorized: "/login-with-different-user", // redirect to this url
+  unauthorized: "/creators", // redirect to this url
 };
