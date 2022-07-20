@@ -9,7 +9,9 @@
       "@components/*": ["lib/components/*"],
       "@components": ["lib/components/index"],
       "@db/*": ["prisma/*"],
-      "@db": ["prisma/index"]
+      "@db": ["prisma/index"],
+      "@/types": ["types/index"],
+      "@/types/*": ["types/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

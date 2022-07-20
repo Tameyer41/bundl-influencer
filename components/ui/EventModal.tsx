@@ -270,7 +270,7 @@ export default function EventModal() {
                   <div className="relative">
                     <input
                       autoFocus
-                      className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-gray-500 focus:ring-0 focus:border-red-400 outline-0 sm:text-base font-medium"
+                      className="h-12 w-full border-0 bg-transparent px-6 text-gray-900 placeholder-[#90959D] focus:ring-0 focus:border-transparent outline-0 sm:text-lg font-medium"
                       value={name}
                       type="text"
                       name="event-name"
@@ -286,7 +286,7 @@ export default function EventModal() {
                       >
                         {({ open }) => (
                           <>
-                            <Listbox.Button className="relative w-full bg-white hover:bg-gray-50 border border-gray-300 rounded-md shadow-sm pl-2 pr-8 py-1.5 text-left cursor-pointer focus:outline-none focus:ring-0 sm:text-sm">
+                            <Listbox.Button className="relative w-full bg-[#eff1f4] text-gray-700 hover:text-gray-900 rounded-md pl-2 pr-8 py-1.5 text-left cursor-pointer focus:outline-none focus:ring-0 sm:text-sm">
                               <span className="flex items-center">
                                 <span
                                   className={
@@ -312,14 +312,14 @@ export default function EventModal() {
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                             >
-                              <Listbox.Options className="absolute z-10 mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                              <Listbox.Options className="absolute z-10 mt-1 bg-white shadow-lg max-h-60 rounded-md text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                                 {colors.map((color) => (
                                   <Listbox.Option
                                     key={color.name}
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "text-white bg-[#0C3D8D]"
+                                          ? "text-gray-900 bg-[#f5f6f8]"
                                           : "text-gray-900",
                                         "cursor-pointer select-none relative py-2 pl-3 pr-9 flex items-center"
                                       )

@@ -18,7 +18,7 @@ const AdminHome: NextPage<{
             {/* Page title & actions */}
             <div className="px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8">
               <div className="flex-1 min-w-0">
-                <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
+                <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate ml-12 lg:ml-0">
                   Overview
                 </h1>
               </div>

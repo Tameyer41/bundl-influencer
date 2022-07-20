@@ -209,7 +209,7 @@ export default function Calendar() {
                     <span
                       className={classNames(
                         isEqual(day, selectedDay) &&
-                          "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                          "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold !text-white",
                         !isSameMonth(day, monthOfCurrentWeek) &&
                           "text-gray-400",
                         "items-center justify-center font-semibold text-gray-900"
@@ -239,7 +239,7 @@ export default function Calendar() {
                       <span
                         className={classNames(
                           isToday(day) &&
-                            "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                            "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold !text-white",
                           !isSameMonth(day, monthOfCurrentWeek) &&
                             "text-gray-400",
                           "items-center justify-center font-semibold"
@@ -434,7 +434,7 @@ export default function Calendar() {
   return (
     <div className="flex h-[93vh] md:h-screen flex-col">
       <header className="relative z-40 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
-        <h1 className="text-lg font-semibold text-gray-900">
+        <h1 className="text-lg font-semibold text-gray-900 ml-12 lg:ml-0">
           {currentView === "week" && format(monthOfCurrentWeek, "MMM yyyy")}
           {currentView === "month" && format(firstDayCurrentMonth, "MMM yyyy")}
         </h1>
@@ -723,7 +723,7 @@ export default function Calendar() {
                           "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
                         !isSameMonth(day, monthOfCurrentWeek) &&
                           "text-gray-400",
-                        "items-center justify-center font-semibold text-gray-900"
+                        "items-center justify-center font-semibold"
                       )}
                     >
                       {format(day, "d")}
@@ -750,7 +750,7 @@ export default function Calendar() {
                       <span
                         className={classNames(
                           isToday(day) &&
-                            "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white",
+                            "ml-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold !text-white",
                           !isSameMonth(day, monthOfCurrentWeek) &&
                             "text-gray-400",
                           "items-center justify-center font-semibold"
@@ -977,32 +977,6 @@ export default function Calendar() {
                         </li>
                       ))
                     : ""}
-                  <li
-                    className="relative mt-px flex sm:col-start-3"
-                    style={{ gridRow: "92 / span 30" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100">
-                      <p className="order-1 font-semibold text-pink-700">
-                        Flight to Paris
-                      </p>
-                      <p className="text-pink-500 group-hover:text-pink-700">
-                        <time dateTime="2022-01-12T07:30">7:30 AM</time>
-                      </p>
-                    </a>
-                  </li>
-                  <li
-                    className="relative mt-px hidden sm:col-start-6 sm:flex"
-                    style={{ gridRow: "122 / span 24" }}
-                  >
-                    <a className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs leading-5 hover:bg-gray-200">
-                      <p className="order-1 font-semibold text-gray-700">
-                        Meeting with design team at Disney
-                      </p>
-                      <p className="text-gray-500 group-hover:text-gray-700">
-                        <time dateTime="2022-01-15T10:00">10:00 AM</time>
-                      </p>
-                    </a>
-                  </li>
                 </ol>
                 {/* Events sm breakpoints and up */}
                 <ol
@@ -1030,9 +1004,8 @@ export default function Calendar() {
                   >
                     <div className="group w-full relative">
                       <div className="flex">
-                        <div className="h-4 w-[2px] rounded-full bg-indigo-600"></div>
-                        <div className="w-full h-[2px] z-10 mt-2 bg-indigo-600 rounded-full group"></div>
-                        <div className="h-4 w-[2px] rounded-full bg-indigo-600"></div>
+                        <div className="h-4 w-[3px] rounded-full bg-gray-700"></div>
+                        <div className="w-full h-[2px] z-10 mt-2 bg-gray-700 rounded-full group"></div>
                       </div>
                       <p className="group-hover:block hidden absolute top-3 left-6 text-sm font-normal text-gray-700 text-center">
                         {format(new Date(), "h:mm a")}
@@ -1117,7 +1090,7 @@ export default function Calendar() {
                     dateTime={JSON.stringify(day)}
                     className={
                       isToday(day)
-                        ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
+                        ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold !text-white"
                         : undefined
                     }
                   >
@@ -1178,7 +1151,7 @@ export default function Calendar() {
                         "flex h-6 w-6 items-center justify-center rounded-full",
                       isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "bg-indigo-600",
+                        "bg-indigo-600 font-semibold !text-white",
                       isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         "bg-gray-900",

@@ -158,9 +158,9 @@ export default function ProjectsHome(props) {
   return (
     <>
       {projects ? (
-        <main className="lg:max-w-[60rem] lg:mx-auto pt-6 pb-16 px-6 relative">
-          <div className="mb-6">
-            <h1 className="text-2xl text-[#212121] font-medium">Campaigns</h1>
+        <main className="lg:max-w-[60rem] lg:mx-auto pt-5 lg:pt-6 pb-16 px-6 relative">
+          <div className="mb-6 text-2xl text-[#212121] font-medium ml-12 lg:ml-0">
+            Campaigns
           </div>
           <div className="block max-w-full overflow-auto mb-8">
             <div className="border-b border-gray-200">
@@ -379,7 +379,7 @@ export default function ProjectsHome(props) {
               </table>
             )}
             {view === "grid" && (
-              <div className="mt-2 -mx-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              <div className="mt-2 -mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {filteredUsers.map((project, idx) => (
                   <div key={project.id}>
                     <div

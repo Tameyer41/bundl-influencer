@@ -133,8 +133,8 @@ const SettingsPage = () => {
 
   return (
     <>
-      <main className="lg:max-w-[60rem] lg:mx-auto pt-6 pb-16 px-6">
-        <div className="mb-6">
+      <main className="lg:max-w-[60rem] lg:mx-auto pt-5 lg:pt-6 pb-16 px-6">
+        <div className="mb-6 ml-12 lg:ml-0">
           <h1 className="text-2xl text-[#212121] font-medium">Settings</h1>
         </div>
         <div className="block max-w-full overflow-auto mb-8">
@@ -326,7 +326,11 @@ const SettingsPage = () => {
       </main>
       <Transition.Root show={slideoverOpen} as={Fragment}>
         <form onSubmit={submitData}>
-          <Dialog as="div" className="relative z-10" onClose={setSlideoverOpen}>
+          <Dialog
+            as="div"
+            className="relative z-[51]"
+            onClose={setSlideoverOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-in-out duration-500"

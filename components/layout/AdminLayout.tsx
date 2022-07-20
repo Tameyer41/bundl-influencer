@@ -92,7 +92,7 @@ export default function AdminLayout(props) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-[101] md:hidden"
+            className="fixed inset-0 flex z-[101] lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -190,13 +190,18 @@ export default function AdminLayout(props) {
                 </div>
                 <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
                   <Link href="/settings">
-                    <a className="flex-shrink-0 group block">
+                    <a
+                      onClick={() => setSidebarOpen(false)}
+                      className="flex-shrink-0 group block"
+                    >
                       <div className="flex items-center">
                         <div>
                           {session.user.image ? (
-                            <img
+                            <Image
                               src={session.user.image}
-                              className="flex-shrink-0 rounded-full object-cover w-12 h-12"
+                              className="flex-shrink-0 rounded-full object-cover"
+                              height={48}
+                              width={48}
                             />
                           ) : (
                             <div className="flex-shrink-0 rounded-full w-12 h-12 bg-blue-500"></div>
@@ -223,7 +228,7 @@ export default function AdminLayout(props) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-[280px] md:flex-col md:fixed md:inset-y-0 z-10">
+        <div className="hidden lg:flex lg:w-[280px] lg:flex-col lg:fixed lg:inset-y-0 z-10">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
             <Dropdown />
@@ -307,8 +312,8 @@ export default function AdminLayout(props) {
             </div>
           </div>
         </div>
-        <div className="md:pl-[280px] flex flex-col flex-1">
-          <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-white standalone:h-20 standalone:pt-8">
+        <div className="lg:pl-[280px] flex flex-col flex-1">
+          <div className="absolute top-[13px] left-4 z-50 lg:hidden bg-white">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-600 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
