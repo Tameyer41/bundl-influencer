@@ -180,13 +180,13 @@ const Project = () => {
                 </p>
                 <div className="flex items-center space-x-2 justify-center">
                   <Link href={`/projects/${data.project.id}/brief/edit`}>
-                    <a className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-blue-500 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#0C3D8D] hover:bg-[#3D64A4] transition-colors duration-250 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C3D8D]">
                       Create project brief
                     </a>
                   </Link>
                   <button
                     type="button"
-                    className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C3D8D]"
                   >
                     Add files and links
                   </button>

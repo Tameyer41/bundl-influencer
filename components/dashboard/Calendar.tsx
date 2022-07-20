@@ -492,18 +492,32 @@ export default function Calendar() {
           </div>
           <div className="hidden md:ml-4 md:flex md:items-center">
             <Menu as="div" className="relative">
-              <Menu.Button
-                onClick={changeToWeek}
-                type="button"
-                className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-              >
-                {currentView === "week" && "Week view"}
-                {currentView === "month" && "Month view"}
-                <ChevronDownIcon
-                  className="ml-2 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
+              {currentView === "week" && (
+                <Menu.Button
+                  onClick={changeToWeek}
+                  type="button"
+                  className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                >
+                  Week View
+                  <ChevronDownIcon
+                    className="ml-2 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </Menu.Button>
+              )}
+              {currentView === "month" && (
+                <Menu.Button
+                  onClick={changeToMonth}
+                  type="button"
+                  className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                >
+                  Month View
+                  <ChevronDownIcon
+                    className="ml-2 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </Menu.Button>
+              )}
 
               <Transition
                 as={Fragment}

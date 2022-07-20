@@ -317,26 +317,18 @@ export default function ProjectsHome(props) {
                         <Link href={`/projects/${project.id}`}>
                           <a className="flex items-center text-sm font-normal">
                             <svg
-                              width="24"
-                              height="24"
-                              fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                               className="mr-3 h-6 w-6 fill-transparent stroke-current text-emerald-500"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
                             >
                               <path
-                                d="m8.75 8.75 6.5 6.5M15.25 8.75l-6.5 6.5"
-                                stroke="#F53D6B"
-                                strokeWidth="1.5"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                              ></path>
-                              <circle
-                                cx="12"
-                                cy="12"
-                                r="9.25"
-                                stroke="#F53D6B"
-                                strokeWidth="1.5"
-                              ></circle>
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
                             </svg>
                             <span className="font-normal text-gray-500">
                               In Progress
@@ -559,7 +551,7 @@ export default function ProjectsHome(props) {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items className="absolute right-0 mt-3 w-44 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
+                  <div className="">
                     <Menu.Item>
                       {({ active }) => (
                         <a

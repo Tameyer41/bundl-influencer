@@ -1,11 +1,11 @@
 import Card from "components/ui/Card";
-import { Menu, Transition } from "@headlessui/react";
+import { Listbox, Menu, Transition } from "@headlessui/react";
 import { useSession } from "next-auth/react";
 import useSWR, { mutate } from "swr";
 import { Fragment, useState } from "react";
 import { filter } from "lodash";
 import Modal from "components/ui/Modal";
-import { CogIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, CogIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
 const fetcher = (arg: any, ...args: any) =>
@@ -62,6 +62,72 @@ export default function CreatorsPage() {
     <main className="lg:max-w-[60rem] lg:mx-auto pt-5 lg:pt-6 pb-16 px-6 relative">
       <div className="mb-6 text-2xl text-[#212121] font-medium ml-12 lg:ml-0">
         Creators
+      </div>
+      <div className="block max-w-full overflow-auto mb-8">
+        <div className="border-b border-gray-200">
+          <div className="w-1/4 py-2">
+            <Listbox
+              value={"No filters"}
+              onClick={() => console.log("clicked")}
+            >
+              {({ open }) => (
+                <>
+                  <Listbox.Button className="relative w-full bg-[#eff1f4] hover:bg-[#E0E0E0] text-gray-700 hover:text-gray-900 rounded-md pl-2 pr-8 py-1.5 text-left cursor-pointer focus:outline-none focus:ring-0 sm:text-sm">
+                    <span className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                        />
+                      </svg>
+                      <span className="ml-3 block truncate font-medium">
+                        Filter Creators
+                      </span>
+                    </span>
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                      <ChevronDownIcon
+                        className="h-4 w-4 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    show={open}
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute z-10 mt-1 bg-white shadow-lg max-h-60 rounded-md text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                      <Listbox.Option
+                        className={({ active }) =>
+                          classNames(
+                            active
+                              ? "text-gray-900 bg-[#f5f6f8]"
+                              : "text-gray-900",
+                            "cursor-pointer select-none relative py-2 pl-3 pr-9 flex items-center"
+                          )
+                        }
+                        value={"test"}
+                      >
+                        <span className="flex-shrink-0 inline-block h-2 w-2 rounded-full" />
+                        <span className="ml-3 block truncate">Color name</span>
+                      </Listbox.Option>
+                    </Listbox.Options>
+                  </Transition>
+                </>
+              )}
+            </Listbox>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white">
