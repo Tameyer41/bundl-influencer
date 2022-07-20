@@ -1007,7 +1007,7 @@ export default function Calendar() {
                         <div className="h-4 w-[3px] rounded-full bg-gray-700"></div>
                         <div className="w-full h-[2px] z-10 mt-2 bg-gray-700 rounded-full group"></div>
                       </div>
-                      <p className="group-hover:block hidden absolute top-3 left-6 text-sm font-normal text-gray-700 text-center">
+                      <p className="group-hover:block hidden absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-sm font-medium text-gray-700 text-center">
                         {format(new Date(), "h:mm a")}
                       </p>
                     </div>

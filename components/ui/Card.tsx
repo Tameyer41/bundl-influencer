@@ -18,14 +18,14 @@ export default function Card(props) {
   return (
     <>
       <div className="group space-y-4">
-        <div className="w-full min-h-[320px] bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-64 lg:aspect-none group cursor-pointer relative">
+        <div className="w-full min-h-[300px] bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-64 lg:aspect-none group cursor-pointer relative">
           <div className="z-10 absolute top-4 right-2 text-left">
             <AddToProjectModal user={user} />
           </div>
           {user.image ? (
             <Link href={`/creators/${user.id}`}>
               <a>
-                <div className="group relative h-[320px]">
+                <div className="group relative h-[300px]">
                   <Image
                     onMouseEnter={() => {
                       mutate(`/api/users/${user.id}`, async (current) => {
@@ -34,8 +34,8 @@ export default function Card(props) {
                     }}
                     className="group-hover:scale-110 group-hover:transform duration-500"
                     src={user.image}
-                    layout="fill" // required
-                    objectFit="cover" // change to suit your needs
+                    height={600}
+                    width={400}
                   />
                   <div className="w-full h-full absolute bg-gradient-to-t from-black opacity-10 z-1 top-0"></div>
                 </div>

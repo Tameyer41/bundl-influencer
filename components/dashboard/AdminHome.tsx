@@ -40,7 +40,7 @@ const AdminHome: NextPage<{
             {/* Home Dashboard Info */}
             <div className="grid place-items-center">
               <p className="mb-1 text-base font-normal">{today}</p>
-              <h1 className="text-3xl font-normal">Good morning, Tyler</h1>
+              <h1 className="text-3xl font-medium">Good morning, Tyler</h1>
               <div className="mt-4 mb-3 flex h-12 items-center rounded-full bg-[#f9f8f8]">
                 <div className="mx-4 text-sm text-[#6d6e6f]">My week</div>
                 <div className="h-6 border-r border-[#edeae9]"></div>

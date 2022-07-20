@@ -177,8 +177,8 @@ export default function AdminLayout(props) {
                           onClick={() => setSidebarOpen(false)}
                           className={
                             "/" + router.pathname.split("/")[1] == item.url
-                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-[#232326] text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                              : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-[#232326] text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
                           }
                         >
                           <p className="text-[18px] pr-[12px]">{item.icon}</p>
@@ -208,10 +208,10 @@ export default function AdminLayout(props) {
                           )}
                         </div>
                         <div className="ml-3">
-                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-700">
+                          <p className="text-base font-medium text-gray-700 group-hover:text-[#232326]">
                             {session.user.name}
                           </p>
-                          <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700">
+                          <p className="text-sm font-medium text-gray-600 group-hover:text-[#232326]">
                             View profile
                           </p>
                         </div>
@@ -228,7 +228,7 @@ export default function AdminLayout(props) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:flex lg:w-[280px] lg:flex-col lg:fixed lg:inset-y-0 z-10">
+        <div className="hidden lg:flex lg:w-[260px] lg:flex-col lg:fixed lg:inset-y-0 z-10">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 border-r border-[#F0F0F0] bg-zinc-50">
             <Dropdown />
@@ -240,8 +240,8 @@ export default function AdminLayout(props) {
                     <div
                       className={
                         "/" + router.pathname.split("/")[1] == item.url
-                          ? "mx-[8px] mb-[2px] px-2 py-2 bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center text-[14px] font-medium rounded cursor-pointer"
-                          : "mx-[8px] mb-[2px] px-2 py-2 hover:bg-gray-200 hover:text-gray-700 text-gray-600 group flex items-center text-[14px] font-medium rounded cursor-pointer"
+                          ? "px-4 h-[38px] bg-gray-200 hover:text-[#232326] text-[#232326] group flex items-center text-[14px] font-medium cursor-pointer"
+                          : "px-4 h-[38px] hover:bg-gray-200 hover:text-[#232326] text-[#3c4149] group flex items-center text-[14px] font-medium cursor-pointer"
                       }
                     >
                       <div className="w-[30px] flex items-center justify-center">
@@ -261,13 +261,13 @@ export default function AdminLayout(props) {
                 ))}
               </nav>
             </div>
-            <div className="border-t border-[#F0F0F0] pt-4">
+            <div className="border-t border-gray-200 pt-4">
               <p className="h-[30px] px-[16px] text-[13px] leading-[14px] font-medium text-[#646466]">
                 Navigation
               </p>
             </div>
             <div className="flex flex-col overflow-y-auto">
-              <nav className="flex-1 px-2">
+              <nav className="flex-1">
                 {navigation.map((item) => (
                   <Link key={item.name} href={item.url}>
                     <a
@@ -278,8 +278,8 @@ export default function AdminLayout(props) {
                       }}
                       className={
                         "/" + router.pathname.split("/")[1] == item.url
-                          ? "bg-gray-200 hover:text-gray-700 text-gray-900 group flex items-center px-2 h-10 text-sm font-medium rounded cursor-pointer group"
-                          : "hover:bg-gray-200 hover:text-gray-700 text-gray-600 group flex items-center px-2 h-10 text-sm font-medium rounded cursor-pointer group"
+                          ? "bg-gray-200 hover:text-[#232326] text-[#232326] group flex items-center px-4 h-[38px] text-sm font-medium cursor-pointer group"
+                          : "hover:bg-gray-200 hover:text-[#232326] text-[#3c4149] group flex items-center px-4 h-[38px] text-sm font-medium cursor-pointer group"
                       }
                     >
                       <div className="text-base mr-4">{item.icon}</div>
@@ -312,11 +312,11 @@ export default function AdminLayout(props) {
             </div>
           </div>
         </div>
-        <div className="lg:pl-[280px] flex flex-col flex-1">
+        <div className="lg:pl-[260px] flex flex-col flex-1">
           <div className="absolute top-[13px] left-4 z-50 lg:hidden bg-white">
             <button
               type="button"
-              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-600 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-600 hover:text-[#232326] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>

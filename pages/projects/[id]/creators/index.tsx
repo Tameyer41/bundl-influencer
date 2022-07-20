@@ -95,7 +95,7 @@ const ProjectCreatorPage = () => {
                   <input
                     type="text"
                     className="w-full border-0 bg-transparent py-1.5 px-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
-                    placeholder="Search products by name..."
+                    placeholder="Search users by name..."
                   />
                 </div>
                 <div className="ml-2 -mr-1 rounded-lg hover:bg-gray-100">
